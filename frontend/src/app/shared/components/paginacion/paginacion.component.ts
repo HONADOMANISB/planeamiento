@@ -34,6 +34,7 @@ export class PaginacionComponent<t> {
 
 
     hasSiguiente(): boolean {
+ 
         return !(this.datos!.length < this.longitud);
     }
 

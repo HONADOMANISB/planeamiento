@@ -136,7 +136,6 @@ class GastosController extends JSONResponseController
                         'FECHA_REPORTE' => $fechaReporte
                     ],
     
-    
                 ];
                 
                 $devengados []= [

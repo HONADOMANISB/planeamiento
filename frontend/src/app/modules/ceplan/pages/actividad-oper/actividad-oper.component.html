@@ -1,418 +1,369 @@
-<app-breadcrumb [rutas]="rutas" [titulo]="'Ejecución de Gastos'"></app-breadcrumb>
+<app-breadcrumb [rutas]="rutas" [titulo]="'Registro de actividades'"></app-breadcrumb>
 <div class="row">
-    <div class="col-xl-12">
-        <div class="card">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-xl-auto col-md-auto col-sm-auto"></div>
-                </div>
-                <div class="row pt-2">
-                    <div class="col-xl-12">
-                        <app-loading [mostrar]="loading">
-                            <div class="card">
-                                <div class="card-header">
-                                  ACTIVIDAD OPERATIVA
-                                </div>
-                                <div class="card-body">
-                                    <div class="row mb-2">
-                                        <div class="col-xl-5">
-                                            <select name="" class="form-select form-select-sm" id=""></select>
-                                        </div>
-                                    
-                                    </div>
-                                    <table class=" table-borderless">
-                                        <tbody>
-                                            <tr>
-                                                <td><b>NRO Registro POI</b></td>
-                                                <td>:Lorrcitationemore quas ducimus fugiat esse? Porro, tenetur veniam!</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Objetivo Estrategico</b></td> 
-                                                <td>:ejemplo</td>
-                                            </tr>
-                                            <tr>
-                                                <td><b>Acción Estrategica</b></td> 
-                                                <td>:ejemplo</td>
-                                            </tr>
-                                        </tbody>
-                                      
-                                    </table>
-                                    <!-- comienzo seccion 2 -->
-                                    <div class="row">
-                                        <div class="col-xl-7">
-                                            <table class=" table-borderless">
-                                                <tbody>
-                                                    <tr>
-                                                        <td><b>Actividad presupuestal</b></td>
-                                                        <td>:Lorem ipsum dllam labore quas ducimus fugiat esse? Porro, tenetur veniam!</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><b>Actividad Operativa</b></td> 
-                                                        <td>:ejemplo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td><b>Unidad Medida</b></td> 
-                                                        <td>:ejemplo</td>
-                                                    </tr>
-                                                   
-                                                </tbody>
-                                              
-                                            </table>
-                                        </div>
-                                        <div class="col-xl-5">
-                                       
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="input-group input-group-sm ">
-                                                        <div class="input-group-text alin bg-final">
-                                                            PIA
-                                                        </div>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            aria-label="Small"
-                                                            aria-describedby="inputGroup-sizing-sm"  >
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="input-group input-group-sm ">
-                                                        <div class="input-group-text alin bg-final">
-                                                            Devengado
-                                                        </div>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            aria-label="Small"
-                                                            aria-describedby="inputGroup-sizing-sm"  >
-                                                    </div>
-                                                </div>                                                                                                                                
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="input-group input-group-sm ">
-                                                        <div class="input-group-text alin bg-final">
-                                                            POI(Meta)
-                                                        </div>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            aria-label="Small"
-                                                            aria-describedby="inputGroup-sizing-sm"  >
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="input-group input-group-sm ">
-                                                        <div class="input-group-text alin bg-final">
-                                                            POI(Seguimiento)
-                                                        </div>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            aria-label="Small"
-                                                            aria-describedby="inputGroup-sizing-sm"  >
-                                                    </div>
-                                                </div>                                                                                                                                
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="input-group input-group-sm ">
-                                                        <div class="input-group-text alin bg-final">
-                                                            N° A.O
-                                                        </div>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            aria-label="Small"
-                                                            aria-describedby="inputGroup-sizing-sm"  >
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="input-group input-group-sm ">
-                                                        <div class="input-group-text alin bg-final">
-                                                            N° C.C
-                                                        </div>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            aria-label="Small"
-                                                            aria-describedby="inputGroup-sizing-sm"  >
-                                                    </div>
-                                                </div>                                                                                                                                
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xl-6">
-                                                    <div class="input-group input-group-sm ">
-                                                        <div class="input-group-text alin bg-final">
-                                                             A.O Meta
-                                                        </div>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            aria-label="Small"
-                                                            aria-describedby="inputGroup-sizing-sm"  >
-                                                    </div>
-                                                </div>
-                                                <div class="col-xl-6">
-                                                    <div class="input-group input-group-sm ">
-                                                        <div class="input-group-text alin bg-final">
-                                                            A.O Seguimiento
-                                                        </div>
-                                                        <input type="text" class="form-control form-control-sm"
-                                                            aria-label="Small"
-                                                            aria-describedby="inputGroup-sizing-sm"  >
-                                                    </div>
-                                                </div>                                                                                                                                
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!-- fin seccion 2 -->
-                                    <!-- comienzo seccion de actividades -->
-                                   
-                                    <div class="row mt-4 w-100 d-flex justify-content-around">
-                                        <div class="col-xl-2 modul pb-4">
-                                            <p>Programación</p>
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                       <td>Periodo</td>
-                                                       <td>Fisico</td>
-                                                       <td>Financiero</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>02</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>03</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>04</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>05</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
+	<div class="col-xl-12">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-xl-auto col-md-auto col-sm-auto"></div>
+				</div>
+				<div class="row pt-2">
+					<div class="col-xl-12">
+						<app-loading [mostrar]="loading">
+							<div class="card">
+								<div class="card-header">
+									ACTIVIDAD OPERATIVA
+								</div>
+								<div class="card-body">
+									<div class="row mb-2">
+										<div class="col-xl-9">
+											<ng-select  [(ngModel)] ="actividad"
+                                                          [items]="actividades"
+                                                                bindLabel ="act" 
+                                                                bindValue ="act" 
+                                                                class="d-block form-control"
+                                                                style="font-size: 0.8rem; height: auto; "
+                                                                
+																(change)="cambioActividad()"> 
+                                                               </ng-select >								
+										</div>
+									</div>
+									<table class="table-borderless">
+										<tbody>
+											<tr>
+												<td><b>DEPARTAMENTO/OFICINA</b></td>
+												<td>{{ departamento }}</td>
+											</tr>
+											<tr>
+												<td><b>SERVICIO/EQUIPO</b></td>
+												<td>{{ servicio }}</td>
+											</tr>
+											<tr>
+												<td><b>OBJETIVO ESTRATEGICO</b></td>
+												<td>{{ oei + " " + objetivo_estrategico }}</td>
+											</tr>
+											<tr>
+												<td><b>ACCION ESTRATEGICA</b></td>
+												<td>{{ aei + " " + accion_estrategico }}</td>
+											</tr>
+											<tr>
+												<td><b>CATEGORIA PRESUPUESTAL</b></td>
+												<td>{{ categoria_presupuestal }}</td>
+											</tr>
+											<tr>
+												<td><b>ACTIVIDAD PRESUPUESTAL</b></td>
+												<td>{{ actividad_presupuestal }}</td>
+											</tr>
+											<tr>
+												<td><b>ACTIVIDAD OPERATIVA</b></td>
+												<td>{{ actividad_operativa }}</td>
+											</tr>
+											<tr>
+												<td><b>ACTIVIDAD OPERATIVA ID</b></td>
+												<td>{{ actividad_operativa_id }}</td>
+											</tr>
+											<tr>
+												<td><b>UNIDAD DE MEDIDA</b></td>
+												<td>{{ unidad_medida }}</td>
+											</tr>
+											<tr>
+												<td><b>TRAZADORA</b></td>
+												<td>{{ trazadora }}</td>
+											</tr>
+										</tbody>
+									</table>
+									<!-- comienzo seccion 2 -->
 
-                                                    <tr>
-                                                        <td>06</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>07</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>08</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
+									<!-- fin seccion 2 -->
+									<!-- comienzo seccion de actividades -->
 
-                                                    <tr>
-                                                        <td>09</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>10</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
+									<div class="row mt-4 w-100 d-flex justify-content-around modul ">
+										<div class="col-xl-3 modul pb-4">			
+											<table class="seg">
+												<thead>
+													<tr>
+														<td></td>
+														<td colspan="2">POI INICIAL</td>				
+													</tr>
+													<tr>
+														<td style="width: 40%">Periodo</td>
+														<td style="width: 30%">Programado</td>
+														<td style="width: 30%">Ejecutado</td>														
+													</tr>
+												</thead>
+												<tbody class>
+													@for(detalle of detalles ; track detalle.id;let index=$index ){
+													<tr>
+														<td>{{ index + 1 }}</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]=" detalle.PROGRAMADO  " [disabled]="true" />
+														</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]="detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(index+1)"  #ejecutado/> 
+															 
+														</td>														
+													</tr>
+													}
+												</tbody>
+											</table>
+											
+										</div>
+										<div class="col-xl-2 modul pb-4">
+									
+											<table class="seg">
+												<thead>
+													<tr>
+														<td colspan="3">
+															POI 1° Reprogramacion
+														</td>				
+													</tr>
+													<tr>
+														
+														<td style="width: 1%">
+															Programado
+														</td>
+														<td style="width: 1%">
+															Ejecutado
+														</td>														
+													</tr>
+												</thead>
+												<tbody class>
+													@for(detalle of detalles_pr ; track detalle.id;let index=$index ){
+													<tr>
+														
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]=" detalle.PROGRAMADO" [disabled]="true" />
+														</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]="
+                                                                    detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(index+1)"  #ejecutado_pr/> 
+															 
+														</td>														
+													</tr>
+													}
+												</tbody>
+											</table>
+											
+										</div>
+										@if(detalles_sr.length!=0){
+										<div class="col-xl-2 modul pb-4">								
+											<table class="seg">
+												<thead>
+													<tr>														
+														<td colspan="3">
+															POI 2° Reprogramacion
+														</td>				
+													</tr>
+													<tr>
 
-                                                    <tr>
-                                                        <td>11</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>12</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-xl-2 modul p-1">
-                                            <p>Reprogramación</p>
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                       <td>Periodo</td>
-                                                       <td>Fisico</td>
-                                                       <td>Financiero</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>02</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>03</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>04</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>05</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>06</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>07</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>08</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>09</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>10</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>11</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>12</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="col-xl-6 modul">
-                                            <p>Seguimiento POI</p>
-                                            <table>
-                                                <thead>
-                                                    <tr>
-                                                       <td style="width:10% ;">Periodo</td>
-                                                       <td style="width:10% ;">Fisico</td>
-                                                       <td style="width:15%;">Financiero</td>
-                                                       <td style="width:65% ;">Motivo</td>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>02</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>03</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>04</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>05</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>06</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>07</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>08</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>09</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>10</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-
-                                                    <tr>
-                                                        <td>11</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>12</td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                        <td><input type="text" class="form-control form-control-sm" name="" id=""></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table> 
-                                        </div>
-                                        <div class="row justify-content-end ">
-                                            <div class="col-xl-2 d-flex mt-3 ">
-                                                <button class="btn btn-primary btn-sm w-100">Grabar</button>
-                                            </div>
-                               
-                                        </div>
-                                    </div>
-                                   
-                                </div>
-                              </div>
-                        </app-loading>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+														<td style="width: 1%">
+															Programado
+														</td>
+														<td style="width: 1%">
+															Ejecutado
+														</td>														
+													</tr>
+												</thead>
+												<tbody class>
+													@for(detalle of detalles_sr ; track detalle.id;let index=$index ){
+													<tr>
+													
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]=" detalle.PROGRAMADO  " [disabled]="true" />
+														</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]="
+                                                                    detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(index+1)" #ejecutado_sr /> 
+															 
+														</td>														
+													</tr>
+													}
+												</tbody>
+											</table>
+										
+										</div>
+									}	
+										<div class="col-xl-5 modul pb-4 ">
+											
+											<table class="seg w-100">
+												<thead>
+													<tr>
+														
+														<td colspan="3">
+															Seguimiento
+														</td>				
+													</tr>
+													<tr>
+														
+														<td style="width: 20%">
+															Progreso
+														</td>
+														<td style="width: 20%">
+															Estado
+														</td>	
+														<td style="width: 45%">
+															Motivo
+														</td>		
+														<td style="width: 15%">
+															Accion
+														</td>											
+													</tr>
+												</thead>
+												<tbody class>
+													@if(detalles.length!=0 && detalles_pr.length==0 && detalles_sr.length==0 ){
+														@for(detalle of detalles ; track detalle.id;let index=$index ){
+															<tr>
+															
+																<td>
+																	<div class="progress" style="
+																			height: 27px;
+																		">
+		
+																		<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [style]="
+																				changeProgress(detalle.EJECUTADO,detalle.PROGRAMADO)
+																			" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+																			<b>{{
+																				porcentaje(
+																					detalle.EJECUTADO,detalle.PROGRAMADO)
+																				}}</b>
+																		</div>
+																	</div>
+																</td>
+																<td>
+																	<div class="progreso" [style]="
+																			changeColor(detalle.EJECUTADO,detalle.PROGRAMADO)
+																		">
+																		{{ changeStade(detalle.EJECUTADO,detalle.PROGRAMADO) }}
+																	</div>
+																</td>
+																<td>
+																	<input type="text" class="form-control form-control-sm" [(ngModel)]="
+																			detalle.MOTIVO
+																		" />
+																</td>
+																<td class="d-flex justify-content-around">
+																	<button class="btn regs btn-sm w-50" 
+																	(click)=" guardar(detalle.EJECUTADO,detalle.EJECUTADO_RP1,detalle.EJECUTADO_RP2,detalle.MOTIVO,detalle.MOTIVO_RP1,detalle.MOTIVO_RP2,index +1)" [disabled]="cerrar_ejecutado(index+1)">
+																	<i class="fa-solid fa-check"></i>
+																	</button>
+																	<button class="btn report btn-sm w-50 ms-1" >
+																		<i class="fa-solid fa-file-pdf"></i>
+																	</button>
+																</td>													
+															</tr>
+															}@empty{
+																<tr></tr>
+															}
+													}@else if(detalles_pr.length!=0 && detalles_sr.length==0){
+														@for(detalle of detalles_pr ; track detalle.id;let index=$index ){
+															<tr>
+															
+																<td>
+																	<div class="progress" style="
+																			height: 27px;
+																		">
+		
+																		<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [style]="
+																				changeProgress(
+																					detalle.EJECUTADO,detalle.PROGRAMADO
+																				)
+																			" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+																			<b>{{
+																				porcentaje(
+																					detalle.EJECUTADO,detalle.PROGRAMADO
+																				)
+																				}}</b>
+																		</div>
+																	</div>
+																</td>
+																<td>
+																	<div class="progreso" [style]="
+																			changeColor(
+																				detalle.EJECUTADO,detalle.PROGRAMADO
+																			)
+																		">
+																		{{ changeStade( detalle.EJECUTADO,detalle.PROGRAMADO ) }}
+																	</div>
+																</td>
+																<td>
+																	<input type="text" class="form-control form-control-sm" [(ngModel)]="
+																			detalle.MOTIVO
+																		" />
+																</td>
+																<td class="d-flex justify-content-around">
+																	<button class="btn regs btn-sm w-50" 
+																	(click)=" guardar(detalle.EJECUTADO,detalle.EJECUTADO_RP1,detalle.EJECUTADO_RP2,detalle.MOTIVO,detalle.MOTIVO_RP1,detalle.MOTIVO_RP2,index +1)" [disabled]="cerrar_ejecutado(index+1)">
+																	<i class="fa-solid fa-check"></i>
+																	</button>
+																	<button class="btn report btn-sm w-50 ms-1" >
+																		<i class="fa-solid fa-file-pdf"></i>
+																	</button>
+																</td>													
+															</tr>
+															}@empty{
+																<tr></tr>
+															}	
+													}@else if(detalles_sr.length!=0){
+														@for(detalle of detalles_sr ; track detalle.id;let index=$index ){
+															<tr>
+															
+																<td>
+																	<div class="progress" style="
+																			height: 27px;
+																		">
+		
+																		<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [style]="
+																				changeProgress(
+																					detalle.EJECUTADO,detalle.PROGRAMADO
+																				)
+																			" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+																			<b>{{
+																				porcentaje(
+																					detalle.EJECUTADO,detalle.PROGRAMADO
+																				)
+																				}}</b>
+																		</div>
+																	</div>
+																</td>
+																<td>
+																	<div class="progreso" [style]="
+																			changeColor(
+																				detalle.EJECUTADO,detalle.PROGRAMADO
+																			)
+																		">
+																		{{ changeStade( detalle.EJECUTADO,detalle.PROGRAMADO ) }}
+																	</div>
+																</td>
+																<td>
+																	<input type="text" class="form-control form-control-sm" [(ngModel)]="
+																			detalle.MOTIVO
+																		" />
+																</td>
+																<td class="d-flex justify-content-around">
+																	<button class="btn regs btn-sm w-50" 
+																	(click)=" guardar(detalle.EJECUTADO,index +1)" [disabled]="cerrar_ejecutado(index+1)">
+																	<i class="fa-solid fa-check"></i>
+																	</button>
+																	<button class="btn report btn-sm w-50 ms-1" >
+																		<i class="fa-solid fa-file-pdf"></i>
+																	</button>
+																</td>													
+															</tr>
+															}@empty{
+																<tr></tr>
+															}
+													}
+													
+												</tbody>
+											</table>
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</app-loading>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

@@ -5,13 +5,15 @@ tr td{
 }
 table{
     border-collapse: separate;
-    border-spacing: 7px;
+    border-spacing: 5px;
+
 }
+
 .modul{
-    background-color: #8d91a0;
+    background-color: rgb(13, 112, 211);
     color: white;
     border-radius: 10px;
-    margin-left:10px ;
+
 }
 p{
     text-align: center;
@@ -22,4 +24,25 @@ p{
 }
 .modul td{
     text-align: center;
+}
+.progreso{
+    background-color: coral;
+    color: white;
+    border-radius: 9px ;
+}
+
+input{
+    text-align: center;
+}
+
+.regs{
+    background-color: #00c9b7;
+    color: white;
+}
+.report{
+    background-color:#8190bb ;
+    color: white;
+}
+.input-activo{
+    border: 3px solid #002374;
 }

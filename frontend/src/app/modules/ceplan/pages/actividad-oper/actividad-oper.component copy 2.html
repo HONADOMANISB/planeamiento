@@ -1,0 +1,246 @@
+<app-breadcrumb [rutas]="rutas" [titulo]="'Registro de actividades'"></app-breadcrumb>
+<div class="row">
+	<div class="col-xl-12">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-xl-auto col-md-auto col-sm-auto"></div>
+				</div>
+				<div class="row pt-2">
+					<div class="col-xl-12">
+						<app-loading [mostrar]="loading">
+							<div class="card">
+								<div class="card-header">
+									ACTIVIDAD OPERATIVA
+								</div>
+								<div class="card-body">
+									<div class="row mb-2">
+										<div class="col-xl-9">
+											<ng-select  [(ngModel)] ="actividad"
+                                                          [items]="actividades"
+                                                                bindLabel ="act" 
+                                                                bindValue ="act" 
+                                                                class="d-block form-control"
+                                                                style="font-size: 0.8rem; height: auto; "
+                                                                
+																(change)="cambioActividad()"> 
+                                                               </ng-select >								
+										</div>
+									</div>
+									<table class="table-borderless">
+										<tbody>
+											<tr>
+												<td>
+													<b>DEPARTAMENTO/OFICINA</b>
+												</td>
+												<td>{{ departamento }}</td>
+											</tr>
+											<tr>
+												<td><b>SERVICIO/EQUIPO</b></td>
+												<td>{{ servicio }}</td>
+											</tr>
+											<tr>
+												<td>
+													<b>OBJETIVO ESTRATEGICO</b>
+												</td>
+												<td>
+													{{ oei + " " + objetivo_estrategico }}
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<b>ACCION ESTRATEGICA</b>
+												</td>
+												<td>
+													{{ aei + " " + accion_estrategico }}
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<b>CATEGORIA
+                                                        PRESUPUESTAL</b>
+												</td>
+												<td>
+													{{ categoria_presupuestal }}
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<b>ACTIVIDAD
+                                                        PRESUPUESTAL</b>
+												</td>
+												<td>
+													{{ actividad_presupuestal }}
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<b>ACTIVIDAD OPERATIVA</b>
+												</td>
+												<td>
+													{{ actividad_operativa }}
+												</td>
+											</tr>
+											<tr>
+												<td>
+													<b>ACTIVIDAD OPERATIVA
+                                                        ID</b>
+												</td>
+												<td>
+													{{ actividad_operativa_id }}
+												</td>
+											</tr>
+											<tr>
+												<td><b>UNIDAD DE MEDIDA</b></td>
+												<td>{{ unidad_medida }}</td>
+											</tr>
+											<tr>
+												<td><b>TRAZADORA</b></td>
+												<td>{{ trazadora }}</td>
+											</tr>
+										</tbody>
+									</table>
+									<!-- comienzo seccion 2 -->
+
+									<!-- fin seccion 2 -->
+									<!-- comienzo seccion de actividades -->
+
+									<div class="row mt-4 w-100 d-flex justify-content-around">
+										<div class="col-xl-12 modul pb-4">
+											<p>Seguimiento POI</p>
+											<table class="seg">
+												<thead>
+													<tr>
+														<td></td>
+														<td colspan="2">
+															POI INICIAL
+														</td>
+														<td colspan="2">
+															POI RPROG N°1
+														</td>
+														<td colspan="2">
+															POI RPROG N°2
+														</td>
+													</tr>
+													<tr>
+														<td style="width: 4%">
+															Periodo
+														</td>
+														<td style="width: 5%">
+															Programado
+														</td>
+														<td style="width: 5%">
+															Ejecutado
+														</td>
+														<td style="width: 7%">
+															Reprog N°1
+														</td>
+														<td style="width: 5%">
+															Ejecutado
+														</td>
+														<td style="width: 7%">
+															Reprog N°2
+														</td>
+														<td style="width: 5%">
+															Ejecutado
+														</td>
+
+														<td style="width: 12%">
+															Progreso
+														</td>
+														<td style="width: 10%">
+															Estado
+														</td>
+														<td style="width: 42%">
+															Motivo
+														</td>
+														<td style="width: 10%">
+															Acciones
+														</td>
+													</tr>
+												</thead>
+												<tbody class>
+													@for(detalle of detalles ; track detalle.id;let index=$index ){
+													<tr>
+														<td>{{ index + 1 }}</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]=" detalle.PROGRAMADO  " [disabled]="true" />
+														</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]="
+                                                                    detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(index+1)"  #ejecutado/> 
+															 
+														</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]="
+                                                                    detalle.PRIMERA_REPROGRAMACION" [disabled]="true" />
+														</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]="
+                                                                    detalle.EJECUTADO_RP1 
+                                                                "  [disabled]="cerrar_ejecutado(index+1)"/>
+														</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]="
+                                                                    detalle.SEGUNDA_REPROGRAMACION
+                                                                " [disabled]="true" />
+														</td>
+
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]="
+                                                                    detalle.EJECUTADO_RP2
+                                                                "[disabled]="cerrar_ejecutado(index+1)" />
+														</td>
+
+														<td>
+															<div class="progress" style="
+                                                                    height: 27px;
+                                                                ">
+																<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [style]="
+                                                                        changeProgress(
+																			detalle.EJECUTADO,detalle.EJECUTADO_RP1,detalle.EJECUTADO_RP2,detalle.PROGRAMADO,detalle.PRIMERA_REPROGRAMACION,detalle.SEGUNDA_REPROGRAMACION
+                                                                        )
+                                                                    " aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+																	<b>{{
+                                                                        porcentaje(
+																			detalle.EJECUTADO,detalle.EJECUTADO_RP1,detalle.EJECUTADO_RP2,detalle.PROGRAMADO,detalle.PRIMERA_REPROGRAMACION,detalle.SEGUNDA_REPROGRAMACION
+                                                                        )
+                                                                        }}</b>
+																</div>
+															</div>
+														</td>
+														<td>
+															<div class="progreso" [style]="
+                                                                    changeColor(
+																		detalle.EJECUTADO,detalle.EJECUTADO_RP1,detalle.EJECUTADO_RP2,detalle.PROGRAMADO,detalle.PRIMERA_REPROGRAMACION,detalle.SEGUNDA_REPROGRAMACION
+                                                                    )
+                                                                ">
+																{{ changeStade( detalle.EJECUTADO,detalle.EJECUTADO_RP1,detalle.EJECUTADO_RP2,detalle.PROGRAMADO,detalle.PRIMERA_REPROGRAMACION,detalle.SEGUNDA_REPROGRAMACION ) }}
+															</div>
+														</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [(ngModel)]="
+                                                                    detalle.MOTIVO
+                                                                " />
+														</td>
+														<td>
+															<button class="btn btn-primary btn-sm w-60" 
+                                                            (click)=" guardar(detalle.EJECUTADO,detalle.EJECUTADO_RP1,detalle.EJECUTADO_RP2,detalle.MOTIVO,detalle.MOTIVO_RP1,detalle.MOTIVO_RP2,index +1)" [disabled]="cerrar_ejecutado(index+1)">
+                                                                Registrar
+                                                            </button>
+														</td>
+													</tr>
+													}
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</div>
+						</app-loading>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

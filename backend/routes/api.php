@@ -3,10 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Ceplan\CeplanController;
 use App\Http\Controllers\Configuracion\AccesoController;
 use App\Http\Controllers\Configuracion\AccionController;
 use App\Http\Controllers\Configuracion\MenuController;
 use App\Http\Controllers\Configuracion\PerfilController;
+
 use App\Http\Controllers\Gastos\GastosController;
 use App\Http\Controllers\Mantenimiento\ListarController;
 use App\Http\Controllers\Mantenimiento\UsuarioController;
@@ -29,19 +31,29 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 Route::get('/user', [AuthController::class, 'user'])->middleware('auth:sanctum');
+Route::post('/validar-usuario', [AuthController::class, 'validarUsuario']);
+Route::post('cambiar-contrasena', [AuthController::class, 'cambiarContrasena']);
 
 
 Route::controller(GastosController::class)->group(function () {
 
-    Route::post('gastos/cargar-excelSiaf', 'uploadExcel');
+    Route::post('gastos/cargar-excelPOI', 'uploadExcel');
 });
 
+Route::controller(CeplanController::class)->group(function () {
+    Route::post('ceplan/cargar-excelExporta', 'uploadExcel');
+    Route::post('ceplan/listar-actividades-operativas', 'listarActividades');
+    Route::post('ceplan/listar-informacion', 'listarInformacion');
+    Route::post('ceplan/listar-encabezado', 'listarEncabezado');
+    Route::post('ceplan/registrar-poi', 'guardarPoi');
+});
 
 
 Route::controller(ReniecController::class)->group(function () {
     Route::get('reniec/buscarReniec', 'buscarDNI');
 
 });
+
 Route::controller(ExtranjeriaController::class)->group(function () {
     Route::get('extranjeria/buscarExtranjeria', 'buscarCarneExtranjeria');
 });

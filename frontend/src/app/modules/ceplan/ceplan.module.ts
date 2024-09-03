@@ -7,12 +7,16 @@ import { TablaComponent } from '@shared/components/tabla/tabla.component';
 import { LoadingComponent } from '@shared/components/loading/loading.component';
 import { PaginacionComponent } from '@shared/components/paginacion/paginacion.component';
 import { CeplanRoutingModule } from './ceplan-routing.module';
+import { CargaExportaComponent } from './pages/carga-exporta/carga-exporta.component';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
 @NgModule({
   declarations: [
-    ActividadOperComponent
+    ActividadOperComponent,
+    CargaExportaComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +25,11 @@ import { CeplanRoutingModule } from './ceplan-routing.module';
     TablaComponent,
     LoadingComponent,
     PaginacionComponent,
-    CeplanRoutingModule
+    CeplanRoutingModule,
+    ReactiveFormsModule,
+    FormsModule,
+    NgSelectModule
+
   ]
 })
 export class CeplanModule { }

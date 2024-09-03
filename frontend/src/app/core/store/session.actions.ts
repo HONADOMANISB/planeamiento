@@ -5,6 +5,7 @@ export interface Session {
     usuario?: string,
     nombres?: string,
     accesos?: any[],
+    servicio?:string,
     menu?:[],
     token?: string,
     perfil?: string,

@@ -1,0 +1,47 @@
+<app-breadcrumb [rutas]="rutas" [titulo]="'Cargar Exporta'"></app-breadcrumb>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-auto col-md-auto col-sm-auto"></div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-xl-12">
+                        <app-loading [mostrar]="loading">
+                            <div class="row">
+                                <div class="col-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Fecha de Exporta</label>
+                                    <input type="date" class="form-control form-control-sm" [(ngModel)]="fecha"
+                                         />
+                                </div>
+                                <div class="col-4">
+                                    <label for="exampleFormControlInput1" class="form-label">Tipo</label>
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="tipo">
+                                        <option value="PI">Programacion</option>
+                                        <option value="PR">1era Reprogramacion</option>
+                                        <option value="SR">2da Reprogramacion</option>
+                                      </select>
+                                </div>
+
+                                <div class="col-3">
+                                    <label for="exampleFormControlInpu" class="form-label">Archivo</label>
+                                    <input type="file" class="form-control form-control-sm" (change)="onFileSelected($event)"
+                                       />
+                                </div>
+                                <div class="col-2">
+                                    <label for="">&NonBreakingSpace;</label>
+                                    <button class="btn w-100 btn-sm btn-primary waves-light waves-effect btn-label"
+                                      (click)="subirExcel()" >
+                                        <i class="fa fa-file label-icon"></i>
+                                        Cargar
+                                    </button>
+                                </div>
+                            </div>
+                        </app-loading>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
