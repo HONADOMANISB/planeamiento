@@ -57,11 +57,11 @@ export class LoginComponent {
                         logIn: '1',
                         usuario: datos.username,
                       //accesos: datos.accesos,
-                         menu: datos.menu,
-                         token: datos.token,                    
-                      //  nombres: datos.nombres,
-                          perfil: datos.perfil,
-                          servicio:datos.servicio,
+                        menu: datos.menu,
+                        token: datos.token,                    
+                        nombres: datos.nombre,
+                        perfil: datos.perfil,
+                        servicio:datos.servicio,
                         fechaExpiracion: datos.fecha_expiracion
                     }
                     this.store.dispatch(guardarSession({session}));

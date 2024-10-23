@@ -23,6 +23,7 @@ export class CargaExportaComponent {
     this.selectedFile = event.target.files[0];
   }
   subirExcel(){ 
+    this.loading = true;
      this.SubirExporta$.cargarArchivo(
      this.selectedFile,
      this.fecha,

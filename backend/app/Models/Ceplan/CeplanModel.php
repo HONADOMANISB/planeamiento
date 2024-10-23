@@ -19,7 +19,7 @@ class CeplanModel extends Model
     public function insertarExcel($resultado)
     {
         foreach ($resultado as $maestra) {
-            
+
                 DB::table('EX_EXPORTA_POI')->insert([
                     'YEAR' => $maestra['YEAR'],
                     'ETAPA' => $maestra['ETAPA'],
@@ -50,21 +50,20 @@ class CeplanModel extends Model
                     'ACTIVIDAD_PRESUPUESTAL' => $maestra['ACTIVIDAD_PRESUPUESTAL'],
                     'NRO_REGISTRO_POI' => $maestra['NRO_REGISTRO_POI'],
                     'ACTIVIDAD_OPERATIVA_ID' => $maestra['ACTIVIDAD_OPERATIVA_ID'],
+                    'CODIGO_PPR' => $maestra['CODIGO_PPR'],
                     'ACTIVIDAD_OPERATIVA' => $maestra['ACTIVIDAD_OPERATIVA'],
                     'UNIDAD_MEDIDA' => $maestra['UNIDAD_MEDIDA'],
                     'TRAZADORA_TAREA' => $maestra['TRAZADORA_TAREA'],
                     'MES' => $maestra['MES'],
                     'PROGRAMADO' => $maestra['PROGRAMADO'],
+                    'EJECUTADO' => $maestra['EJECUTADO'],
+                    'ESTADO_ACTIVIDAD_OPERATIVA' => $maestra['ESTADO_ACTIVIDAD_OPERATIVA'],
+                    'TIPO_ACTIVIDAD' => $maestra['TIPO_ACTIVIDAD'],
+                    'TIPO_REGISTRO' => $maestra['TIPO_REGISTRO'],
                     'FECHA_EXPORTA' => $maestra['FECHA_EXPORTA'],
                     'TIPO' => $maestra['TIPO']
-                ]);
-            
-            
-        }
-
-       
-        
-       
+                ]);          
+        }     
         return "datos insertados";
     }
     public function listarActividades($servicio,$perfil)
@@ -75,44 +74,62 @@ class CeplanModel extends Model
             [$servicio,$perfil]
         );
     }
-    public function listarEncabezado($act)
+    public function listarEncabezado($act,$year)
     {
         return $this->conexion->select(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_listar_enc ?',
-            [$act]
+            'EXEC dbo.ex_sp_listar_enc ?,?',
+            [$act,$year]
         );
     }
-    public function listarInformacion($act)
+    public function listarInformacion($act,$year)
     {
         return $this->conexion->select(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_listar_informacion ?',
-            [$act]
+            'EXEC dbo.ex_sp_listar_informacion ?,?',
+            [$act,$year]
         );
     }
-    public function listarInformacionPR($act)
+    public function listarInformacionPR($act,$year)
     {
         return $this->conexion->select(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_listar_informacion_PR ?',
-            [$act]
+            'EXEC dbo.ex_sp_listar_informacion_PR ?,?',
+            [$act,$year]
         );
     }
-    public function listarInformacionSR($act)
+    public function listarInformacionSR($act,$year)
     {
         return $this->conexion->select(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_listar_informacion_SR ?',
-            [$act]
+            'EXEC dbo.ex_sp_listar_informacion_SR ?,?',
+            [$act,$year]
         );
+    }
+    public function generarReporteDetallePOI($mes,$year,$ppr,$tipo)
+    {
+        return $this->conexion->select(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_generar_reporte_detalle_poi ?,?,?,?',
+            [$mes,$year,$ppr,$tipo]
+        );
+
+        
     }
     public function guardarPoi($id,$ejecucion,$motivo,$actividad,$tipo)
     {
-        return $this->conexion->select(
+        return $this->conexion->update(
             /** @lang SQL */
             'EXEC dbo.ex_sp_registrar_ejecucion ?,?,?,?,?',
             [$id,$ejecucion,$motivo,$actividad,$tipo]
+        );
+    }
+    public function invalidarPoi($ejecutado,$id,$motivo,$actividad,$tipo)
+    {
+        return $this->conexion->update(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_invalidar_ejecucion ?,?,?,?,?',
+            [$ejecutado,$id,$motivo,$actividad,$tipo]
         );
     }
 }

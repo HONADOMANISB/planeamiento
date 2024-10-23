@@ -1,0 +1,68 @@
+<div #modalBloqueo *teleportTo="'body'" class="modal fade" tabIndex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Bloquear Registro</h5>
+                <button (click)="closeModal()" aria-label="Close" class="btn-close" type="button">
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <app-loading [mostrar]="loading">
+                        <div class="row">
+                            <div class="col-xl-6 mt-2">
+                                <label for="">AÑO</label> 
+                                <input type="text" class="form form-control form-control-sm" [(ngModel)]="year">
+                            </div>
+                            <div class="col-xl-6 mt-2">
+                                <label for="">Periodo</label>
+                                <select name="" id="" class="form-select form-select-sm" [(ngModel)]="periodo">
+                                <option value="">Seleccionar</option>
+                                    <option value="1">Enero</option>
+                                    <option value="2">Febrero</option>
+                                    <option value="3">Marzo</option>
+                                    <option value="4">Abril</option>
+                                    <option value="5">Mayo</option>
+                                    <option value="6">Junio</option>
+                                    <option value="7">Julio</option>
+                                    <option value="8">Agosto</option>
+                                    <option value="9">Setiembre</option>
+                                    <option value="10">Octubre</option>
+                                    <option value="11">Noviembre</option>
+                                    <option value="12">Diciembre</option>
+                                </select>
+                            </div>                          
+                            <div class="col-xl-12 mt-2">
+                                <label for="">Fecha Limite</label> 
+                                <input type="date" class="form form-control form-control-sm" [(ngModel)]="fecha_limite">
+                            </div>
+                        </div>                                                                     
+                       <!-- <div class="row">
+                        <div class="col-xl-12 mt-2">
+                            <label for="">Tipo Programación</label>
+                            <select name="" id="" class="form-select form-select-sm" [(ngModel)] ="tipo">
+                            <option value="">Seleccionar</option>
+                            <option value="PI">Programación Inicial</option>
+                            <option value="PR">Primera Reprogramación</option>
+                            <option value="PS">Segunda Reprogramación</option>
+                         </select>
+                         </div>                       
+                       </div> -->
+                        <div class="d-flex justify-content-end mt-3">
+                            <button (click)="bloquear()" class="btn btn-primary waves-light waves-effect btn-label me-1" type="button">
+                                Bloquear &ensp;<i
+                                class="fas fa-save label-icon"></i></button>
+                            <button (click)="closeModal()" class="btn btn-danger waves-light waves-effect btn-label " type="button">
+                                Salir &ensp;<i
+                                class="fas fa-door-open label-icon"></i></button>
+                        </div>
+                        
+                    </app-loading>
+                </div>
+            </div>
+            <div class="modal-footer fbtn">
+               
+            </div>
+        </div>
+    </div>
+</div>

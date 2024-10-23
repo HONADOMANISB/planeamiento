@@ -1,0 +1,148 @@
+
+<app-breadcrumb [rutas]="rutas" titulo="Procesar Ejecución"></app-breadcrumb>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-auto col-md-auto col-sm-3 ms-auto  pt-2">
+                        <button (click)="abrirModalBloquear()"
+                                aria-expanded="false"
+                                class="btn w-40 btn-sm btn-dark waves-light waves-effect btn-label"
+                                type="button">
+                                <i class="fa-solid fa-ban label-icon"></i>
+                            Bloquear
+                        </button>
+                        <button (click)="abrirModalProcesar()"
+                                aria-expanded="false"
+                                class="btn w-40 btn-sm btn-primary waves-light waves-effect btn-label ms-1"
+                                type="button">
+                            <i class="fa-solid fa-rotate-right label-icon"></i>
+                            Procesar
+                        </button>
+                        <div class="btn-group ms-1" role="group">
+                            <button id="btnGroupVerticalDrop1" type="button" class="btn btn-secondary btn-sm dropdown-toggle report waves-light waves-effect btn-label" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fa-solid fa-file-excel label-icon"></i>  Reportes <i class="mdi mdi-chevron-down"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="btnGroupVerticalDrop1" style="">
+                                <a class="dropdown-item" (click)="reporteConsolidado()">Consolidado</a>
+                                <a class="dropdown-item" >Consolidado - Detallado</a>
+                                <a class="dropdown-item" (click)="abrirModalReporte()">PPR- Invalidados</a>
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-xl-12">
+                        <app-loading [mostrar]="loading">
+                            <div class="row">
+                                <div class="col-xl-12">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover table-sm">
+                                            <thead>
+                                            <tr>
+                                                <th *ngFor="let cabecera of cabeceras;" class="{{cabecera.clase}}"
+                                                   [style]="cabecera.estilo">{{ cabecera.nombre }}
+                                                </th>
+                                            </tr>
+                                            <tr>
+                                                <th class="limpiar" style="text-align: center;">
+                                                    <button
+                                                        class="btn  btn-sm btn-danger waves-effect waves-light w-50 "
+                                                        (click)="limpiarCampos()"><i class="fa-solid fa-trash-can"></i>
+                                                    </button>
+                                                </th>
+                                                                                                                                             
+                                                <th>
+                                                    <input
+                                                        inputmode="text"
+                                                        class="form-control form-control-sm text-uppercase"
+                                                        name="filtroCodUsuario"
+                                                        [(ngModel)]="filtroCodUsuario"
+                                                        (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                <th>
+                                                    <input #inpFocus
+                                                           inputmode="text"
+                                                           class="form-control form-control-sm text-uppercase"
+                                                           name="filtroNombre" [(ngModel)]="filtroNombre"
+                                                           (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                <th>
+                                                    <input
+                                                        inputmode="text"
+                                                        class="form-control form-control-sm text-uppercase"
+                                                        name="filtroPerfil"
+                                                        [(ngModel)]="filtroPerfil"
+                                                        (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                <th>
+                                                    <input
+                                                        inputmode="text"
+                                                        class="form-control form-control-sm text-uppercase"
+                                                        name="filtroDocumento"
+                                                        [(ngModel)]="filtroEquipo"
+                                                        (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                <th>
+                                                    <input
+                                                        type="date"
+                                                        class="form-control form-control-sm text-uppercase"
+                                                        name="filtroFecha"
+                                                        [(ngModel)]="filtroFecha"
+                                                        (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                <th>
+                                                    <input
+                                            
+                                                        type="text"
+                                                        class="form-control form-control-sm text-uppercase"
+                                                        name="filtroPPR"
+                                                        [(ngModel)]="filtroPPR"
+                                                        (keydown.enter)="filtrarEmpleado()">
+                                                </th>
+                                                             
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <ng-template [ngIf]="datos.length !== 0" [ngIfElse]="vacio">
+                                                <tr *ngFor="let dato of datos">
+                                                    <td></td>
+                                                    <td class="text-center">{{ dato.usuario}}</td>
+                                                    <td class="text-center">{{ dato.nombre}}</td>
+                                                    <td class="text-center">{{ dato.perfil}}</td>
+                                                    <td class="text-center">{{ dato.equipo}}</td>
+                                                    <td class="text-center">{{ dato.fecha }}</td>
+                                                    <td class="text-center">{{ dato.ppr | uppercase}}</td>
+                                                    <!-- <td  class="text-center">
+                                                        <span class="badge estado W-100" [ngClass]="dato.estado === 'ACTIVO' ? 'bg-activo' : 'bg-historico'">{{ dato.estado}}</span>    
+                                                                                           
+                                                    </td> -->
+                                                </tr>
+                                            </ng-template>
+                                            <ng-template #vacio>
+                                                <tr>
+                                                    <td class="text-center" [colSpan]="cabeceras.length">No hay
+                                                        resultados
+                                                    </td>
+                                             </tr>
+                                            </ng-template>
+                                            </tbody>
+                                        </table>  
+                                    </div>
+                                </div>
+                            </div>
+                            <app-paginado [datos]="datos" [(longitud)]="longitud" [pagina]="pagina"
+                            (cambioVer)="filtrarEmpleado()"
+                            [ver]="true" (cambioPagina)="cambioPagina($event)"></app-paginado>
+                        </app-loading>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<app-modal-procesar></app-modal-procesar>
+<app-modal-reporte-invalidados></app-modal-reporte-invalidados>
+<app-modal-bloquear></app-modal-bloquear>

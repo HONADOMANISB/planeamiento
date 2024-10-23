@@ -10,7 +10,7 @@ table{
 }
 
 .modul{
-    background-color: rgb(13, 112, 211);
+    background-color: rgba(0, 171, 250, 0.986);
     color: white;
     border-radius: 10px;
 
@@ -36,11 +36,15 @@ input{
 }
 
 .regs{
-    background-color: #00c9b7;
+    background-color: #43c08b;
+    color: white;
+}
+.danger{
+    background-color: #c93b5f;
     color: white;
 }
 .report{
-    background-color:#8190bb ;
+    background-color:#5e97b9 ;
     color: white;
 }
 .input-activo{

@@ -31,9 +31,10 @@ class JSONResponseController extends Controller
             $user = $request->user();
             $usuario = $user->username;
             $perfil = $user->id_perfil;
+            $nombre = $user->nombre;
         }
         $equipo = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'];
         $equipo = strtoupper(preg_replace('/(.sbdomain.local)/', "", gethostbyaddr($equipo)));
-        return [$usuario, $perfil, $equipo];
+        return [$usuario, $perfil, $equipo,$nombre];
     }
 }

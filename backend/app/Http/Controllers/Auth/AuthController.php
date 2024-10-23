@@ -60,6 +60,7 @@ use Illuminate\Support\Str;
             $servicio=$user->servicio;
             $userData = [
                 'username' => $user->username,
+                'nombre' => $user->nombre,
                 'menu' => $menus,
                 'token' => $token,
                 'servicio'=> $servicio,

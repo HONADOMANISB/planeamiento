@@ -11,6 +11,7 @@ use App\Http\Controllers\Configuracion\PerfilController;
 
 use App\Http\Controllers\Gastos\GastosController;
 use App\Http\Controllers\Mantenimiento\ListarController;
+use App\Http\Controllers\Mantenimiento\ProcesarController;
 use App\Http\Controllers\Mantenimiento\UsuarioController;
 use App\Http\Controllers\Service\ExtranjeriaController;
 use App\Http\Controllers\Service\ReniecController;
@@ -46,17 +47,10 @@ Route::controller(CeplanController::class)->group(function () {
     Route::post('ceplan/listar-informacion', 'listarInformacion');
     Route::post('ceplan/listar-encabezado', 'listarEncabezado');
     Route::post('ceplan/registrar-poi', 'guardarPoi');
+    Route::post('ceplan/invalidar-poi', 'InvalidarPoi');
+    Route::get('ceplan/generar-reporte-detalle-poi', 'generarReporteDetallePOI');
 });
 
-
-Route::controller(ReniecController::class)->group(function () {
-    Route::get('reniec/buscarReniec', 'buscarDNI');
-
-});
-
-Route::controller(ExtranjeriaController::class)->group(function () {
-    Route::get('extranjeria/buscarExtranjeria', 'buscarCarneExtranjeria');
-});
 
 Route::controller(MenuController::class)->group(function () {
     Route::get('configuracion/lista-menu', 'listaMenu');
@@ -107,10 +101,20 @@ Route::controller(UsuarioController::class)->group(function () {
 
     Route::get('mantenimiento/usuarios/obtener-perfil', 'obtenerPerfil');
     Route::get('mantenimiento/usuarios/obtener-profesional', 'obtenerProfesional');
+
 });
 
 Route::controller(ListarController::class)->group(function () {
     Route::get('mantenimiento/lista-perfil', 'listaPerfil');
-    Route::get('mantenimiento/lista-profesional', 'listaProfesional');
+ 
 
 });
+
+Route::controller(ProcesarController::class)->group(function () {
+    Route::post('mantenimiento/procesar-ejecucion', 'procesarEjecucion');
+    Route::post('mantenimiento/bloquear-ejecucion', 'bloquearEjecucion');
+    Route::get('mantenimiento/listar-historial', 'listarHistorial');
+    Route::get('mantenimiento/reporte-ppr-invalidados', 'reporteInvalidados');
+    Route::get('mantenimiento/reporte-ppr-consolidado', 'reporteConsolidado');
+});
+

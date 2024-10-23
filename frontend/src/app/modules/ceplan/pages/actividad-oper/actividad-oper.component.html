@@ -14,17 +14,30 @@
 									ACTIVIDAD OPERATIVA
 								</div>
 								<div class="card-body">
-									<div class="row mb-2">
+									<div class="row mb-2 d-flex justify-content-between align-items-center">
 										<div class="col-xl-9">
 											<ng-select  [(ngModel)] ="actividad"
                                                           [items]="actividades"
                                                                 bindLabel ="act" 
-                                                                bindValue ="act" 
+                                                                bindValue ="codigo_ppr" 
                                                                 class="d-block form-control"
                                                                 style="font-size: 0.8rem; height: auto; "
                                                                 
 																(change)="cambioActividad()"> 
                                                                </ng-select >								
+										</div>
+										<div class="col-xl-2 ">
+											<div class="input-group input-group-sm ">
+												<div class="input-group-text d-ancho ">Año</div>
+												<select name="" id="" class="form-select form-select-sm" [(ngModel)] ="cb_year" (change)="cambioActividad()">
+                                    				<option value="2024">2024</option>
+                                    				<option value="2025">2025</option>
+                                   					<option value="2026">2026</option>
+                                    				<option value="2027">2027</option>
+                                    				<option value="2028">2028</option>
+                                    				<option value="2029">2029</option>
+												 </select>
+											</div>
 										</div>
 									</div>
 									<table class="table-borderless">
@@ -82,7 +95,7 @@
 												<thead>
 													<tr>
 														<td></td>
-														<td colspan="2">POI INICIAL</td>				
+														<td colspan="2">POI {{year}} INICIAL</td>				
 													</tr>
 													<tr>
 														<td style="width: 40%">Periodo</td>
@@ -98,7 +111,7 @@
 															<input type="text" class="form-control form-control-sm" [(ngModel)]=" detalle.PROGRAMADO  " [disabled]="true" />
 														</td>
 														<td>
-															<input type="text" class="form-control form-control-sm" [(ngModel)]="detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(index+1)"  #ejecutado/> 
+															<input type="text" class="form-control form-control-sm" [(ngModel)]="detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)"  #ejecutado/> 
 															 
 														</td>														
 													</tr>
@@ -107,50 +120,50 @@
 											</table>
 											
 										</div>
-										<div class="col-xl-2 modul pb-4">
-									
-											<table class="seg">
-												<thead>
-													<tr>
-														<td colspan="3">
-															POI 1° Reprogramacion
-														</td>				
-													</tr>
-													<tr>
-														
-														<td style="width: 1%">
-															Programado
-														</td>
-														<td style="width: 1%">
-															Ejecutado
-														</td>														
-													</tr>
-												</thead>
-												<tbody class>
-													@for(detalle of detalles_pr ; track detalle.id;let index=$index ){
-													<tr>
-														
-														<td>
-															<input type="text" class="form-control form-control-sm" [(ngModel)]=" detalle.PROGRAMADO" [disabled]="true" />
-														</td>
-														<td>
-															<input type="text" class="form-control form-control-sm" [(ngModel)]="
-                                                                    detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(index+1)"  #ejecutado_pr/> 
-															 
-														</td>														
-													</tr>
-													}
-												</tbody>
-											</table>
-											
-										</div>
+										@if(detalles_pr.length!=0){
+											<div class="col-xl-2 modul pb-4">									
+												<table class="seg">
+													<thead>
+														<tr>
+															<td colspan="3">
+																POI {{year}} ACTUALIZADO V.01
+															</td>				
+														</tr>
+														<tr>															
+															<td style="width: 1%">
+																Programado
+															</td>
+															<td style="width: 1%">
+																Ejecutado
+															</td>														
+														</tr>
+													</thead>
+													<tbody class>
+														@for(detalle of detalles_pr ; track detalle.id;let index=$index ){
+														<tr>															
+															<td>
+																<input type="text" class="form-control form-control-sm" [(ngModel)]=" detalle.PROGRAMADO" [disabled]="true" />
+															</td>
+															<td>
+																<input type="text" class="form-control form-control-sm" [(ngModel)]="
+																		detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)"  #ejecutado_pr/> 
+																 
+															</td>														
+														</tr>
+														}
+													</tbody>
+												</table>
+												
+											</div>
+										}
+										
 										@if(detalles_sr.length!=0){
 										<div class="col-xl-2 modul pb-4">								
 											<table class="seg">
 												<thead>
 													<tr>														
 														<td colspan="3">
-															POI 2° Reprogramacion
+															POI {{year}} ACTUALIZADO V.02
 														</td>				
 													</tr>
 													<tr>
@@ -172,7 +185,7 @@
 														</td>
 														<td>
 															<input type="text" class="form-control form-control-sm" [(ngModel)]="
-                                                                    detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(index+1)" #ejecutado_sr /> 
+                                                                    detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)" #ejecutado_sr /> 
 															 
 														</td>														
 													</tr>
@@ -211,8 +224,7 @@
 												<tbody class>
 													@if(detalles.length!=0 && detalles_pr.length==0 && detalles_sr.length==0 ){
 														@for(detalle of detalles ; track detalle.id;let index=$index ){
-															<tr>
-															
+															<tr>							
 																<td>
 																	<div class="progress" style="
 																			height: 27px;
@@ -242,10 +254,14 @@
 																</td>
 																<td class="d-flex justify-content-around">
 																	<button class="btn regs btn-sm w-50" 
-																	(click)=" guardar(detalle.EJECUTADO,detalle.EJECUTADO_RP1,detalle.EJECUTADO_RP2,detalle.MOTIVO,detalle.MOTIVO_RP1,detalle.MOTIVO_RP2,index +1)" [disabled]="cerrar_ejecutado(index+1)">
+																	(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'PI')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
 																	<i class="fa-solid fa-check"></i>
 																	</button>
-																	<button class="btn report btn-sm w-50 ms-1" >
+																	<button class="btn danger btn-sm w-50 ms-1" 
+																	(click)=" invalidarEjecucion(detalle.EJECUTADO,detalle.MOTIVO,index +1,'PI')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
+																	<i class="fa-solid fa-xmark"></i>
+																	</button>
+																	<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'PI')" >						
 																		<i class="fa-solid fa-file-pdf"></i>
 																	</button>
 																</td>													
@@ -255,13 +271,11 @@
 															}
 													}@else if(detalles_pr.length!=0 && detalles_sr.length==0){
 														@for(detalle of detalles_pr ; track detalle.id;let index=$index ){
-															<tr>
-															
+															<tr>							
 																<td>
 																	<div class="progress" style="
 																			height: 27px;
-																		">
-		
+																		">		
 																		<div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" [style]="
 																				changeProgress(
 																					detalle.EJECUTADO,detalle.PROGRAMADO
@@ -291,10 +305,14 @@
 																</td>
 																<td class="d-flex justify-content-around">
 																	<button class="btn regs btn-sm w-50" 
-																	(click)=" guardar(detalle.EJECUTADO,detalle.EJECUTADO_RP1,detalle.EJECUTADO_RP2,detalle.MOTIVO,detalle.MOTIVO_RP1,detalle.MOTIVO_RP2,index +1)" [disabled]="cerrar_ejecutado(index+1)">
+																	(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'PR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
 																	<i class="fa-solid fa-check"></i>
 																	</button>
-																	<button class="btn report btn-sm w-50 ms-1" >
+																	<button class="btn danger btn-sm w-50 ms-1" 
+																	(click)=" invalidarEjecucion(detalle.EJECUTADO,detalle.MOTIVO,index +1,'PR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
+																	<i class="fa-solid fa-xmark"></i>
+																	</button>
+																	<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'PR')" >						
 																		<i class="fa-solid fa-file-pdf"></i>
 																	</button>
 																</td>													
@@ -340,10 +358,14 @@
 																</td>
 																<td class="d-flex justify-content-around">
 																	<button class="btn regs btn-sm w-50" 
-																	(click)=" guardar(detalle.EJECUTADO,index +1)" [disabled]="cerrar_ejecutado(index+1)">
+																	(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'SR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
 																	<i class="fa-solid fa-check"></i>
 																	</button>
-																	<button class="btn report btn-sm w-50 ms-1" >
+																	<button class="btn danger btn-sm w-50 ms-1" 
+																	(click)=" invalidarEjecucion(detalle.EJECUTADO,detalle.MOTIVO,index +1,'SR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
+																	<i class="fa-solid fa-xmark"></i>
+																	</button>
+																	<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'SR')" >
 																		<i class="fa-solid fa-file-pdf"></i>
 																	</button>
 																</td>													
@@ -351,11 +373,9 @@
 															}@empty{
 																<tr></tr>
 															}
-													}
-													
+													}													
 												</tbody>
-											</table>
-											
+											</table>											
 										</div>
 									</div>
 								</div>

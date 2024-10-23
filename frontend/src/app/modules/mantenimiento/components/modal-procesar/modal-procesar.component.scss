@@ -1,0 +1,6 @@
+::ng-deep .ng-dropdown-panel {
+    z-index: 1081; /* Asegúrate de que este valor sea mayor que el z-index del modal */
+}
+.fbtn{
+    z-index: 101!important; 
+}

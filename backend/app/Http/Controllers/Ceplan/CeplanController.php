@@ -6,8 +6,9 @@ namespace App\Http\Controllers\Ceplan;
 use App\Http\Controllers\Respuesta\JSONResponseController;
 use App\Models\Ceplan\CeplanModel;
 use Illuminate\Http\Request;
+use Mpdf\Mpdf;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-
+use PhpParser\Node\Expr\Print_;
 
 class CeplanController extends JSONResponseController
 
@@ -59,77 +60,82 @@ class CeplanController extends JSONResponseController
                     'ACTIVIDAD_PRESUPUESTAL' => $sheet->getCell('AA' . $row)->getValue(),
                     'NRO_REGISTRO_POI' => $sheet->getCell('AB' . $row)->getValue(),
                     'ACTIVIDAD_OPERATIVA_ID' => $sheet->getCell('AC' . $row)->getValue(),
-                    'ACTIVIDAD_OPERATIVA' => $sheet->getCell('AD' . $row)->getValue(),
-                    'UNIDAD_MEDIDA' => $sheet->getCell('AE' . $row)->getValue(),
-                    'TRAZADORA_TAREA' => $sheet->getCell('AF' . $row)->getValue(),
-                    'ACUMULADO' => $sheet->getCell('AG' . $row)->getValue(),   
+                    'CODIGO_PPR' => $sheet->getCell('AD' . $row)->getValue(),
+                    'ACTIVIDAD_OPERATIVA' => $sheet->getCell('AE' . $row)->getValue(),
+                    'UNIDAD_MEDIDA' => $sheet->getCell('AF' . $row)->getValue(),
+                    'TRAZADORA_TAREA' => $sheet->getCell('AG' . $row)->getValue(),
+                    'ACUMULADO' => $sheet->getCell('AH' . $row)->getValue(),   
+                    'ESTADO_ACTIVIDAD_OPERATIVA' => $sheet->getCell('BU' . $row)->getValue(),
+                    'TIPO_ACTIVIDAD' => $sheet->getCell('BV' . $row)->getValue(),  
+                    'TIPO_REGISTRO' => $sheet->getCell('BW' . $row)->getValue(),  
                     'FECHA_EXPORTA'=>$fechaExporta,  
                     'TIPO'=>$tipo                       
                 ];
                 $vnp = [
                     [
-                        'MES' => 'ENERO',
-                        'PROGRAMADO' => $sheet->getCell('AH' . $row)->getValue(),
-                       
-                    ],
-                    [
-                        'MES' => 'FEBRERO',
+                        'MES' => '1',
                         'PROGRAMADO' => $sheet->getCell('AI' . $row)->getValue(),
-                   
+                        'EJECUTADO' =>  $sheet->getCell('AV' . $row)->getValue(),
                     ],
                     [
-                        'MES' => 'MARZO',
+                        'MES' => '2',
                         'PROGRAMADO' => $sheet->getCell('AJ' . $row)->getValue(),
-                        
+                        'EJECUTADO' =>  $sheet->getCell('AW' . $row)->getValue(),
                     ],
                     [
-                        'MES' => 'ABRIL',
+                        'MES' => '3',
                         'PROGRAMADO' => $sheet->getCell('AK' . $row)->getValue(),
-                     
+                        'EJECUTADO' =>  $sheet->getCell('AX' . $row)->getValue(),
                     ],
                     [
-                        'MES' => 'MAYO',
+                        'MES' => '4',
                         'PROGRAMADO' => $sheet->getCell('AL' . $row)->getValue(),
-                     
+                        'EJECUTADO' =>  $sheet->getCell('AY' . $row)->getValue(),
                     ],
                     [
-                        'MES' => 'JUNIO',
+                        'MES' => '5',
                         'PROGRAMADO' => $sheet->getCell('AM' . $row)->getValue(),
-                      
+                        'EJECUTADO' =>  $sheet->getCell('AZ' . $row)->getValue(),
                     ],
                     [
-                        'MES' => 'JULIO',
+                        'MES' => '6',
                         'PROGRAMADO' => $sheet->getCell('AN' . $row)->getValue(),
-                        
+                        'EJECUTADO' =>  $sheet->getCell('BA' . $row)->getValue(),
                     ],
                     [
-                        'MES' => 'AGOSTO',
+                        'MES' => '7',
                         'PROGRAMADO' => $sheet->getCell('AO' . $row)->getValue(),
-                      
+                        'EJECUTADO' =>  $sheet->getCell('BB' . $row)->getValue(),   
                     ],
                     [
-                        'MES' => 'SETIEMBRE',
+                        'MES' => '8',
                         'PROGRAMADO' => $sheet->getCell('AP' . $row)->getValue(),
-                      
+                        'EJECUTADO' =>  $sheet->getCell('BC' . $row)->getValue(),
                     ],
                     [
-                        'MES' => 'OCTUBRE',
+                        'MES' => '9',
                         'PROGRAMADO' => $sheet->getCell('AQ' . $row)->getValue(),
-                      
+                        'EJECUTADO' =>  $sheet->getCell('BD' . $row)->getValue(),
                     ],
                     [
-                        'MES' => 'NOVIEMBRE',
+                        'MES' => '10',
                         'PROGRAMADO' => $sheet->getCell('AR' . $row)->getValue(),
-                        
+                        'EJECUTADO' =>  $sheet->getCell('BE' . $row)->getValue(),
                     ],
                     [
-                        'MES' => 'DICIEMBRE',
+                        'MES' => '11',
                         'PROGRAMADO' => $sheet->getCell('AS' . $row)->getValue(),
-                       
+                        'EJECUTADO' =>  $sheet->getCell('BF' . $row)->getValue(), 
                     ],
                     [
-                        'MES' => 'TOTAL',
+                        'MES' => '12',
                         'PROGRAMADO' => $sheet->getCell('AT' . $row)->getValue(),
+                        'EJECUTADO' =>  $sheet->getCell('BG' . $row)->getValue(),
+                    ],
+                    [
+                        'MES' => '13',
+                        'PROGRAMADO' => $sheet->getCell('AU' . $row)->getValue(),
+                        'EJECUTADO' =>  $sheet->getCell('BH' . $row)->getValue(),
                     ],
                 ];
                 
@@ -153,38 +159,99 @@ class CeplanController extends JSONResponseController
     }
     public function listarInformacion(Request $request){
         $act=$request->post('actividad');
+        $year=$request->post('cb_year');
         $actividad=new CeplanModel();
         $resultado=[];
-        $resultado['PI']=$actividad->listarInformacion($act);
-        $resultado['PR']=$actividad->listarInformacionPR($act);
-        $resultado['SR']=$actividad->listarInformacionSR($act);
+        $resultado['PI']=$actividad->listarInformacion($act,$year);
+        $resultado['PR']=$actividad->listarInformacionPR($act,$year);
+        $resultado['SR']=$actividad->listarInformacionSR($act,$year);
 
         return $this->sendResponse(200, true,'',$resultado);
    }
    public function listarEncabezado(Request $request){
     $act=$request->post('actividad');
+    $year=$request->post('cb_year');
     $actividad=new CeplanModel();
-    $resultado=$actividad->listarEncabezado($act);
+    $resultado=$actividad->listarEncabezado($act,$year);
     return $this->sendResponse(200, true,'',$resultado);
 }
+public function generarReporteDetallePOI(Request $request){
+    $mes=$request->get('mes');
+    $year=$request->get('year');
+    $ppr=$request->get('ppr');
+    $tipo=$request->get('tipo');
+    $report=new CeplanModel();
+    $response=$report->generarReporteDetallePOI($mes,$year,$ppr,$tipo);
+    $html='';      
+    $html.='<h5 style="text-align:center;">REPORTE DETALLE POI </h5>';
+    $html.='
+    <table>
+      <thead>
+           <tr>
+            <td>#</td>
+            <td>N° HISTORIA</td>
+            <td>APELLIDOS Y NOMBRES</td>
+            <td>N° EPISODIO</td>    
+           </tr>
+      </thead>
+    <tbody> ';
+    $count=1;
+    foreach ($response as $data) {
+        $html.='
+        <tr>
+         <td>'.$count++.'</td>
+         <td>'.$data->HISTORIA_CLINICA.'</td>
+         <td>'.$data->NOMBRE_COMPLETO.'</td>
+         <td>'.$data->NUM_EPISODIO.'</td>
+        </tr>    
+      ';
+    }
+    $html.='
+    </tbody>
+    </table>';
+
+    $mpdf = new Mpdf();
+    $css = file_get_contents(resource_path('css\\reporteDetallePOI.css')); // css
+    $header='
+    <div>
+    <table class="encabezado">
+    <tr>
+       <td colspan="3" class="pega">
+         <img width = "100" src = "'.resource_path().'/img/img_personal.png" class="pegantina" alt="imagen no ecnontrada">
+       </td>
+       <td class="logo"><img width = "60" src = "'.resource_path().'/img/logo-hsb.jpg" class="log" alt="imagen no ecnontrada"></td>  </tr>            
+    </tr> 
+   </table></div>';
+    $mpdf->SetMargins(15, 60,30);
+    $mpdf->SetHTMLHeader($header);
+    $mpdf->WriteHTML($css,1);
+    $mpdf->WriteHTML($html,2);
+    $mpdf->Output(); 
+}
+public function invalidarPoi(Request $request){
+    $ejecutado=$request->post('ej');
+    $id=$request->post('mes');
+    $motivo=$request->post('motivo');
+    $actividad=$request->post('actividad');
+    $tipo=$request->post('tipo');
+    $activity=new CeplanModel();
+    $response=$activity->invalidarPoi($ejecutado,$id,$motivo,$actividad,$tipo);
+    return $this->sendResponse(200, true,'',$response);
+  
+}
    public function guardarPoi(Request $request){
-    $id=$request->post('id');
+    $id=$request->post('mes');
     $ejecutado=$request->post('ejecutado');
     $motivo=$request->post('motivo');
     $actividad=$request->post('actividad');
     $tipo=$request->post('tipo');
     $activity=new CeplanModel();
 
-    if(!$motivo){
-        $motivo="";
-    }
-    if(!$ejecutado){
-        $ejecutado=" ";
-    }
-    if(!$tipo){
-        $tipo=" ";
-    }
-    $resultado=$activity->guardarPoi($id,$ejecutado,$motivo,$actividad,$tipo);
-    return $this->sendResponse(200, true,'',$resultado);
+    if(!$motivo) $motivo="";
+    if(!$ejecutado)$ejecutado="";
+    if(!$tipo)$tipo=" ";
+    $response=$activity->guardarPoi($id,$ejecutado,$motivo,$actividad,$tipo);
+    return $this->sendResponse(200, true,'',$response);
+  
 }
 }
