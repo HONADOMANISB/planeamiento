@@ -13,6 +13,7 @@ import { ModalProcesarComponent } from './components/modal-procesar/modal-proces
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ModalReporteInvalidadosComponent } from './components/modal-reporte-invalidados/modal-reporte-invalidados.component';
 import { ModalBloquearComponent } from './components/modal-bloquear/modal-bloquear.component';
+import { ModalInformacionBloqueoComponent } from './components/modal-informacion-bloqueo/modal-informacion-bloqueo.component';
 
 
 
@@ -24,7 +25,8 @@ import { ModalBloquearComponent } from './components/modal-bloquear/modal-bloque
         ModalPerfilComponent,
         ModalProcesarComponent,
         ModalReporteInvalidadosComponent,
-        ModalBloquearComponent
+        ModalBloquearComponent,
+        ModalInformacionBloqueoComponent
     ],
     exports: [],
     imports: [

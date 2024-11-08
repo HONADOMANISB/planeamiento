@@ -29,7 +29,7 @@
 										<div class="col-xl-2 ">
 											<div class="input-group input-group-sm ">
 												<div class="input-group-text d-ancho ">Año</div>
-												<select name="" id="" class="form-select form-select-sm" [(ngModel)] ="cb_year" (change)="cambioActividad()">
+												<select name="" id="" class="form-select form-select-sm" [(ngModel)] ="cb_year" (change)="cambioYear()">
                                     				<option value="2024">2024</option>
                                     				<option value="2025">2025</option>
                                    					<option value="2026">2026</option>
@@ -111,7 +111,7 @@
 															<input type="text" class="form-control form-control-sm" [(ngModel)]=" detalle.PROGRAMADO  " [disabled]="true" />
 														</td>
 														<td>
-															<input type="text" class="form-control form-control-sm" [(ngModel)]="detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)"  #ejecutado/> 
+															<input type="text" class="form-control form-control-sm" [(ngModel)]="detalle.EJECUTADO"   [disabled]="cerrar_registro(detalle.FECHA_BLOQUEO,detalle.TIPO_REGISTRO)"   #ejecutado/> 
 															 
 														</td>														
 													</tr>
@@ -146,7 +146,7 @@
 															</td>
 															<td>
 																<input type="text" class="form-control form-control-sm" [(ngModel)]="
-																		detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)"  #ejecutado_pr/> 
+																		detalle.EJECUTADO"  [disabled]="cerrar_registro(detalle.FECHA_BLOQUEO,detalle.TIPO_REGISTRO)"  #ejecutado_pr/> 
 																 
 															</td>														
 														</tr>
@@ -185,7 +185,7 @@
 														</td>
 														<td>
 															<input type="text" class="form-control form-control-sm" [(ngModel)]="
-                                                                    detalle.EJECUTADO"  [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)" #ejecutado_sr /> 
+                                                                    detalle.EJECUTADO"   [disabled]="cerrar_registro(detalle.FECHA_BLOQUEO,detalle.TIPO_REGISTRO)"  #ejecutado_sr /> 
 															 
 														</td>														
 													</tr>
@@ -253,17 +253,25 @@
 																		" />
 																</td>
 																<td class="d-flex justify-content-around">
-																	<button class="btn regs btn-sm w-50" 
-																	(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'PI')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
-																	<i class="fa-solid fa-check"></i>
-																	</button>
-																	<button class="btn danger btn-sm w-50 ms-1" 
-																	(click)=" invalidarEjecucion(detalle.EJECUTADO,detalle.MOTIVO,index +1,'PI')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
-																	<i class="fa-solid fa-xmark"></i>
-																	</button>
-																	<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'PI')" >						
-																		<i class="fa-solid fa-file-pdf"></i>
-																	</button>
+																	@if(tipo_usuario!='MOPLAN'){
+																		<button class="btn regs btn-sm w-50" 
+																		(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'PI')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
+																		<i class="fa-solid fa-check"></i>
+
+																		</button>
+																		@if(detalle.TIPO_REGISTRO=='BANCO DE DATOS'){
+																		<button class="btn danger btn-sm w-50 ms-1" 
+																		(click)=" invalidarEjecucion(detalle.EJECUTADO,detalle.MOTIVO,index +1,'PI')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
+																		<i class="fa-solid fa-xmark"></i>
+																		</button>
+																	 }
+																	}
+																	
+																	@if(detalle.TIPO_REGISTRO=='BANCO DE DATOS'){
+																		<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'PR')" >						
+																			<i class="fa-solid fa-file-pdf"></i>
+																		</button>
+																	}
 																</td>													
 															</tr>
 															}@empty{
@@ -304,17 +312,24 @@
 																		" />
 																</td>
 																<td class="d-flex justify-content-around">
-																	<button class="btn regs btn-sm w-50" 
-																	(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'PR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
-																	<i class="fa-solid fa-check"></i>
-																	</button>
-																	<button class="btn danger btn-sm w-50 ms-1" 
-																	(click)=" invalidarEjecucion(detalle.EJECUTADO,detalle.MOTIVO,index +1,'PR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
-																	<i class="fa-solid fa-xmark"></i>
-																	</button>
-																	<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'PR')" >						
-																		<i class="fa-solid fa-file-pdf"></i>
-																	</button>
+																	@if(tipo_usuario!='MOPLAN'){
+																		<button class="btn regs btn-sm w-50" 
+																		(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'PR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
+																		<i class="fa-solid fa-check"></i>
+																		</button>
+																		@if(detalle.TIPO_REGISTRO=='BANCO DE DATOS'){
+																		<button class="btn danger btn-sm w-50 ms-1" 
+																		(click)=" invalidarEjecucion(detalle.EJECUTADO,detalle.MOTIVO,index +1,'PR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
+																		<i class="fa-solid fa-xmark"></i>
+																		</button>
+																	}
+																	}
+																	@if(detalle.TIPO_REGISTRO=='BANCO DE DATOS'){
+																		<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'PR')" >						
+																			<i class="fa-solid fa-file-pdf"></i>
+																		</button>
+																	}
+																	
 																</td>													
 															</tr>
 															}@empty{
@@ -357,17 +372,24 @@
 																		" />
 																</td>
 																<td class="d-flex justify-content-around">
-																	<button class="btn regs btn-sm w-50" 
-																	(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'SR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
-																	<i class="fa-solid fa-check"></i>
-																	</button>
-																	<button class="btn danger btn-sm w-50 ms-1" 
-																	(click)=" invalidarEjecucion(detalle.EJECUTADO,detalle.MOTIVO,index +1,'SR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
-																	<i class="fa-solid fa-xmark"></i>
-																	</button>
-																	<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'SR')" >
-																		<i class="fa-solid fa-file-pdf"></i>
-																	</button>
+																	@if(tipo_usuario!='MOPLAN'){
+																		<button class="btn regs btn-sm w-50" 
+																		(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'SR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
+																		<i class="fa-solid fa-check"></i>
+																		</button>
+																		@if(detalle.TIPO_REGISTRO=='BANCO DE DATOS'){
+																		<button class="btn danger btn-sm w-50 ms-1" 
+																		(click)=" invalidarEjecucion(detalle.EJECUTADO,detalle.MOTIVO,index +1,'SR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
+																		<i class="fa-solid fa-xmark"></i>
+																		</button>
+																	}
+																	}
+																	
+																	@if(detalle.TIPO_REGISTRO=='BANCO DE DATOS'){
+																		<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'PR')" >						
+																			<i class="fa-solid fa-file-pdf"></i>
+																		</button>
+																	}
 																</td>													
 															</tr>
 															}@empty{

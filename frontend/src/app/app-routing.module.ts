@@ -35,7 +35,7 @@ const routes: Routes = [
     {
         path: 'login',
         loadChildren: () => import('@modules/login/login.module').then(m => m.LoginModule),
-        title: 'Inicio Sesión | SISPLAN'
+        title: 'Inicio Sesión | MOPLAN'
     },
     {
         path: '404',

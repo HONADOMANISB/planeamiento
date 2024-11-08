@@ -116,5 +116,7 @@ Route::controller(ProcesarController::class)->group(function () {
     Route::get('mantenimiento/listar-historial', 'listarHistorial');
     Route::get('mantenimiento/reporte-ppr-invalidados', 'reporteInvalidados');
     Route::get('mantenimiento/reporte-ppr-consolidado', 'reporteConsolidado');
+    Route::post('mantenimiento/listar-info-bloqueos', 'listarBloqueos');
+    
 });
 

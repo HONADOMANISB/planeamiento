@@ -4,7 +4,16 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
+                <div class="row d-flex justify-content-between mb-3">
+                    <div class=" col-sm-3  pt-2">
+                        <button  (click)="abrirModalListarBloqueos()"
+                        aria-expanded="false"
+                        class="btn w-40 btn-sm btn-primary waves-light waves-effect btn-label ms-1"
+                        type="button">
+                         <i class="fa-solid fa-file-lines label-icon"></i>
+                         Información
+                        </button> 
+                    </div>
                     <div class="col-xl-auto col-md-auto col-sm-3 ms-auto  pt-2">
                         <button (click)="abrirModalBloquear()"
                                 aria-expanded="false"
@@ -146,3 +155,4 @@
 <app-modal-procesar></app-modal-procesar>
 <app-modal-reporte-invalidados></app-modal-reporte-invalidados>
 <app-modal-bloquear></app-modal-bloquear>
+<app-modal-informacion-bloqueo></app-modal-informacion-bloqueo>

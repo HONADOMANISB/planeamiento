@@ -5,7 +5,7 @@ import { PowerBiComponent } from './pages/power-bi/power-bi.component';
 
 
 const routes: Routes = [
-    {path: 'ejecucion', component: PowerBiComponent, title: 'Gastos| SISPLAN'},
+    {path: 'ejecucion', component: PowerBiComponent, title: 'Gastos| MOPLAN'},
    
 ];
 

@@ -53,8 +53,14 @@ listarHistorial(datos: any) {
 
 reporteExcelConsolidado(){
   return this.http.get('/api/mantenimiento/reporte-ppr-consolidado', { 
-    params:{
-     
-  }, responseType: 'blob' });
+    params:{}, responseType: 'blob' });
+ }
+
+ listarBloqueo(){
+  return this.http.post<HttpResponseApi>(
+    '/api/mantenimiento/listar-info-bloqueos',
+    { },
+    { responseType: 'json' }
+);
  }
 }

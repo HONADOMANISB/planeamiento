@@ -79,7 +79,7 @@ class ProcesarController extends JSONResponseController
         $ppr = $request->post('ppr');
 
         $proceso = new ProcesarModel();
-        $resultado = $proceso->procesarEjecucion($year, $mes, $tipo, $ppr);
+        [$resultado] = $proceso->procesarEjecucion($year, $mes, $tipo, $ppr);
         if ($resultado->mensaje == 1) {
             $proceso->registrarHistorial($usuario, $perfil, $equipo, $nombre, $ppr);
         }
@@ -175,6 +175,7 @@ class ProcesarController extends JSONResponseController
             "F(RE1) 10",
             "F(RE1) 11",
             "F(RE1) 12",
+            "F(RE1) Total",
             "F(SE1) 01",
             "F(SE1) 02",
             "F(SE1) 03",
@@ -187,18 +188,8 @@ class ProcesarController extends JSONResponseController
             "F(SE1) 10",
             "F(SE1) 11",
             "F(SE1) 12",
-            "MOTIVO(SE) 01",
-            "MOTIVO(SE) 02",
-            "MOTIVO(SE) 03",
-            "MOTIVO(SE) 04",
-            "MOTIVO(SE) 05",
-            "MOTIVO(SE) 06",
-            "MOTIVO(SE) 07",
-            "MOTIVO(SE) 08",
-            "MOTIVO(SE) 09",
-            "MOTIVO(SE) 10",
-            "MOTIVO(SE) 11",
-            "MOTIVO(SE) 12"
+            "F(SE1) Total"
+           
 
         ];
 
@@ -303,7 +294,20 @@ class ProcesarController extends JSONResponseController
             $sheet->setCellValue('AR' . $row, $valor['PR_OCTUBRE']);
             $sheet->setCellValue('AS' . $row, $valor['PR_NOVIEMBRE']);
             $sheet->setCellValue('AT' . $row, $valor['PR_DICIEMBRE']);
-
+            $sheet->setCellValue('AU' . $row, "=SUM(AI".$row.":AT".$row.")");
+            $sheet->setCellValue('AV' . $row, $valor['EJ_ENERO']);
+            $sheet->setCellValue('AW' . $row, $valor['EJ_FEBRERO']);
+            $sheet->setCellValue('AX' . $row, $valor['EJ_MARZO']);
+            $sheet->setCellValue('AY' . $row, $valor['EJ_ABRIL']);
+            $sheet->setCellValue('AZ' . $row, $valor['EJ_MAYO']);
+            $sheet->setCellValue('BA' . $row, $valor['EJ_JUNIO']);
+            $sheet->setCellValue('BB' . $row, $valor['EJ_JULIO']);
+            $sheet->setCellValue('BC' . $row, $valor['EJ_AGOSTO']);
+            $sheet->setCellValue('BD' . $row, $valor['EJ_SETIEMBRE']);
+            $sheet->setCellValue('BE' . $row, $valor['EJ_OCTUBRE']);
+            $sheet->setCellValue('BF' . $row, $valor['EJ_NOVIEMBRE']);
+            $sheet->setCellValue('BG' . $row, $valor['EJ_DICIEMBRE']);
+            $sheet->setCellValue('BH' . $row, "=SUM(AV".$row.":BG".$row.")");
             $row++;
         }
         $rowFInal = $row - 1;
@@ -343,5 +347,10 @@ class ProcesarController extends JSONResponseController
         $writer->save($fileName);
 
         return response()->download($fileName)->deleteFileAfterSend(true);
+    }
+    public function listarBloqueos(){
+        $proceso = new ProcesarModel();
+        $resultado = $proceso->listarBloqueos();   
+        return $this->sendResponse(200, true, '', $resultado);
     }
 }

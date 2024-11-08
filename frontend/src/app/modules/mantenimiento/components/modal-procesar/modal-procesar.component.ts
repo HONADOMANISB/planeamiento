@@ -5,6 +5,7 @@ import {PerfilService} from "@services/mantenimiento/perfil.service";
 import {IListaPerfil, IListaPerfilParams} from "@interfaces/mantenimiento/perfil.interface";
 import { RegistroActividadesService } from '@services/ceplan/registro-actividades.service';
 import { ProcesarEjecucionService } from '@services/mantenimiento/procesar-ejecucion.service';
+import { successAlerta } from '@shared/utils';
 
 @Component({
   selector: 'app-modal-procesar',
@@ -61,7 +62,7 @@ export class ModalProcesarComponent {
   }
   public listarActividadOperativa(servicio?: any) {
     this.loading = true;
-    this.ActividadesService$.listarActividadesOperativas(servicio)
+    this.ActividadesService$.listarActividadesOperativas(servicio,this.year)
         .pipe(
             finalize(() => {
                 this.loading = false;
@@ -94,7 +95,10 @@ cambioTipo(){
       })
   )
   .subscribe(({ estado,datos }) => {
-     console.log(datos)
+     if(estado){
+            console.log('alerta mostrada')
+        successAlerta('Exito','Se proceso corrrectamente')
+     }
   });
   }
 

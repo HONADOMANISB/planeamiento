@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Ceplan;
 
 use App\Http\Controllers\Respuesta\JSONResponseController;
 use App\Models\Ceplan\CeplanModel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Mpdf\Mpdf;
 use PhpOffice\PhpSpreadsheet\IOFactory;
@@ -24,7 +25,7 @@ class CeplanController extends JSONResponseController
 
         $sheet = $excel->getActiveSheet();
         $highestRow = $sheet->getHighestDataRow();
-        $fechaExporta = json_decode($request->post('fecha'), true);
+        $date = Carbon::now();  
         $tipo = $request->post('tipo');
         $data=[];
         $vnp=[];
@@ -64,11 +65,12 @@ class CeplanController extends JSONResponseController
                     'ACTIVIDAD_OPERATIVA' => $sheet->getCell('AE' . $row)->getValue(),
                     'UNIDAD_MEDIDA' => $sheet->getCell('AF' . $row)->getValue(),
                     'TRAZADORA_TAREA' => $sheet->getCell('AG' . $row)->getValue(),
-                    'ACUMULADO' => $sheet->getCell('AH' . $row)->getValue(),   
-                    'ESTADO_ACTIVIDAD_OPERATIVA' => $sheet->getCell('BU' . $row)->getValue(),
-                    'TIPO_ACTIVIDAD' => $sheet->getCell('BV' . $row)->getValue(),  
-                    'TIPO_REGISTRO' => $sheet->getCell('BW' . $row)->getValue(),  
-                    'FECHA_EXPORTA'=>$fechaExporta,  
+                    'ACUMULADO' => $sheet->getCell('AH' . $row)->getValue(),
+                    'DEFINICION_OPERACIONAL' => $sheet->getCell('BU' . $row)->getValue(),   
+                    'ESTADO_ACTIVIDAD_OPERATIVA' => $sheet->getCell('BV' . $row)->getValue(),
+                    'TIPO_ACTIVIDAD' => $sheet->getCell('BW' . $row)->getValue(),  
+                    'TIPO_REGISTRO' => $sheet->getCell('BX' . $row)->getValue(),  
+                    'FECHA_EXPORTA'=>$date,  
                     'TIPO'=>$tipo                       
                 ];
                 $vnp = [
@@ -153,8 +155,9 @@ class CeplanController extends JSONResponseController
          $user = $request->user();
          $perfil = $user->id_perfil;
          $servicio=$request->post('servicio');
+         $year=$request->post('cb_year');
          $actividad=new CeplanModel();
-         $resultado=$actividad->listarActividades($servicio,$perfil);
+         $resultado=$actividad->listarActividades($servicio,$perfil,$year);
          return $this->sendResponse(200, true,'',$resultado);
     }
     public function listarInformacion(Request $request){
@@ -188,10 +191,14 @@ public function generarReporteDetallePOI(Request $request){
     <table>
       <thead>
            <tr>
-            <td>#</td>
+            <td>#</td>  
+            <td>N° EPISODIO</td>
+            <td>N° HIS</td>  
             <td>N° HISTORIA</td>
             <td>APELLIDOS Y NOMBRES</td>
-            <td>N° EPISODIO</td>    
+            <td>FECHA ATENCIÓN</td>
+            <td>CODIGO MÈDICO</td>
+            <td> MÈDICO</td>
            </tr>
       </thead>
     <tbody> ';
@@ -200,9 +207,13 @@ public function generarReporteDetallePOI(Request $request){
         $html.='
         <tr>
          <td>'.$count++.'</td>
+         <td>'.$data->NUM_EPISODIO.'</td>
+         <td>'.$data->NUM_HIS.'</td>
          <td>'.$data->HISTORIA_CLINICA.'</td>
          <td>'.$data->NOMBRE_COMPLETO.'</td>
-         <td>'.$data->NUM_EPISODIO.'</td>
+         <td>'.$data->FECHA_ATENCION.'</td>
+         <td>'.$data->COD_MEDICO.'</td>
+          <td>'.$data->MEDICO.'</td>
         </tr>    
       ';
     }

@@ -8,6 +8,7 @@ import { ModalProcesarComponent } from '@modules/mantenimiento/components/modal-
 import { ProcesarEjecucionService } from '@services/mantenimiento/procesar-ejecucion.service';
 import { ModalReporteInvalidadosComponent } from '@modules/mantenimiento/components/modal-reporte-invalidados/modal-reporte-invalidados.component';
 import { ModalBloquearComponent } from '@modules/mantenimiento/components/modal-bloquear/modal-bloquear.component';
+import { ModalInformacionBloqueoComponent } from '@modules/mantenimiento/components/modal-informacion-bloqueo/modal-informacion-bloqueo.component';
 
 @Component({
   selector: 'app-procesar-ejecucion',
@@ -19,6 +20,7 @@ export class ProcesarEjecucionComponent {
   @ViewChild(ModalProcesarComponent) modalProcesar!: ModalProcesarComponent;
   @ViewChild(ModalReporteInvalidadosComponent) modalReporte!: ModalReporteInvalidadosComponent;
   @ViewChild(ModalBloquearComponent) modalBloquear!: ModalBloquearComponent;
+  @ViewChild(ModalInformacionBloqueoComponent) modalListarBloqueos!: ModalInformacionBloqueoComponent;
   rutas: rutaBreadCrumb[] = [{
       nombre: 'Mantenimiento',
       ruta: '/mantenimiento/procesar-ejecucion'
@@ -136,17 +138,19 @@ limpiarCampos() {
 }
 
 
-  async abrirModalProcesar() {
-    await this.modalProcesar.openModal();
+  abrirModalProcesar() {
+     this.modalProcesar.openModal();
   }
 
-  async abrirModalBloquear() {
-    await this.modalBloquear.openModal();
+   abrirModalBloquear() {
+    this.modalBloquear.openModal();
 }
-   async abrirModalReporte() {
-    await this.modalReporte.openModal();
+ abrirModalReporte() {
+ this.modalReporte.openModal();
 }
-
+abrirModalListarBloqueos(){
+    this.modalListarBloqueos.openModal(); 
+}
 reporteConsolidado(){
     this.ProcesarEjecucionervice$.reporteExcelConsolidado()
     .pipe(

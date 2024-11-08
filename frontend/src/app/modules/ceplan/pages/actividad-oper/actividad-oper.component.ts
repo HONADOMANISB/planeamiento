@@ -53,15 +53,24 @@ export class ActividadOperComponent implements OnInit {
     public year: string = '';
     public codigo_ppr: string = '';
     public insert: string = '';
-
+    public tipo_usuario=''
+    public servicio_ls=''
+    public estado=''
+    public year_actual=new Date().getFullYear();
 
     constructor(
         private ActividadesService$: RegistroActividadesService,
         public router: Router
     ) {}
     ngOnInit() {
-        this.listarActividadOperativa(this.servicio);
+        this.obtenerValorLocalStorage()
+        this.listarActividadOperativa(this.servicio_ls,this.year_actual);
+       
     }
+    obtenerValorLocalStorage(): void {
+         this.tipo_usuario= localStorage.getItem('usuario') || '';
+         this.servicio_ls= localStorage.getItem('servicio') || '';
+        }
     ngAfterViewInit() {
         setTimeout(() => {
             const currentDate = new Date();
@@ -103,25 +112,33 @@ export class ActividadOperComponent implements OnInit {
         this.year = data[0].YEAR;
         this.codigo_ppr = data[0].CODIGO_PPR.trim();
     }
-    public listarActividadOperativa(servicio: any) {
+    public listarActividadOperativa(servicio: any,year:any) {
         this.loading = true;
-        this.ActividadesService$.listarActividadesOperativas(servicio,this.cb_year)
+        this.ActividadesService$.listarActividadesOperativas(servicio,year)
             .pipe(
                 finalize(() => {
                     this.loading = false;
                 })
             )
             .subscribe(({ estado, datos }) => {
-                this.actividades = datos;
-                this.actividad = datos[0].codigo_ppr;
-                this.listarDetalles(this.actividad);
-                this.listar_encabezado(this.actividad);
+                if( datos.length!=0  ){
+                    this.actividades = datos;
+                    this.actividad = datos[0].codigo_ppr;
+                    this.listarDetalles(this.actividad);
+                    this.listar_encabezado(this.actividad);
+                }else{                   
+                    warningAlerta('Advertencia',`No existen actividades reegistradas en el año ${year}`)
+                    this.cb_year=this.year_actual
+                    this.cambioActividad()
+                }
+
             });
     }
     public listarDetalles(actividad: string) {
         this.loading = true;
         this.ActividadesService$.listarInformacion(actividad, this.cb_year)
             .pipe(
+
                 finalize(() => {
                     this.loading = false;
                 })
@@ -133,14 +150,20 @@ export class ActividadOperComponent implements OnInit {
             });
     }
     public cambioActividad() {
-        if (this.actividad != '') {
+        if (this.actividad != '') {           
             this.listarDetalles(this.actividad);
             this.listar_encabezado(this.actividad);
         }
     }
-    public listar_encabezado(actividad: string) {
+    public cambioYear(){
+        this.listarActividadOperativa(this.servicio,this.cb_year)
+        this.listarDetalles(this.actividad);
+        this.listar_encabezado(this.actividad);
+    }
+
+    public listar_encabezado(actividad: string,) {
         this.loading = true;
-        this.ActividadesService$.listarEncabezado(actividad, this.cb_year)
+        this.ActividadesService$.listarEncabezado(actividad,this.cb_year)
             .pipe(
                 finalize(() => {
                     this.loading = false;
@@ -168,10 +191,11 @@ export class ActividadOperComponent implements OnInit {
         const valor = this.calculatePercentage(fs, pg);
         if (isNaN(valor) || valor === 0) return '';
 
-        if (valor <= 85) return 'DEFICIENTE';
-        if (valor <= 90) return 'REGULAR';
-        if (valor <= 120) return 'BUENO';
-        return 'EXCESO';
+        if (valor <= 85) return this.estado='DEFICIENTE';
+        if (valor <= 90) return this.estado='REGULAR';
+        if (valor <= 120) return this.estado='BUENO';
+        if (valor > 120) return this.estado='EXCESO';
+        return this.estado;
     }
 
     public changeColor(fs: any, pg: any): string {
@@ -180,9 +204,9 @@ export class ActividadOperComponent implements OnInit {
 
         let color = '';
         if (resultado <= 85) color = '#C93B5F';
-        else if (resultado <= 90) color = '#D6A419';
-        else if (resultado <= 120) color = '#00D8B1';
-        else color = '#4E8783';
+        else if (resultado <= 90) color = 'rgb(237,125,49)';
+        else if (resultado <= 120) color = 'rgb(0,176,80)';
+        else color = '#F0FF00';
 
         return `height:20px;background-color:${color};`;
     }
@@ -210,6 +234,7 @@ export class ActividadOperComponent implements OnInit {
             });
     }
     public guardar(fs: any, id: any, mt: any, tipo: string) {
+        
         Swal.fire({
             icon: 'warning',
             title: ` ¿ Desea continuar con el registro ?`,
@@ -217,6 +242,13 @@ export class ActividadOperComponent implements OnInit {
             confirmButtonText: 'Sí',
             denyButtonText: 'No',
         }).then((result) => {
+            if ((this.estado=='DEFICIENTE' || this.estado=='EXCESO' ) &&!mt) {
+                warningAlerta(
+                    'Warning',
+                    'Es Obligatorio Ingresar el Motivo'
+                );
+                return;
+            }
             if (result.isConfirmed) {
                 this.ActividadesService$.registrarPoi(
                     fs,
@@ -296,18 +328,18 @@ export class ActividadOperComponent implements OnInit {
         } else {
              return false;
          }
-
-        // const currentDate = new Date();
-        // const month = currentDate.getMonth() ;
-        // const day=currentDate.getDate();
-      
-        // // console.log('valor enviado:' + valor)
-        // // console.log('mes:' + month)
-        // // console.log('day:' + day)
-        //  if(valor==month  ){
-        //     return false
-        //  }else{
-        //     return true
-        // }
+    }
+    
+    public cerrar_registro(fecha_cierre:any,tipo_registro:any){
+        const fechaActual = new Date();
+        const año = fechaActual.getFullYear();
+        const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
+        const dia = String(fechaActual.getDate()).padStart(2, '0');        
+        const fecha_ac = `${año}-${mes}-${dia}`;
+           if(tipo_registro=='BANCO DE DATOS' || fecha_cierre<fecha_ac){
+               return true
+           }else{
+            return false
+           }
     }
 }

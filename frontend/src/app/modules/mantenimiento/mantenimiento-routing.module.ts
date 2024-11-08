@@ -7,12 +7,12 @@ const routes: Routes = [
     {
         path: 'usuarios',
         component: UsuarioComponent,
-        title: 'Usuarios | SISPLAN',
+        title: 'Usuarios | MOPLAN',
     },
     {
         path: 'procesar-ejecucion',
         component: ProcesarEjecucionComponent,
-        title: 'Procesar-Ejecución | SISPLAN',
+        title: 'Procesar-Ejecución | MOPLAN',
     },
 ];
 

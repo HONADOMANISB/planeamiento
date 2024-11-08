@@ -79,7 +79,7 @@ use Illuminate\Support\Str;
         public function validarUsuario(Request $request): JsonResponse
         {
             $validator = Validator::make($request->only(['nombreUsuario', 'contrasena']), [
-                'nombreUsuario' => 'required|string|min:3|max:15',
+                'nombreUsuario' => 'required|string|max:15',
 
             ]);
     
@@ -117,7 +117,7 @@ use Illuminate\Support\Str;
         {
     
             $validator = Validator::make($request->only(['nombreUsuario', 'contrasena', 'nuevaContrasena']), [
-                'nombreUsuario' => 'required|string|min:3|max:15',
+                'nombreUsuario' => 'required|string|max:15',
                 'nuevaContrasena' => 'required|string|min:3|max:10',
             ]);
     

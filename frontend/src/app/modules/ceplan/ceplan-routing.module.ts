@@ -4,8 +4,8 @@ import { ActividadOperComponent } from './pages/actividad-oper/actividad-oper.co
 import { CargaExportaComponent } from './pages/carga-exporta/carga-exporta.component';
 
 const routes: Routes = [
-    {path: 'registro', component: ActividadOperComponent, title: 'MOPLAN| SISPLAN'},
-    {path: 'cargar-exporta', component: CargaExportaComponent, title: 'MOPLAN| SISPLAN'},
+    {path: 'registro', component: ActividadOperComponent, title: 'MOPLAN| MOPLAN'},
+    {path: 'cargar-exporta', component: CargaExportaComponent, title: 'MOPLAN| MOPLAN'},
    
 ];
 
