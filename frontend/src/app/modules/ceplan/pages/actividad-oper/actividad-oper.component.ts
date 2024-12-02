@@ -174,12 +174,12 @@ export class ActividadOperComponent implements OnInit {
     }
   }
   public cambioYear() {
-    this.listarActividadOperativa(this.servicio, this.cb_year);
+    this.listarActividadOperativa(this.servicio_ls, this.cb_year);
     this.listarDetalles(this.actividad);
     this.listar_encabezado(this.actividad);
   }
   public cambioMes() {
-    this.listarActividadOperativa(this.servicio, this.cb_year);
+    this.listarActividadOperativa(this.servicio_ls, this.cb_year);
   }
 
   public listar_encabezado(actividad: string) {
@@ -332,7 +332,7 @@ export class ActividadOperComponent implements OnInit {
             successAlerta("Éxito", "Datos registrados correctamente");
             this.listarDetalles(this.actividad);
             this.detalle_motivo=''
-            this.listarActividadOperativa(this.servicio, this.cb_year)
+            this.listarActividadOperativa(this.servicio_ls, this.cb_year)
           });
       }
     });
@@ -371,7 +371,7 @@ export class ActividadOperComponent implements OnInit {
             successAlerta("Éxito", "Registro Invalidado");
             this.listarDetalles(this.actividad);
             this.detalle_motivo=''
-            this.listarActividadOperativa(this.servicio, this.cb_year)
+            this.listarActividadOperativa(this.servicio_ls, this.cb_year)
           });
       }
     });
