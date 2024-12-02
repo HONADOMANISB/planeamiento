@@ -28,14 +28,15 @@ class UsuarioModel extends Model
      */
     public function listarUsuario(stdClass $params): array
     {
-        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.mant_sp_lst_pg_usuario ?,?,?,?,?,?,?');
+        $smtp = $this->conexion->getPdo()->prepare(/** @lang SQL */ 'EXEC dbo.mant_sp_lst_pg_usuario ?,?,?,?,?,?,?,?');
         $smtp->bindParam(1, $params->codigo);
         $smtp->bindParam(2, $params->nombres);
-        $smtp->bindParam(3, $params->perfil);
-        $smtp->bindParam(4, $params->desPerfil);
-        $smtp->bindParam(5, $params->estado);
-        $smtp->bindParam(6, $params->longitud);
-        $smtp->bindParam(7, $params->pagina);
+        $smtp->bindParam(3, $params->departamento);
+        $smtp->bindParam(4, $params->perfil);
+        $smtp->bindParam(5, $params->desPerfil);
+        $smtp->bindParam(6, $params->estado);
+        $smtp->bindParam(7, $params->longitud);
+        $smtp->bindParam(8, $params->pagina);
         $smtp->execute();
         $resultados = $smtp->columnCount() > 0 ? $smtp->fetchAll(PDO::FETCH_ASSOC) : [];
         $smtp->closeCursor();

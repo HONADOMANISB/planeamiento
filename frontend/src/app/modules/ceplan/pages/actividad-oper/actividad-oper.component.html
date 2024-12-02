@@ -10,41 +10,101 @@
 					<div class="col-xl-12">
 						<app-loading [mostrar]="loading">
 							<div class="card">
-								<div class="card-header">
-									ACTIVIDAD OPERATIVA
+								<div class="card-header d-flex justify-content-between">
+									 <span class="col-7">
+										ACTIVIDAD OPERATIVA
+									 </span>
+									 <div class="col-xl-2 ">
+										<div class="input-group input-group-sm ">
+											<div class="input-group-text d-ancho ">Mes</div>
+											<select name="" id="" class="form-select form-select-sm" [(ngModel)] ="cb_mes" (change)="cambioMes()">
+												<option value="">Seleccionar</option>
+												<option value="1">Enero</option>
+												<option value="2">Febrero</option>
+												<option value="3">Marzo</option>
+												<option value="4">Abril</option>
+												<option value="5">Mayo</option>
+												<option value="6">Junio</option>
+												<option value="7">Julio</option>
+												<option value="8">Agosto</option>
+												<option value="9">Setiembre</option>
+												<option value="10">Octubre</option>
+												<option value="11">Noviembre</option>
+												<option value="12">Diciembre</option>
+											 </select>
+										</div>
+									</div>		
+									 <div class="col-xl-2 ">
+										<div class="input-group input-group-sm ">
+											<div class="input-group-text d-ancho ">Año</div>
+											<select name="" id="" class="form-select form-select-sm" [(ngModel)] ="cb_year" (change)="cambioYear()">
+												<option value="2024">2024</option>
+												<option value="2025">2025</option>
+												   <option value="2026">2026</option>
+												<option value="2027">2027</option>
+												<option value="2028">2028</option>
+												<option value="2029">2029</option>
+											 </select>
+										</div>
+									</div>									
 								</div>
 								<div class="card-body">
+									<div class="row mb-3">
+										<div class="col-xl-6">
+											<div class="input-group input-group-sm ">
+												<div class="input-group-text ">DEPARTAMENTO</div>
+												<ng-select  [(ngModel)] ="departamento"
+														[items]="departamentos"
+														bindLabel ="DESCRIPCION" 
+														bindValue ="ID" 
+														[disabled]="est_depart"
+														class="d-block form-control"
+														(change)="changeUnidad()"
+														style="font-size: 0.8rem; height: auto; "> 
+												 </ng-select >
+											</div>
+										</div>
+										<div class="col-xl-6">
+											<div class="input-group input-group-sm ">
+												<div class="input-group-text ">SERVICIO</div>
+												<ng-select  [(ngModel)] ="servicio_ls"
+														[items]="servicios"
+														bindLabel ="SERVICIO"
+														bindValue ="SERVICIO"
+														[disabled]="est_depart"
+														(change)="changeServicio()"
+														class="d-block form-control"
+														style="font-size: 0.8rem; height: auto; "> 
+												 </ng-select >
+											</div>
+										</div>
+									</div>
 									<div class="row mb-2 d-flex justify-content-between align-items-center">
-										<div class="col-xl-9">
+										<div class="col-xl-12">
 											<ng-select  [(ngModel)] ="actividad"
                                                           [items]="actividades"
                                                                 bindLabel ="act" 
                                                                 bindValue ="codigo_ppr" 
                                                                 class="d-block form-control"
-                                                                style="font-size: 0.8rem; height: auto; "
-                                                                
+                                                                style="font-size: 0.8rem; height: auto; "                           
 																(change)="cambioActividad()"> 
-                                                               </ng-select >								
+																<ng-template ng-option-tmp let-item="item" let-index="index">
+																	<span>{{ item.act }}</span>
+																	<span *ngIf="item.estado === 'VALIDADO' || item.estado === 'REGISTRADO'" class="validado-icono">✔️</span>
+																	<span *ngIf="item.estado === 'INVALIDADO'" class="invalidado-icono">❌</span>
+																  </ng-template>
+																  
+                                            </ng-select >								
 										</div>
-										<div class="col-xl-2 ">
-											<div class="input-group input-group-sm ">
-												<div class="input-group-text d-ancho ">Año</div>
-												<select name="" id="" class="form-select form-select-sm" [(ngModel)] ="cb_year" (change)="cambioYear()">
-                                    				<option value="2024">2024</option>
-                                    				<option value="2025">2025</option>
-                                   					<option value="2026">2026</option>
-                                    				<option value="2027">2027</option>
-                                    				<option value="2028">2028</option>
-                                    				<option value="2029">2029</option>
-												 </select>
-											</div>
-										</div>
+								
 									</div>
+									@if(this.actividad!=''){
+
 									<table class="table-borderless">
 										<tbody>
 											<tr>
 												<td><b>DEPARTAMENTO/OFICINA</b></td>
-												<td>{{ departamento }}</td>
+												<td>{{ departamento_info }}</td>
 											</tr>
 											<tr>
 												<td><b>SERVICIO/EQUIPO</b></td>
@@ -82,8 +142,17 @@
 												<td><b>TRAZADORA</b></td>
 												<td>{{ trazadora }}</td>
 											</tr>
+										
 										</tbody>
 									</table>
+									@if(this.definicion_operacional){
+										<div class="col-12 d-flex justify-content-end ">
+											<button class="btn btn-sm bg-prim me-3" (click)="alertaInfo()"><i
+												class="fa-solid fa-circle-info label-icon me-2" ></i>C.Seguimiento</button>
+										</div>
+									}
+									
+
 									<!-- comienzo seccion 2 -->
 
 									<!-- fin seccion 2 -->
@@ -126,7 +195,7 @@
 													<thead>
 														<tr>
 															<td colspan="3">
-																POI {{year}} ACTUALIZADO V.01
+																POI {{year}}  V.01
 															</td>				
 														</tr>
 														<tr>															
@@ -210,10 +279,10 @@
 														<td style="width: 20%">
 															Progreso
 														</td>
-														<td style="width: 20%">
+														<td style="width: 30%">
 															Estado
 														</td>	
-														<td style="width: 45%">
+														<td style="width: 35%">
 															Motivo
 														</td>		
 														<td style="width: 15%">
@@ -247,15 +316,21 @@
 																		{{ changeStade(detalle.EJECUTADO,detalle.PROGRAMADO) }}
 																	</div>
 																</td>
-																<td>
-																	<input type="text" class="form-control form-control-sm" [(ngModel)]="
-																			detalle.MOTIVO
-																		" />
+																<td> 
+																	<select class="form-select form-select-sm  " 
+																	 [(ngModel)]="detalle.MOTIVO" (change)="changeMotivo($event)">
+																	<option value="">Seleccionar</option>
+																	<option *ngFor="let motivo of motivos"
+																		value="{{motivo.ID}}">
+																		{{motivo.MOTIVO}}</option>
+																    </select>
+																	 									
+																	
 																</td>
 																<td class="d-flex justify-content-around">
 																	@if(tipo_usuario!='MOPLAN'){
 																		<button class="btn regs btn-sm w-50" 
-																		(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'PI')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
+																		(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'PI',detalle.TIPO_REGISTRO)" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
 																		<i class="fa-solid fa-check"></i>
 
 																		</button>
@@ -268,8 +343,11 @@
 																	}
 																	
 																	@if(detalle.TIPO_REGISTRO=='BANCO DE DATOS'){
-																		<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'PR')" >						
+																		<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'PI')" >						
 																			<i class="fa-solid fa-file-pdf"></i>
+																		</button>
+																		<button class="btn btn-success btn-sm w-50 ms-1" (click)="generarDetallePOIExcel(index +1,'PI')" >						
+																			<i class="fa-solid fa-file-excel"></i>
 																		</button>
 																	}
 																</td>													
@@ -306,15 +384,21 @@
 																		{{ changeStade( detalle.EJECUTADO,detalle.PROGRAMADO ) }}
 																	</div>
 																</td>
-																<td>
-																	<input type="text" class="form-control form-control-sm" [(ngModel)]="
-																			detalle.MOTIVO
-																		" />
+																<td> 
+																	<select class="form-select form-select-sm  " 
+																	 [(ngModel)]="detalle.MOTIVO" (change)="changeMotivo($event)">
+																	 <option value="">Seleccionar</option>
+																	<option *ngFor="let motivo of motivos"
+																		value="{{motivo.ID}}">
+																		{{motivo.MOTIVO}}</option>
+																    </select>
+																	 									
+																	
 																</td>
 																<td class="d-flex justify-content-around">
 																	@if(tipo_usuario!='MOPLAN'){
 																		<button class="btn regs btn-sm w-50" 
-																		(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'PR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
+																		(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'PR',detalle.TIPO_REGISTRO)" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
 																		<i class="fa-solid fa-check"></i>
 																		</button>
 																		@if(detalle.TIPO_REGISTRO=='BANCO DE DATOS'){
@@ -325,9 +409,17 @@
 																	}
 																	}
 																	@if(detalle.TIPO_REGISTRO=='BANCO DE DATOS'){
-																		<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'PR')" >						
-																			<i class="fa-solid fa-file-pdf"></i>
-																		</button>
+																		<div class="btn-group ms-1" role="group">
+																			<button id="btnGroupVerticalDrop1" type="button" class="btn btn-secondary btn-sm dropdown-toggle  waves-light waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																				<i class="fa-solid fa-file"></i>
+																			</button>
+																			<div class="dropdown-menu custom-dropdown-width " aria-labelledby="btnGroupVerticalDrop1" style="">
+																				<a class="dropdown-item" (click)="generarDetallePOI(index +1,'PR')">PDF</a>
+																				<a class="dropdown-item" (click)="generarDetallePOIExcel(index +1,'PR')">Excel</a>
+
+																			</div>
+																		</div>
+																		
 																	}
 																	
 																</td>													
@@ -366,15 +458,21 @@
 																		{{ changeStade( detalle.EJECUTADO,detalle.PROGRAMADO ) }}
 																	</div>
 																</td>
-																<td>
-																	<input type="text" class="form-control form-control-sm" [(ngModel)]="
-																			detalle.MOTIVO
-																		" />
+																<td> 
+																	<select class="form-select form-select-sm  " 
+																	 [(ngModel)]="detalle.MOTIVO" (change)="changeMotivo($event)">
+																	 <option value="">Seleccionar</option>
+																	<option *ngFor="let motivo of motivos"
+																		value="{{motivo.ID}}">
+																		{{motivo.MOTIVO}}</option>
+																    </select>
+																	 									
+																	
 																</td>
 																<td class="d-flex justify-content-around">
 																	@if(tipo_usuario!='MOPLAN'){
 																		<button class="btn regs btn-sm w-50" 
-																		(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'SR')" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
+																		(click)=" guardar(detalle.EJECUTADO,index +1,detalle.MOTIVO,'SR',detalle.TIPO_REGISTRO)" [disabled]="cerrar_ejecutado(detalle.FECHA_BLOQUEO)">
 																		<i class="fa-solid fa-check"></i>
 																		</button>
 																		@if(detalle.TIPO_REGISTRO=='BANCO DE DATOS'){
@@ -399,8 +497,18 @@
 												</tbody>
 											</table>											
 										</div>
+										
 									</div>
+								}
 								</div>
+								 @if(this.actividad!=''){
+									<div class="col-md-12 d-flex justify-content-end mb-2">
+										<button class="btn  bg-prim me-4 mb-4" (click)="cerrarActividades()" [disabled]="validarCierre()">
+											<i class="fas fa-door-open label-icon me-3 "></i>Enviar
+										</button>
+									</div>
+								} 
+								
 							</div>
 						</app-loading>
 					</div>

@@ -17,13 +17,18 @@
 
                 <li *ngFor="let menu of base;">
                     <ng-template [ngIf]="validarHijos(menu['CODIGO'])" [ngIfElse]=nivel1>
-                        <a href="#" (click)="$event.preventDefault()" class="has-arrow">
-                            <i class="{{menu['ICONO']}}" style="font-size: 16px;"></i>
-                            <span>{{menu['NOMBRE']}}</span>
-                        </a>
+                       
+                            <a href="#" (click)="$event.preventDefault()" class="has-arrow">
+                                <i class="{{menu['ICONO']}}" style="font-size: 16px;"></i>
+                                <span>{{menu['NOMBRE']}}</span>
+
+                            </a>
+                        
+                       
                         <ul class="sub-menu" aria-expanded="false">
                             <li *ngFor="let subMenu of obtenerHijos(menu['CODIGO'])">
                                 <ng-template [ngIf]="validarHijos(subMenu['CODIGO'])" [ngIfElse]=nivel2>
+                                  
                                     <a href="#" (click)="$event.preventDefault()" class="has-arrow">
                                        
                                         <span>{{subMenu['NOMBRE']}}</span>
@@ -35,6 +40,7 @@
                                             </a>
                                         </li>
                                     </ul>
+                                
                                 </ng-template>
                                 <ng-template #nivel2>
                                     <a href="#" (click)="irARuta($event, subMenu['RUTA'])">
@@ -45,10 +51,12 @@
                         </ul>
                     </ng-template>
                     <ng-template #nivel1>
+                        @if(menu['NOMBRE']!='Inicio'){
                         <a href="#" (click)="irARuta($event, menu['RUTA'])">
                             <i class="{{menu['ICONO']}}"></i>
                             <span>{{menu['NOMBRE']}}</span>
                         </a>
+                    }
                     </ng-template>
                 </li>
             </ul>

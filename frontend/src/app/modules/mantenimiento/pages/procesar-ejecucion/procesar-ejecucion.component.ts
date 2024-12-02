@@ -9,6 +9,7 @@ import { ProcesarEjecucionService } from '@services/mantenimiento/procesar-ejecu
 import { ModalReporteInvalidadosComponent } from '@modules/mantenimiento/components/modal-reporte-invalidados/modal-reporte-invalidados.component';
 import { ModalBloquearComponent } from '@modules/mantenimiento/components/modal-bloquear/modal-bloquear.component';
 import { ModalInformacionBloqueoComponent } from '@modules/mantenimiento/components/modal-informacion-bloqueo/modal-informacion-bloqueo.component';
+import { ModalReporteComponent } from '@modules/mantenimiento/components/modal-reporte/modal-reporte.component';
 
 @Component({
   selector: 'app-procesar-ejecucion',
@@ -18,7 +19,7 @@ import { ModalInformacionBloqueoComponent } from '@modules/mantenimiento/compone
 export class ProcesarEjecucionComponent {
   @ViewChild('inpFocus') inpFocus!: ElementRef<HTMLInputElement>;
   @ViewChild(ModalProcesarComponent) modalProcesar!: ModalProcesarComponent;
-  @ViewChild(ModalReporteInvalidadosComponent) modalReporte!: ModalReporteInvalidadosComponent;
+  @ViewChild(ModalReporteComponent) modalReporte!: ModalReporteComponent;
   @ViewChild(ModalBloquearComponent) modalBloquear!: ModalBloquearComponent;
   @ViewChild(ModalInformacionBloqueoComponent) modalListarBloqueos!: ModalInformacionBloqueoComponent;
   rutas: rutaBreadCrumb[] = [{
@@ -151,22 +152,9 @@ limpiarCampos() {
 abrirModalListarBloqueos(){
     this.modalListarBloqueos.openModal(); 
 }
-reporteConsolidado(){
-    this.ProcesarEjecucionervice$.reporteExcelConsolidado()
-    .pipe(
-           finalize(() => {
-            this.loading = false;
-        })
-    )
-    .subscribe((response: Blob) => {
-        const url = window.URL.createObjectURL(response);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'reporte.xlsx';
-        a.click();
-        window.URL.revokeObjectURL(url);
-    });
-}
+
+
+
 
 
 

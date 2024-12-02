@@ -62,6 +62,7 @@ export class LoginComponent {
                         nombres: datos.nombre,
                         perfil: datos.perfil,
                         servicio:datos.servicio,
+                        departamento:datos.departamento,
                         fechaExpiracion: datos.fecha_expiracion
                     }
                     this.store.dispatch(guardarSession({session}));

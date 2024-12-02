@@ -8,10 +8,10 @@ import { shareReplay } from 'rxjs';
 })
 export class RegistroActividadesService {
     constructor(private http: HttpClient) {}
-    listarActividadesOperativas(servicio: any,cb_year:string) {
+    listarActividadesOperativas(servicio: any,cb_year:string,cb_mes:any='') {
         return this.http.post<HttpResponseApi>(
             '/api/ceplan/listar-actividades-operativas',
-            { servicio,cb_year },
+            { servicio,cb_year,cb_mes },
             { responseType: 'json' }
         );
     }
@@ -19,6 +19,27 @@ export class RegistroActividadesService {
         return this.http.post<HttpResponseApi>(
             '/api/ceplan/listar-informacion',
             { actividad ,cb_year},
+            { responseType: 'json' }
+        );
+    }
+    listarDepartamentos() {
+        return this.http.post<HttpResponseApi>(
+            '/api/ceplan/listar-departamentos',
+            { },
+            { responseType: 'json' }
+        );
+    }
+    listarServicios(departamento:string) {
+        return this.http.post<HttpResponseApi>(
+            '/api/ceplan/listar-servicios',
+            {departamento },
+            { responseType: 'json' }
+        );
+    }
+    listarMotivos() {
+        return this.http.post<HttpResponseApi>(
+            '/api/ceplan/listar-motivos',
+            { },
             { responseType: 'json' }
         );
     }
@@ -42,6 +63,19 @@ export class RegistroActividadesService {
         })
         .pipe(shareReplay(1));
     }
+    generarReportePOIExcel(mes:any,year:any,ppr:any,tipo:any){
+        return this.http
+        .get('/api/ceplan/generar-reporte-detalle-poi-excel', {
+            params: {
+               mes,
+               year,
+               ppr,
+               tipo
+            },
+            responseType: 'blob',
+        })
+        .pipe(shareReplay(1));
+    }
     invalidarPOI(ej:any,motivo:any,mes:any,actividad:any,tipo:string){
         return this.http.post<HttpResponseApi>(
             '/api/ceplan/invalidar-poi',
@@ -49,10 +83,17 @@ export class RegistroActividadesService {
             { responseType: 'json' }
         );
     }
-    registrarPoi(ejecutado:string,motivo:any,mes:any,actividad:any,tipo:string) {
+    cerrarActividades(mes:any,year:any){
+        return this.http.post<HttpResponseApi>(
+            '/api/ceplan/cerrar-actividades',
+            {mes,year},
+            { responseType: 'json' }
+        );
+    }
+    registrarPoi(ejecutado:string,motivo:any,mes:any,actividad:any,tipo:string,tipoEstado:string,detalleMotivo:string='') {
       return this.http.post<HttpResponseApi>(
           '/api/ceplan/registrar-poi',
-          {ejecutado,motivo,mes,actividad,tipo},
+          {ejecutado,motivo,mes,actividad,tipo,tipoEstado,detalleMotivo},
           { responseType: 'json' }
       );
   } 

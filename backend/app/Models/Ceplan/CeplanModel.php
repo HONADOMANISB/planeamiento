@@ -16,15 +16,19 @@ class CeplanModel extends Model
         $this->conexion = DB::connection('planeamiento');
     }
 
-    public function insertarExcel($resultado)
+    public function insertarExcel($resultado,$año)
 {
     ini_set('max_execution_time', 180); // Aumentar el tiempo máximo de ejecución a 60 segundos
 
     DB::beginTransaction(); // Iniciar una transacción
 
     try {
+        DB::table('EX_EXPORTA_POI')
+        ->where('YEAR', $año )
+        ->update(['SG_EST_REGISTRO' => 'H']);
         foreach ($resultado as $maestra) {
             DB::table('EX_EXPORTA_POI')->insert([
+
                 'YEAR' => $maestra['YEAR'],
                 'ETAPA' => $maestra['ETAPA'],
                 'UE_ID' => $maestra['UE_ID'],
@@ -66,6 +70,7 @@ class CeplanModel extends Model
                 'TIPO_REGISTRO' => $maestra['TIPO_REGISTRO'],
                 'FECHA_EXPORTA' => $maestra['FECHA_EXPORTA'],
                 'TIPO' => $maestra['TIPO'],
+                'SG_EST_REGISTRO' => $maestra['SG_EST_REGISTRO'],
                 'DEFINICION_OPERACIONAL' => $maestra['DEFINICION_OPERACIONAL']
             ]);
         }
@@ -77,12 +82,12 @@ class CeplanModel extends Model
     }
 }
 
-    public function listarActividades($servicio,$perfil,$year)
+    public function listarActividades($servicio,$perfil,$year,$periodo)
     {
         return $this->conexion->select(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_listar_actividades ?,?,?',
-            [$servicio,$perfil,$year]
+            'EXEC dbo.ex_sp_listar_actividades ?,?,?,?',
+            [$servicio,$perfil,$year,$periodo]
         );
     }
     public function listarEncabezado($act,$year)
@@ -91,6 +96,30 @@ class CeplanModel extends Model
             /** @lang SQL */
             'EXEC dbo.ex_sp_listar_enc ?,?',
             [$act,$year]
+        );
+    }
+    public function listarDepartamentos()
+    {
+        return $this->conexion->select(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_listar_departamentos',
+            []
+        );
+    }
+    public function listarMotivos()
+    {
+        return $this->conexion->select(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_listar_motivos',
+            []
+        );
+    }
+    public function listarServicios($departamento)
+    {
+        return $this->conexion->select(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_listar_servicios ?',
+            [$departamento]
         );
     }
     public function listarInformacion($act,$year)
@@ -127,20 +156,28 @@ class CeplanModel extends Model
 
         
     }
-    public function guardarPoi($id,$ejecucion,$motivo,$actividad,$tipo)
+    public function guardarPoi($id,$ejecucion,$motivo,$actividad,$tipo,$tipo_registro,$detalle_motivo,$usuario,$equipo,$perfil)
     {
         return $this->conexion->update(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_registrar_ejecucion ?,?,?,?,?',
-            [$id,$ejecucion,$motivo,$actividad,$tipo]
+            'EXEC dbo.ex_sp_registrar_ejecucion ?,?,?,?,?,?,?,?,?,?',
+            [$id,$ejecucion,$motivo,$actividad,$tipo,$tipo_registro,$detalle_motivo,$usuario,$equipo,$perfil]
         );
     }
-    public function invalidarPoi($ejecutado,$id,$motivo,$actividad,$tipo)
+    public function invalidarPoi($ejecutado,$id,$motivo,$actividad,$tipo,$usuario,$equipo,$perfil)
     {
         return $this->conexion->update(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_invalidar_ejecucion ?,?,?,?,?',
-            [$ejecutado,$id,$motivo,$actividad,$tipo]
+            'EXEC dbo.ex_sp_invalidar_ejecucion ?,?,?,?,?,?,?,?',
+            [$ejecutado,$id,$motivo,$actividad,$tipo,$usuario,$equipo,$perfil]
+        );
+    }
+    public function cerrarActividades($id,$year,$usuario,$equipo,$perfil)
+    {
+        return $this->conexion->insert(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_registrar_cierre_actividades ?,?,?,?,?',
+            [$id,$year,$usuario,$equipo,$perfil]
         );
     }
 }

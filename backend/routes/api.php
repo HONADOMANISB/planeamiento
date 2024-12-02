@@ -46,9 +46,14 @@ Route::controller(CeplanController::class)->group(function () {
     Route::post('ceplan/listar-actividades-operativas', 'listarActividades');
     Route::post('ceplan/listar-informacion', 'listarInformacion');
     Route::post('ceplan/listar-encabezado', 'listarEncabezado');
+    Route::post('ceplan/listar-departamentos', 'listarDepartamentos');
+    Route::post('ceplan/listar-motivos', 'listarMotivos');
+    Route::post('ceplan/listar-servicios', 'listarServicios');
     Route::post('ceplan/registrar-poi', 'guardarPoi');
     Route::post('ceplan/invalidar-poi', 'InvalidarPoi');
+    Route::post('ceplan/cerrar-actividades', 'cerrarActividades');
     Route::get('ceplan/generar-reporte-detalle-poi', 'generarReporteDetallePOI');
+    Route::get('ceplan/generar-reporte-detalle-poi-excel', 'generarReporteDetallePOIExcel');
 });
 
 
@@ -115,6 +120,7 @@ Route::controller(ProcesarController::class)->group(function () {
     Route::post('mantenimiento/bloquear-ejecucion', 'bloquearEjecucion');
     Route::get('mantenimiento/listar-historial', 'listarHistorial');
     Route::get('mantenimiento/reporte-ppr-invalidados', 'reporteInvalidados');
+    Route::get('mantenimiento/reporte-cierre', 'reporteCierre');
     Route::get('mantenimiento/reporte-ppr-consolidado', 'reporteConsolidado');
     Route::post('mantenimiento/listar-info-bloqueos', 'listarBloqueos');
     

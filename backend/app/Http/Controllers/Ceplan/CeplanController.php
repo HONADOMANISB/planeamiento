@@ -9,8 +9,12 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Mpdf\Mpdf;
 use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpParser\Node\Expr\Print_;
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Style\Border;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Style\Color;
+use PhpOffice\PhpSpreadsheet\Style\Alignment;
+use Illuminate\Support\Facades\Auth;
 class CeplanController extends JSONResponseController
 
 {
@@ -30,7 +34,9 @@ class CeplanController extends JSONResponseController
         $data=[];
         $vnp=[];
         $resultado = [];
+        $año=$sheet->getCell('A2')->getValue();
             for ($row = 2; $row <= $highestRow; $row++) {
+
                 $data = [
                     'YEAR' => $sheet->getCell('A' . $row)->getValue(),
                     'ETAPA' => $sheet->getCell('B' . $row)->getValue(),
@@ -71,6 +77,7 @@ class CeplanController extends JSONResponseController
                     'TIPO_ACTIVIDAD' => $sheet->getCell('BW' . $row)->getValue(),  
                     'TIPO_REGISTRO' => $sheet->getCell('BX' . $row)->getValue(),  
                     'FECHA_EXPORTA'=>$date,  
+                    'SG_EST_REGISTRO'=>'A', 
                     'TIPO'=>$tipo                       
                 ];
                 $vnp = [
@@ -147,7 +154,7 @@ class CeplanController extends JSONResponseController
             }
         
             $seguro=new CeplanModel();
-            $response=$seguro->insertarExcel($resultado);
+            $response=$seguro->insertarExcel($resultado,$año);
             return $this->sendResponse(200, true, $response, 1);
 
     }
@@ -156,10 +163,27 @@ class CeplanController extends JSONResponseController
          $perfil = $user->id_perfil;
          $servicio=$request->post('servicio');
          $year=$request->post('cb_year');
+         $periodo=$request->post('cb_mes');
          $actividad=new CeplanModel();
-         $resultado=$actividad->listarActividades($servicio,$perfil,$year);
+         $resultado=$actividad->listarActividades($servicio,$perfil,$year,$periodo);
          return $this->sendResponse(200, true,'',$resultado);
     }
+    public function listarDepartamentos(Request $request){
+        $actividad=new CeplanModel();
+        $resultado=$actividad->listarDepartamentos();
+        return $this->sendResponse(200, true,'',$resultado);
+   }
+   public function listarMotivos(Request $request){
+    $actividad=new CeplanModel();
+    $resultado=$actividad->listarMotivos();
+    return $this->sendResponse(200, true,'',$resultado);
+}
+      public function listarServicios(Request $request){
+        $departamento=$request->post('departamento');
+        $actividad=new CeplanModel();
+        $resultado=$actividad->listarServicios($departamento);
+        return $this->sendResponse(200, true,'',$resultado);
+   }
     public function listarInformacion(Request $request){
         $act=$request->post('actividad');
         $year=$request->post('cb_year');
@@ -192,8 +216,7 @@ public function generarReporteDetallePOI(Request $request){
       <thead>
            <tr>
             <td>#</td>  
-            <td>N° EPISODIO</td>
-            <td>N° HIS</td>  
+            <td>N° EPISODIO</td> 
             <td>N° HISTORIA</td>
             <td>APELLIDOS Y NOMBRES</td>
             <td>FECHA ATENCIÓN</td>
@@ -208,12 +231,11 @@ public function generarReporteDetallePOI(Request $request){
         <tr>
          <td>'.$count++.'</td>
          <td>'.$data->NUM_EPISODIO.'</td>
-         <td>'.$data->NUM_HIS.'</td>
          <td>'.$data->HISTORIA_CLINICA.'</td>
          <td>'.$data->NOMBRE_COMPLETO.'</td>
          <td>'.$data->FECHA_ATENCION.'</td>
          <td>'.$data->COD_MEDICO.'</td>
-          <td>'.$data->MEDICO.'</td>
+         <td>'.$data->MEDICO.'</td>
         </tr>    
       ';
     }
@@ -239,29 +261,102 @@ public function generarReporteDetallePOI(Request $request){
     $mpdf->WriteHTML($html,2);
     $mpdf->Output(); 
 }
+public function generarReporteDetallePOIExcel(Request $request){
+    $mes=$request->get('mes');
+    $year=$request->get('year');
+    $ppr=$request->get('ppr');
+    $tipo=$request->get('tipo');
+    $report=new CeplanModel();
+    $response=$report->generarReporteDetallePOI($mes,$year,$ppr,$tipo);
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+    $encabezado = [
+        "Nª",
+        "Nª EPISODIO",
+        "Nª HIS",
+        "Nª HISTORIA",
+        "Nª PACIENTE",
+        "FECHA ATENCIÒN",
+        "CODIGO MEDICO",
+        "MEDICO"
+
+    ];
+
+    $sheet->fromArray($encabezado, null, 'A1');
+    $row = 2;
+    $C=1;
+    foreach ($response as $valor) {
+        $sheet->setCellValue('A' . $row, $C++);   
+        $sheet->setCellValue('B' . $row, $valor->NUM_EPISODIO);
+        $sheet->setCellValue('C' . $row, $valor->NUM_HIS);
+        $sheet->setCellValue('D' . $row, $valor->HISTORIA_CLINICA);
+        $sheet->setCellValue('E' . $row, $valor->NOMBRE_COMPLETO);
+        $sheet->setCellValue('F' . $row, $valor->FECHA_ATENCION);
+        $sheet->setCellValue('G' . $row, $valor->COD_MEDICO);
+        $sheet->setCellValue('H' . $row, $valor->MEDICO);       
+        $row++;
+    }
+    for ($col = 'A'; $col <= 'H'; $col++) { $sheet->getColumnDimension($col)->setAutoSize(true);}
+    $styleArray = [
+        'borders' => [
+            'allBorders' => [
+                'borderStyle' => Border::BORDER_THIN,
+                'color' => ['argb' => Color::COLOR_BLACK],
+            ],
+        ],
+        'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
+                'wrapText' => false,
+            ]
+    ];
+
+    $rowFInal = $row - 1;
+    $highestColumn = $sheet->getHighestColumn();
+    $cellRange = 'A1:' . $highestColumn . $rowFInal;
+    $sheet->getStyle($cellRange)->applyFromArray($styleArray);
+    $writer = new Xlsx($spreadsheet);
+    $fileName = 'reporte.xlsx';
+    $writer->save($fileName);
+
+    return response()->download($fileName)->deleteFileAfterSend(true);
+
+}
+
 public function invalidarPoi(Request $request){
+    [$usuario, $perfil, $equipo] = $this->getHost($request);
     $ejecutado=$request->post('ej');
     $id=$request->post('mes');
     $motivo=$request->post('motivo');
     $actividad=$request->post('actividad');
     $tipo=$request->post('tipo');
     $activity=new CeplanModel();
-    $response=$activity->invalidarPoi($ejecutado,$id,$motivo,$actividad,$tipo);
+    $response=$activity->invalidarPoi($ejecutado,$id,$motivo,$actividad,$tipo,$usuario,$equipo,$perfil);
+    return $this->sendResponse(200, true,'',$response);
+  
+}
+public function cerrarActividades(Request $request){
+    [$usuario, $perfil, $equipo] = $this->getHost($request);
+    $id=$request->post('mes');
+    $year=$request->post('year');
+    $activity=new CeplanModel();
+    $response=$activity->cerrarActividades($id,$year,$usuario,$equipo,$perfil);
     return $this->sendResponse(200, true,'',$response);
   
 }
    public function guardarPoi(Request $request){
+    [$usuario, $perfil, $equipo] = $this->getHost($request);
     $id=$request->post('mes');
     $ejecutado=$request->post('ejecutado');
+    $tipo_registro=$request->post('tipoEstado');
+    $detalle_motivo=$request->post('detalleMotivo');
     $motivo=$request->post('motivo');
     $actividad=$request->post('actividad');
     $tipo=$request->post('tipo');
     $activity=new CeplanModel();
 
     if(!$motivo) $motivo="";
-    if(!$ejecutado)$ejecutado="";
     if(!$tipo)$tipo=" ";
-    $response=$activity->guardarPoi($id,$ejecutado,$motivo,$actividad,$tipo);
+    $response=$activity->guardarPoi($id,$ejecutado,$motivo,$actividad,$tipo,$tipo_registro,$detalle_motivo,$usuario,$equipo,$perfil);
     return $this->sendResponse(200, true,'',$response);
   
 }

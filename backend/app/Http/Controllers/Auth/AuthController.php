@@ -58,12 +58,15 @@ use Illuminate\Support\Str;
             $auth = new AuthModel();
             $menus = $auth->obtenerMenu($user->id_perfil);
             $servicio=$user->servicio;
+            $departamento=$user->departamento;
             $userData = [
                 'username' => $user->username,
                 'nombre' => $user->nombre,
                 'menu' => $menus,
+                'perfil' => $user->id_perfil,
                 'token' => $token,
                 'servicio'=> $servicio,
+                'departamento'=> $departamento,
                 'fecha_expiracion' => $expirationDate,
             ];
             
@@ -72,7 +75,7 @@ use Illuminate\Support\Str;
         public function logout(Request $request)
         {
             if ($request->user()) {
-                $request->user()->tokens()->delete();
+             //   $request->user()->tokens()->delete();
             }
             return $this->sendResponse(200, true, 'Sesión cerrada.');
         }

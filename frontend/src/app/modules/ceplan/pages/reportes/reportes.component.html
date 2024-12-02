@@ -1,0 +1,159 @@
+<app-breadcrumb [rutas]="rutas" [titulo]="'Reportes'"></app-breadcrumb>
+<div class="row">
+    <div class="col-xl-12">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-xl-auto col-md-auto col-sm-auto"></div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col-xl-12">
+                        <app-loading [mostrar]="loading">
+                            <div class="row d-flex justify-content-around">                              
+                                <div class="col-2">
+                                    <label for="exampleFormControlInput1" class="form-label">Año</label>
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="year">
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                        <option value="2026">2026</option>
+                                        <option value="2027">2027</option>
+                                      </select>
+                                </div>
+                                <div class="col-3">
+                                    <label for="exampleFormControlInput1" class="form-label">Origen Información</label>
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="tipo">
+                                        <option value="PI">Programacion</option>
+                                        <option value="PR">1era Reprogramacion</option>
+                                        <option value="SR">2da Reprogramacion</option>
+                                      </select>
+                                </div>
+                                <div class="col-2">
+                                    <label for="exampleFormControlInput1" class="form-label">Tipo Reporte</label>
+                                    <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="rp" (change)="changeTipoReporte()">
+                                        <option value="RC">Reporte Cierre</option>
+                                        <option value="RI">Reporte PPR Invalidados</option>
+                                        <option value="NR">Nuevo Reporte</option>
+                                      </select>
+                                </div>
+                                @if(visible){
+                                    <div class="col-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Periodo</label>
+                                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="periodo">
+                                            <option value="">Seleccionar</option>
+                                            <option value="1">Enero</option>
+                                            <option value="2">Febrero</option>
+                                            <option value="3">Marzo</option>
+                                            <option value="4">Abril</option>
+                                            <option value="5">Mayo</option>
+                                            <option value="6">Junio</option>
+                                            <option value="7">Julio</option>
+                                            <option value="8">Agosto</option>
+                                            <option value="9">Setiembre</option>
+                                            <option value="10">Octubre</option>
+                                            <option value="11">Noviembre</option>
+                                            <option value="12">Diciembre</option>
+                                        </select>                                     
+                                    </div>
+                                }
+                                
+                                <div class="col-2">
+                                    <label for="">&NonBreakingSpace;</label>
+                                    <button class="btn w-100 btn-sm bg-prim waves-light waves-effect btn-label"
+                                      (click)="reportes()" >
+                                        <i class="fa fa-file label-icon"></i>
+                                        Exportar
+                                    </button>
+                                </div>
+                              <div class="row mt-5">
+                                <span class="mt-5 mb-2"><b>DIRECTORIO</b></span>
+                                <div class="col-3">
+                                    <div class="card card-h-100">
+                                        <!-- card body -->
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col-12">
+                                                    <h5 class="text-muted mb-3 lh-1 d-block text-truncate">Lic. Luz Aponte</h5>
+                                                    <p><b>Oficina  :</b>  Estadística e Informática</p>
+                                                    <p><b>Equipo   :</b>  Banco de datos</p>
+                                                    <p><b>Correo   :</b>  leapontea&#64;gmail.com</p>
+                                                </div>
+                                            </div>
+                                            <div class="text-nowrap">
+                                                    <p><b>Celular  </b><span class="badge bg-info">  966 921 394</span></p>
+                                                    
+                                                
+                                            </div>
+                                        </div><!-- end card body -->
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="card card-h-100">
+                                        <!-- card body -->
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col-12">
+                                                    <h5 class="text-muted mb-3 lh-1 d-block text-truncate">Diana Rios</h5>
+                                                    <p><b>Oficina  :</b>  Estadística e Informática</p>
+                                                    <p><b>Equipo   :</b>  Banco de datos</p>
+                                                    <p><b>Correo   :</b>  drshsb&#64;outlook.com.pe</p>
+                                                </div>
+                                            </div>
+                                            <div class="text-nowrap">
+                                                    <p><b>Celular  </b><span class="badge bg-info">  989 819 057</span></p>
+                                                    
+                                                
+                                            </div>
+                                        </div><!-- end card body -->
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="card card-h-100">
+                                        <!-- card body -->
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col-12">
+                                                    <h5 class="text-muted mb-3 lh-1 d-block text-truncate">Fabrizio Arellano</h5>
+                                                    <p><b>Oficina  :</b>  Estadística e Informática</p>
+                                                    <p><b>Equipo   :</b>  Banco de datos</p>
+                                                    <p><b>Correo   :</b>  fabrizioarellano0&#64;gmail.com</p>
+                                                </div>
+                                            </div>
+                                            <div class="text-nowrap">
+                                                    <p><b>Celular  </b><span class="badge bg-info">  953 255 455</span></p>
+                                                    
+                                                
+                                            </div>
+                                        </div><!-- end card body -->
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="card card-h-100">
+                                        <!-- card body -->
+                                        <div class="card-body">
+                                            <div class="row align-items-center">
+                                                <div class="col-12">
+                                                    <h5 class="text-muted mb-3 lh-1 d-block text-truncate">M.C Mónica Carpio</h5>
+                                                    <p><b>Oficina  :</b>  Ejecutiva de Planeamiento Estratégico</p>
+                                                    <p><b>Equipo   :</b>  Planeamiento y Organización</p>
+                                                    <p><b>Correo   :</b>  planemientoyorg&#64;gmail.com</p>
+                                                </div>
+                                            </div>
+                                            <div class="text-nowrap">
+                                                    <p><b>Celular   </b><span class="badge bg-info">  995 875 920</span></p>
+                                                    
+                                                
+                                            </div>
+                                        </div><!-- end card body -->
+                                    </div>
+                                </div>
+                              </div>
+                                
+                                
+                            </div>
+                        </app-loading>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

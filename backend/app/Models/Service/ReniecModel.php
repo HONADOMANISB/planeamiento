@@ -40,7 +40,7 @@ class ReniecModel extends Model
 
     public function buscarDatosEnLocal(string $dni): void
     {
-        $conexion = DB::connection('personal');
+        $conexion = DB::connection('planemaiento');
         $respuesta = $conexion->selectOne(/** @lang SQL */'EXEC dbo.gral_sp_get_rm_consultas_dni ?', [
             $dni
         ]);

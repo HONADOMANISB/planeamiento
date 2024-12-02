@@ -10,13 +10,15 @@ import { CeplanRoutingModule } from './ceplan-routing.module';
 import { CargaExportaComponent } from './pages/carga-exporta/carga-exporta.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ReportesComponent } from './pages/reportes/reportes.component';
 
 
 
 @NgModule({
   declarations: [
     ActividadOperComponent,
-    CargaExportaComponent
+    CargaExportaComponent,
+    ReportesComponent
   ],
   imports: [
     CommonModule,

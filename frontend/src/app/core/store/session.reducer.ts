@@ -6,6 +6,7 @@ export const initialState: Session = {
     nombres: localStorage.getItem('nombres') ?? undefined,
     perfil: localStorage.getItem('perfil') ?? undefined,
     servicio: localStorage.getItem('servicio') ?? undefined,
+    departamento: localStorage.getItem('departamento') ?? undefined,
     token: localStorage.getItem('token') ?? undefined,
     accesos: JSON.parse(localStorage.getItem('accesos') ?? '{}'),
     menu: JSON.parse(localStorage.getItem('menu') ?? '{}'),
@@ -21,6 +22,7 @@ export const sessionReducer = createReducer(
         localStorage.setItem('nombres', action.session.nombres ?? '');
         localStorage.setItem('perfil', action.session.perfil ?? '');
         localStorage.setItem('servicio', action.session.servicio ?? '');
+        localStorage.setItem('departamento', action.session.departamento ?? '');
         localStorage.setItem('token', action.session.token ?? '');
         localStorage.setItem('accesos', JSON.stringify(action.session.accesos ?? ''));
         localStorage.setItem('menu', JSON.stringify(action.session.menu ?? ''));
@@ -39,6 +41,8 @@ export const sessionReducer = createReducer(
         localStorage.removeItem('accesos');
         localStorage.removeItem('menu');
         localStorage.removeItem('usuario');
+        localStorage.removeItem('servicio');
+        localStorage.removeItem('departamento');
         localStorage.removeItem('fechaExpiracion');
         return {
             ...state, resetSession

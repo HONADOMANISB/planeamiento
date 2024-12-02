@@ -21,12 +21,12 @@ class ProcesarModel extends Model
             [$year,$mes,$tipo,$ppr]
         );
     }
-    public function bloquearEjecucion($usuario,$perfil,$equipo,$periodo,$fecha,$year)
+    public function bloquearEjecucion($usuario,$perfil,$equipo,$periodo,$fecha,$year,$tipo,$codigo)
     {
         return $this->conexion->update(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_bloquear_ejecucion ?,?,?,?,?,?',
-            [$periodo,$year,$fecha,$usuario,$perfil,$equipo]
+            'EXEC dbo.ex_sp_bloquear_ejecucion ?,?,?,?,?,?,?,?',
+            [$periodo,$year,$fecha,$tipo,$codigo,$usuario,$perfil,$equipo]
         );
     }
     public function registrarHistorial($usuario,$perfil,$equipo,$nombre,$ppr)
@@ -37,12 +37,20 @@ class ProcesarModel extends Model
             [$usuario,$equipo,$perfil,$nombre,$ppr]
         );
     }
-    public function reporteInvalidados($year,$tipo,$periodo)
+    public function reporteInvalidados($year,$tipo,$periodo,$perfil,$servicio)
     {
         return $this->conexion->select(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_reporte_invalidados ?,?,?',
-            [$year,$tipo,$periodo]
+            'EXEC dbo.ex_sp_reporte_invalidados ?,?,?,?,?',
+            [$year,$tipo,$periodo,$perfil,$servicio]
+        );
+    }
+    public function reporteCierre($year,$tipo,$periodo,$perfil,$servicio)
+    {
+        return $this->conexion->select(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_reporte_detalle_cierre_poi ?,?,?,?,?',
+            [$year,$tipo,$periodo,$perfil,$servicio]
         );
     }
     public function listarHistorial($usuario,$nombre,$perfil,$equipo,$fecha,$ppr,$longitud,$pagina)
@@ -54,12 +62,12 @@ class ProcesarModel extends Model
         );
        
     }
-    public function reporteConsolidado()
+    public function reporteConsolidado($periodo,$year,$tipo)
     {
          $result=$this->conexion->select(
             /** @lang SQL */
-            'EXEC dbo.EX_SP_PRUEBA ',
-            []
+            'EXEC dbo.EX_SP_PRUEBA ?,?,? ',
+            [$year,$periodo,$tipo]
         );
         return json_decode(json_encode($result), true);
     }
@@ -69,6 +77,15 @@ class ProcesarModel extends Model
             /** @lang SQL */
             'EXEC dbo.EX_SP_DATA_TOTAL ',
             []
+        );
+        return json_decode(json_encode($result), true);
+    }
+    public function reporteResumenMetas($periodo,$year,$tipo)
+    {
+         $result=$this->conexion->select(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_reporte_resumen_metas ?,?,? ',
+            [$year,$periodo,$tipo]
         );
         return json_decode(json_encode($result), true);
     }

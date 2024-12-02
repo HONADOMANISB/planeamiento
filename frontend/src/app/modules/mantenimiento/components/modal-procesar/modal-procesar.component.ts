@@ -5,8 +5,11 @@ import {PerfilService} from "@services/mantenimiento/perfil.service";
 import {IListaPerfil, IListaPerfilParams} from "@interfaces/mantenimiento/perfil.interface";
 import { RegistroActividadesService } from '@services/ceplan/registro-actividades.service';
 import { ProcesarEjecucionService } from '@services/mantenimiento/procesar-ejecucion.service';
-import { successAlerta } from '@shared/utils';
-
+import {
+    errorAlertaValidacion,
+    successAlerta,
+    warningAlerta,
+  } from "@shared/utils";
 @Component({
   selector: 'app-modal-procesar',
   templateUrl: './modal-procesar.component.html',
@@ -31,15 +34,16 @@ export class ModalProcesarComponent {
   public mes:any
   public tipo:any
   public ppr:any
-  filtro = {
-      codigo: '',
-      descripcion: '',
-      estado: '1'
-  }
+  public departamento: string = "";
+  public servicio: string = "";
+
+  public departamentos :any[]=[]
+  public servicios:any[]=[]
+
 
   perfiles: IListaPerfil[] = [];
 
-  constructor(private PerfilService$: PerfilService,private ActividadesService$: RegistroActividadesService,private ProcesarEjecucionService$:ProcesarEjecucionService) {
+  constructor(private ActividadesService$: RegistroActividadesService,private ProcesarEjecucionService$:ProcesarEjecucionService) {
   }
 
   ngAfterViewInit() {
@@ -52,13 +56,14 @@ export class ModalProcesarComponent {
 
   openModal(){
       this.modal.show();  
+      this.listarDepartamentos()
       this.listarActividadOperativa()       
   }
 
   closeModal() {
+     this.limpiarCampos()
       this.modal.hide();
-      this.resolve();
-      this.resetModal();
+
   }
   public listarActividadOperativa(servicio?: any) {
     this.loading = true;
@@ -102,26 +107,61 @@ cambioTipo(){
   });
   }
 
-  limpiarCampos() {
-      this.filtro = {
-          codigo: '',
-          descripcion: '',
-          estado: '1'
-      };
-
+  limpiarCampos() {   
+      this.mes=''
+      this.departamento='';
+      this.servicio='';
+      this.actividad=''
+      this.tipo='';
+      this.tipoEjec=''
   }
 
   ngOnDestroy() {
       this.modal.dispose();
   }
 
-  private resetModal() {
-      this.filtro = {
-          codigo: '',
-          descripcion: '',
-          estado: '1'
-      };
-      this.pagina = 1;
-  }
 
+  public listarDepartamentos(){
+    this.loading = true;
+    this.ActividadesService$.listarDepartamentos()
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe(({ estado, datos }) => {
+        this.departamentos = datos;
+      });
+  }
+  changeUnidad(){
+    let departamento= this.departamento
+    if (departamento.length > 0) {
+      this.listarServicios(departamento)
+      this.servicio=""
+      this.actividad=''
+    } else {
+      warningAlerta('Atención!', 'Elija primero un Departamento ')
+    }
+  }
+  public listarServicios(depar:string){
+    this.loading = true;
+    this.ActividadesService$.listarServicios(depar)
+      .pipe(
+        finalize(() => {
+          this.loading = false;
+        })
+      )
+      .subscribe(({ estado, datos }) => {
+        this.servicios = datos;
+      });
+  }
+  public changeServicio(){
+    let servicio= this.servicio
+    if (servicio.length > 0) {
+        this.listarActividadOperativa(servicio)
+        this.actividad=''
+      } else {
+        warningAlerta('Atención!', 'Elija primero un Departamento ')
+      }
+  }
 }

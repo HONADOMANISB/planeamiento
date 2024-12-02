@@ -30,6 +30,7 @@ export class UsuarioComponent {
     filtros = {
         codigo: '',
         nombres: '',
+        departamento: '',
         perfil: '',
         descripcionPerfil: '',
         estado: '1'
@@ -87,6 +88,7 @@ export class UsuarioComponent {
     limpiarCampos() {
         this.filtros = {
             nombres: '',
+            departamento: '',
             estado: '1',
             codigo: '',
             descripcionPerfil: '',

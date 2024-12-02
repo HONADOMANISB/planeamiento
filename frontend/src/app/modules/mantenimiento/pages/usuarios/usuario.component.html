@@ -3,16 +3,25 @@
     <div class="col-xl-12">
         <div class="card">
             <div class="card-body">
-                <div class="row">
-                    <div class="col-xl-auto col-md-auto col-sm-3 ms-auto align-self-end pt-2">
-                        <button (click)="abrirModalUsuario(1)"
+                <div class="row d-flex justify-content-between mb-4">                  
+                        <div class="col-xl-2">
+                            <button (click)="abrirModalUsuario(1)"
+                            aria-expanded="false"
+                            class="btn w-100 btn-sm btn-success waves-light waves-effect btn-label w-50"
+                            type="button">
+                        <i class="fa fa-file label-icon"></i>
+                        Exportar
+                       </button>
+                        </div>
+                        <div class="col-xl-2">
+                            <button (click)="abrirModalUsuario(1)"
                                 aria-expanded="false"
-                                class="btn w-100 btn-sm btn-primary waves-light waves-effect btn-label"
+                                class="btn w-100 btn-sm btn-primary waves-light waves-effect btn-label w-50"
                                 type="button">
                             <i class="fa fa-file label-icon"></i>
                             Nuevo Usuario
                         </button>
-                    </div>
+                        </div>                                        
                 </div>
                 <div class="row pt-2">
                     <div class="col-xl-12">
@@ -28,13 +37,22 @@
                                                     Código Usu.
                                                 </th>
                                                 <th class="text-center" style="width: 360px; min-width: 310px;">
-                                                    Nombres
+                                                    Departamento
+                                                </th>
+                                                <th class="text-center" style="width: 360px; min-width: 310px;">
+                                                    Servicio
                                                 </th>
                                                 <th class="text-center" style="width: 150px; min-width: 150px">
                                                     Cod. Perfil
                                                 </th>
-                                                <th class="text-center" style="min-width: 300px">
+                                                <th class="text-center" style="min-width: 200px">
                                                     Perfil
+                                                </th>
+                                                <th class="text-center" style="min-width: 200px">
+                                                    Correo
+                                                </th>
+                                                <th class="text-center" style="min-width: 200px">
+                                                    Telefono
                                                 </th>
                                                 <th class="text-center" style="width: 100px; min-width: 100px">Estado
                                                 </th>
@@ -51,6 +69,13 @@
                                                     <input #inpFocus
                                                            (keydown.enter)="filtrarUsuarios()"
                                                            [(ngModel)]="filtros.codigo"
+                                                           class="form-control form-control-sm text-uppercase"
+                                                           inputmode="text">
+                                                </th>
+                                                <th>
+                                                    <input
+                                                           (keydown.enter)="filtrarUsuarios()"
+                                                           [(ngModel)]="filtros.departamento"
                                                            class="form-control form-control-sm text-uppercase"
                                                            inputmode="text">
                                                 </th>
@@ -75,6 +100,8 @@
                                                         class="form-control form-control-sm text-uppercase"
                                                         inputmode="text">
                                                 </th>
+                                                <th></th>
+                                                <th></th>
                                                 <th><select
                                                     (change)="filtrarUsuarios()"
                                                     [(ngModel)]="filtros.estado"
@@ -110,9 +137,12 @@
                                                             </div>
                                                         </td>
                                                         <td class="text-center">{{ usuario.codigo }}</td>
-                                                        <td>{{ usuario.nombres }}</td>
+                                                        <td>{{ usuario.departamento}}</td>
+                                                        <td>{{ usuario.nombres }}</td>                                                        
                                                         <td>{{ usuario.perfil }}</td>
                                                         <td>{{ usuario.desPerfil }}</td>
+                                                        <td>{{ usuario.correo }}</td>
+                                                        <td>{{ usuario.telefono}}</td>
                                                         <td class="text-center">
                                                             @if (usuario.estado === 'A') {
                                                                 <span class="badge rounded-pill bg-success">

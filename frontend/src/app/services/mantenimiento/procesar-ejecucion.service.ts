@@ -10,10 +10,10 @@ export class ProcesarEjecucionService {
 
   constructor(private http: HttpClient) { }
 
-  Bloquear(periodo:any,fecha:any,year:any){
+  Bloquear(periodo:any,fecha:any,year:any,tipo:any,actividad:any){
     return this.http.post<HttpResponseApi>(
       '/api/mantenimiento/bloquear-ejecucion',
-      { periodo,fecha,year},
+      { periodo,fecha,year,tipo,actividad},
       { responseType: 'json' }
   );
   }
@@ -27,6 +27,14 @@ export class ProcesarEjecucionService {
 }
  reporteExcel(periodo:string,year:string,tipo:string){
   return this.http.get('/api/mantenimiento/reporte-ppr-invalidados', { 
+    params:{
+      periodo,
+      year,
+      tipo
+  }, responseType: 'blob' });
+ }
+ reporteCierre(periodo:string,year:string,tipo:string){
+  return this.http.get('/api/mantenimiento/reporte-cierre', { 
     params:{
       periodo,
       year,
@@ -51,9 +59,13 @@ listarHistorial(datos: any) {
       .pipe(shareReplay(1));
 }
 
-reporteExcelConsolidado(){
+reporteExcelConsolidado(periodo:any,year:any,tipo:any){
   return this.http.get('/api/mantenimiento/reporte-ppr-consolidado', { 
-    params:{}, responseType: 'blob' });
+    params:{
+      periodo,
+      year,
+      tipo
+    }, responseType: 'blob' });
  }
 
  listarBloqueo(){

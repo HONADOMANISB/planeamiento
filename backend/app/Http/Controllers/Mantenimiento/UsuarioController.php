@@ -21,6 +21,7 @@ class UsuarioController extends JSONResponseController
     {
         $params = new stdClass();
         $params->codigo = $request->get('codigo') ?? '';
+        $params->departamento= $request->get('departamento') ?? '';
         $params->nombres = $request->get('nombres') ?? '';
         $params->perfil = $request->get('perfil') ?? '';
         $params->desPerfil = $request->get('descripcionPerfil') ?? '';
