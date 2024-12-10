@@ -448,6 +448,8 @@ $styles = [
         $periodo = $request->get('periodo');
         $year = $request->get('year');
         $tipo = $request->get('tipo');       
+        $user = Auth::user();
+        $servicio=$user->servicio;
         // Ruta a la plantilla de Excel
         $templatePath = resource_path('templates/LP.xlsx');    
         // Cargar la plantilla de Excel con inclusión de gráficos
@@ -455,13 +457,8 @@ $styles = [
         $reader->setIncludeCharts(true);
         $spreadsheet = $reader->load($templatePath);
         $report = new ProcesarModel();
-        $resultado = $report->reporteResumenMetas($periodo,$year,$tipo);
-        $resultadoT = $report->reporteTotal();
-        $sheet = $spreadsheet->getSheetByName('REPORTE-CONSOLIDADO');
-        //ESTILOS ENCABEZADO
-        // Ajustar ancho de columna
-   
-
+        $resultado = $report->reporteResumenMetas($periodo,$year,$tipo,$servicio);
+        $sheet = $spreadsheet->getSheetByName('REPORTE-CONSOLIDADO');        
       // Definir estilos para cada valoración
 $styles = [
     'DEFICIENTE' => [
@@ -489,92 +486,97 @@ $styles = [
         ]
     ]
 ];
-               
-        foreach ($resultado as &$valor) {
-            foreach ($resultadoT as $valorT) {
-                if ($valor['ACTIVIDAD_OPERATIVA_ID'] == $valorT['ACTIVIDAD_OPERATIVA_ID']) {
-                    foreach ($valorT as $key => $value) {
-                        $valor[$key] = $value;
-                    }
-                }
-            }
-        }
-        $row = 2;
+                     
+        $row = 6;
         foreach ($resultado as $valor) {
-            $sheet->setCellValue('A' . $row, $valor['YEAR']);
-            $sheet->setCellValue('B' . $row, $valor['ETAPA']);
-            $sheet->setCellValue('C' . $row, $valor['UE_ID']);
-            $sheet->setCellValue('D' . $row, $valor['UE']);
-            $sheet->setCellValue('E' . $row, $valor['CC_RESPONSABLE_ID']);
-            $sheet->setCellValue('F' . $row, $valor['DEPARTAMENTO']);
-            $sheet->setCellValue('G' . $row, $valor['CENTRO_COSTOS_ID']);
-            $sheet->setCellValue('H' . $row, $valor['CENTRO_COSTOS']);
-            $sheet->setCellValue('I' . $row, $valor['SERVICIO']);
-            $sheet->setCellValue('J' . $row, $valor['USUARIO']);
-            $sheet->setCellValue('K' . $row, $valor['DATOS_USUARIO']);
-            $sheet->setCellValue('L' . $row, $valor['OEI']);
-            $sheet->setCellValue('M' . $row, $valor['OBJETIVO_ESTRATEGICO']);
-            $sheet->setCellValue('N' . $row, $valor['AEI']);
-            $sheet->setCellValue('O' . $row, $valor['ACCION_ESTRATEGICA']);
-            $sheet->setCellValue('P' . $row, $valor['CATEGORIA_ID']);
-            $sheet->setCellValue('Q' . $row, $valor['CATEGORIA']);
-            $sheet->setCellValue('R' . $row, $valor['PRODUCTO_ID']);
-            $sheet->setCellValue('S' . $row, $valor['PRODUCTO']);
-            $sheet->setCellValue('T' . $row, $valor['FUNCION_ID']);
-            $sheet->setCellValue('U' . $row, $valor['FUNCION']);
-            $sheet->setCellValue('V' . $row, $valor['DIVISION_FUNCIONAL_ID']);
-            $sheet->setCellValue('W' . $row, $valor['DIVISION_FUNCIONAL']);
-            $sheet->setCellValue('X' . $row, $valor['GRUPO_FUNCIONAL_ID']);
-            $sheet->setCellValue('Y' . $row, $valor['GRUPO_FUNCIONAL']);
-            $sheet->setCellValue('Z' . $row, $valor['ACTIVIDAD_PRESUPUESTAL_ID']);
-            $sheet->setCellValue('AA' . $row, $valor['ACTIVIDAD_PRESUPUESTAL']);
-            $sheet->setCellValue('AB' . $row, $valor['NRO_REGISTRO_POI']);
-            $sheet->setCellValue('AC' . $row, $valor['ACTIVIDAD_OPERATIVA_ID']);
-            $sheet->setCellValue('AD' . $row, $valor['CODIGO_PPR']);
-            $sheet->setCellValue('AE' . $row, $valor['ACTIVIDAD_OPERATIVA']);
-            $sheet->setCellValue('AF' . $row, $valor['UNIDAD_MEDIDA']);
-            $sheet->setCellValue('AG' . $row, $valor['TRAZADORA_TAREA']);
-            $sheet->setCellValue('AI' . $row, $valor['PR_ENERO']);
-            $sheet->setCellValue('AJ' . $row, $valor['PR_FEBRERO']);
-            $sheet->setCellValue('AK' . $row, $valor['PR_MARZO']);
-            $sheet->setCellValue('AL' . $row, $valor['PR_ABRIL']);
-            $sheet->setCellValue('AM' . $row, $valor['PR_MAYO']);
-            $sheet->setCellValue('AN' . $row, $valor['PR_JUNIO']);
-            $sheet->setCellValue('AO' . $row, $valor['PR_JULIO']);
-            $sheet->setCellValue('AP' . $row, $valor['PR_AGOSTO']);
-            $sheet->setCellValue('AQ' . $row, $valor['PR_SETIEMBRE']);
-            $sheet->setCellValue('AR' . $row, $valor['PR_OCTUBRE']);
-            $sheet->setCellValue('AS' . $row, $valor['PR_NOVIEMBRE']);
-            $sheet->setCellValue('AT' . $row, $valor['PR_DICIEMBRE']);
-            $sheet->setCellValue('AU' . $row, "=SUM(AI".$row.":AT".$row.")");
-            $sheet->setCellValue('AV' . $row, $valor['EJ_ENERO']);
-            $sheet->setCellValue('AW' . $row, $valor['EJ_FEBRERO']);
-            $sheet->setCellValue('AX' . $row, $valor['EJ_MARZO']);
-            $sheet->setCellValue('AY' . $row, $valor['EJ_ABRIL']);
-            $sheet->setCellValue('AZ' . $row, $valor['EJ_MAYO']);
-            $sheet->setCellValue('BA' . $row, $valor['EJ_JUNIO']);
-            $sheet->setCellValue('BB' . $row, $valor['EJ_JULIO']);
-            $sheet->setCellValue('BC' . $row, $valor['EJ_AGOSTO']);
-            $sheet->setCellValue('BD' . $row, $valor['EJ_SETIEMBRE']);
-            $sheet->setCellValue('BE' . $row, $valor['EJ_OCTUBRE']);
-            $sheet->setCellValue('BF' . $row, $valor['EJ_NOVIEMBRE']);
-            $sheet->setCellValue('BG' . $row, $valor['EJ_DICIEMBRE']);
-            $sheet->setCellValue('BH' . $row, "=SUM(AV".$row.":BG".$row.")");
-            $sheet->setCellValue('BI' . $row, "=(BH".$row."/AU".$row.")");
-            $sheet->setCellValue('BJ' . $row, "=IF(BI".$row."<=0.85,\"DEFICIENTE\",IF(BI".$row."<=0.90,\"REGULAR\",IF(BI".$row."<=1.20,\"BUENO\",\"EXCESO\")))");
+
+            $sheet->setCellValue('C' . $row, $valor['OEI']);
+            $sheet->setCellValue('D' . $row, $valor['OBJETIVO_ESTRATEGICO']);
+            $sheet->setCellValue('E' . $row, $valor['AEI']);
+            $sheet->setCellValue('F' . $row, $valor['ACCION_ESTRATEGICA']);
+            $sheet->setCellValue('G' . $row, $valor['CATEGORIA_ID']);
+            $sheet->setCellValue('H' . $row, $valor['CATEGORIA']);
+            $sheet->setCellValue('I' . $row, $valor['PRODUCTO_ID']);
+            $sheet->setCellValue('J' . $row, $valor['PRODUCTO']);
+            $sheet->setCellValue('K' . $row, $valor['ACTIVIDAD_PRESUPUESTAL_ID']);
+            $sheet->setCellValue('L' . $row, $valor['ACTIVIDAD_PRESUPUESTAL']);
+            $sheet->setCellValue('M' . $row, $valor['CODIGO_PPR']);
+            $sheet->setCellValue('N' . $row, $valor['ACTIVIDAD_OPERATIVA']);
+            $sheet->setCellValue('O' . $row, $valor['UNIDAD_MEDIDA']);
+            $sheet->setCellValue('P' . $row, $valor['TRAZADORA_TAREA']);
+            $sheet->setCellValue('Q' . $row, $valor['PR_ENERO']);
+            $sheet->setCellValue('R' . $row, $valor['EJ_ENERO']);
+            $sheet->setCellValue('S' . $row, $valor['PR_FEBRERO']);
+            $sheet->setCellValue('T' . $row, $valor['EJ_FEBRERO']);
+            $sheet->setCellValue('U' . $row, $valor['PR_MARZO']);
+            $sheet->setCellValue('V' . $row, $valor['EJ_MARZO']);
+            $sheet->setCellValue('W' . $row, "=Q".$row."+"."S".$row."+"."U".$row);
+            $sheet->setCellValue('X' . $row, "=R".$row."+"."T".$row."+"."V".$row);
+            $sheet->setCellValue('Y' . $row, "=X".$row."/"."W".$row);
+            $sheet->setCellValue('Z' . $row, "=IF(Y".$row."<=0.85,\"DEFICIENTE\",IF(Y".$row."<=0.90,\"REGULAR\",IF(Y".$row."<=1.20,\"BUENO\",\"EXCESO\")))");
+            $sheet->setCellValue('AA' . $row, $valor['PR_ABRIL']);
+            $sheet->setCellValue('AB' . $row, $valor['EJ_ABRIL']);
+            $sheet->setCellValue('AC' . $row, $valor['PR_MAYO']);
+            $sheet->setCellValue('AD' . $row, $valor['EJ_MAYO']);
+            $sheet->setCellValue('AE' . $row, $valor['PR_JUNIO']);
+            $sheet->setCellValue('AF' . $row, $valor['EJ_JUNIO']);
+            $sheet->setCellValue('AG' . $row, "=AA".$row."+"."AC".$row."+"."AE".$row);
+            $sheet->setCellValue('AH' . $row, "=AB".$row."+"."AD".$row."+"."AF".$row);
+            $sheet->setCellValue('AI' . $row, "=AH".$row."/"."AG".$row);
+            $sheet->setCellValue('AJ' . $row, "=IF(AI".$row."<=0.85,\"DEFICIENTE\",IF(AI".$row."<=0.90,\"REGULAR\",IF(AI".$row."<=1.20,\"BUENO\",\"EXCESO\")))");
+            $sheet->setCellValue('AK' . $row, $valor['PR_JULIO']);
+            $sheet->setCellValue('AL' . $row, $valor['EJ_JULIO']);
+            $sheet->setCellValue('AM' . $row, $valor['PR_AGOSTO']);
+            $sheet->setCellValue('AN' . $row, $valor['EJ_AGOSTO']);
+            $sheet->setCellValue('AO' . $row, $valor['PR_SETIEMBRE']);
+            $sheet->setCellValue('AP' . $row, $valor['EJ_SETIEMBRE']);
+            $sheet->setCellValue('AQ' . $row, "=AK".$row."+"."AM".$row."+"."AO".$row);
+            $sheet->setCellValue('AR' . $row, "=AL".$row."+"."AN".$row."+"."AP".$row);
+            $sheet->setCellValue('AS' . $row, "=AR".$row."/"."AQ".$row);
+            $sheet->setCellValue('AT' . $row, "=IF(AS".$row."<=0.85,\"DEFICIENTE\",IF(AS".$row."<=0.90,\"REGULAR\",IF(AS".$row."<=1.20,\"BUENO\",\"EXCESO\")))");
+            $sheet->setCellValue('AU' . $row, $valor['PR_OCTUBRE']);
+            $sheet->setCellValue('AV' . $row, $valor['EJ_OCTUBRE']);
+            $sheet->setCellValue('AW' . $row, $valor['PR_NOVIEMBRE']);
+            $sheet->setCellValue('AX' . $row, $valor['EJ_NOVIEMBRE']);
+            $sheet->setCellValue('AY' . $row, $valor['PR_DICIEMBRE']);
+            $sheet->setCellValue('AZ' . $row, $valor['EJ_DICIEMBRE']);
+            $sheet->setCellValue('BA' . $row, "=W".$row."+"."AG".$row."+"."AQ".$row."+"."AU".$row."+"."AW".$row."+"."AY".$row );
+            $sheet->setCellValue('BB' . $row, "=X".$row."+"."AH".$row."+"."AR".$row."+"."AV".$row."+"."AX".$row."+"."AZ".$row);
+            $sheet->setCellValue('BC' . $row, "=BB".$row."/"."BA".$row);
+            $sheet->setCellValue('BD' . $row, "=IF(BC".$row."<=0.85,\"DEFICIENTE\",IF(BC".$row."<=0.90,\"REGULAR\",IF(BC".$row."<=1.20,\"BUENO\",\"EXCESO\")))");
+            $sheet->setCellValue('BE' . $row,($valor['MT_ENERO']=='OTROS')?$valor['MTD_ENERO']:$valor['MT_ENERO']);
+            $sheet->setCellValue('BF' . $row,($valor['MT_FEBRERO']=='OTROS')?$valor['MTD_FEBRERO']:$valor['MT_FEBRERO']);
+            $sheet->setCellValue('BG' . $row,($valor['MT_MARZO']=='OTROS')?$valor['MTD_MARZO']:$valor['MT_MARZO']);
+            $sheet->setCellValue('BH' . $row,($valor['MT_ABRIL']=='OTROS')?$valor['MTD_ABRIL']:$valor['MT_ABRIL']);
+            $sheet->setCellValue('BI' . $row,($valor['MT_MAYO']=='OTROS')?$valor['MTD_MAYO']:$valor['MT_MAYO']);
+            $sheet->setCellValue('BJ' . $row,($valor['MT_JUNIO']=='OTROS')?$valor['MTD_JUNIO']:$valor['MT_JUNIO']);
+            $sheet->setCellValue('BK' . $row,($valor['MT_JULIO']=='OTROS')?$valor['MTD_JULIO']:$valor['MT_JULIO']);
+            $sheet->setCellValue('BL' . $row,($valor['MT_AGOSTO']=='OTROS')?$valor['MTD_AGOSTO']:$valor['MT_AGOSTO']);
+            $sheet->setCellValue('BM' . $row,($valor['MT_SETIEMBRE']=='OTROS')?$valor['MTD_SETIEMBRE']:$valor['MT_SETIEMBRE']);
+            $sheet->setCellValue('BN' . $row,($valor['MT_OCTUBRE']=='Otros')?$valor['MTD_OCTUBRE']:$valor['MT_OCTUBRE']);
+            $sheet->setCellValue('BO' . $row,($valor['MT_NOVIEMBRE']=='Otros')?$valor['MTD_NOVIEMBRE']:$valor['MT_NOVIEMBRE']);
+            $sheet->setCellValue('BP' . $row,($valor['MT_DICIEMBRE']=='OTROS')?$valor['MTD_DICIEMBRE']:$valor['MT_DICIEMBRE']);
+
             // Obtener el valor de la celda BJ después de calcular la fórmula
-             $valoracion = $sheet->getCell('BJ' . $row)->getCalculatedValue();
+             $valoracionZ = $sheet->getCell('Z' . $row)->getCalculatedValue();
+             $valoracionAJ = $sheet->getCell('AJ' . $row)->getCalculatedValue();
+             $valoracionAT = $sheet->getCell('AT' . $row)->getCalculatedValue();
+             $valoracionBD = $sheet->getCell('BD' . $row)->getCalculatedValue();
             // Aplicar el estilo basado en la valoración
-             if (isset($styles[$valoracion])) {
-                 $sheet->getStyle('BJ' . $row)->applyFromArray($styles[$valoracion]);
-                }
-            
+             if (isset($styles[$valoracionZ])) { $sheet->getStyle('Z' . $row)->applyFromArray($styles[$valoracionZ]); }
+             if (isset($styles[$valoracionAJ])) { $sheet->getStyle('AJ' . $row)->applyFromArray($styles[$valoracionAJ]); }
+             if (isset($styles[$valoracionAT])) { $sheet->getStyle('AT' . $row)->applyFromArray($styles[$valoracionAT]); }
+             if (isset($styles[$valoracionBD])) { $sheet->getStyle('BD' . $row)->applyFromArray($styles[$valoracionBD]); }
             $row++;
         }
-        $sheet->getStyle('BI:BI')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
+        $sheet->getStyle('Y:Y')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
+        $sheet->getStyle('AI:AI')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
+        $sheet->getStyle('AS:AS')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
+        $sheet->getStyle('BC:BC')->getNumberFormat()->setFormatCode(NumberFormat::FORMAT_PERCENTAGE_00);
+       
         $rowFInal = $row - 1;
-        $highestColumn = $sheet->getHighestColumn();
-        $cellRange = 'A1:' . $highestColumn . $rowFInal;
+       // $highestColumn = $sheet->getHighestColumn();
+        $cellRange = 'C6:' . 'BP' . $rowFInal;
         // Definir el estilo de borde
         $styleArray = [
             'borders' => [
@@ -585,40 +587,29 @@ $styles = [
             ],
         ];
 
-        $sheet->getStyle('A1:'.$highestColumn.'1')->applyFromArray([
-            'fill' => [
-                'fillType' => Fill::FILL_SOLID,
-                'startColor' => [
-                    'argb' => 'FFADD8E6',  // Color azul claro (hex: #ADD8E6)
-                ],
-            ],
-            'font' => [
-                'bold' => true,
-            ],
-            'alignment' => [
-                'horizontal' => Alignment::HORIZONTAL_CENTER,
-                'vertical' => Alignment::VERTICAL_CENTER,
-                'wrapText' => true,
-            ]
-        ]);
+    
         // Aplicar el estilo de borde a todas las celdas con contenido
         $sheet->getStyle($cellRange)->applyFromArray($styleArray);
+// Obtener el índice de la hoja a eliminar
+ $sheet_grafico = $spreadsheet->getSheetByName('GRAFICO');
+// Eliminar la hoja
+$spreadsheet->removeSheetByIndex($spreadsheet->getIndex($sheet_grafico));
 
-        // Obtener la hoja específica
-        $sheet_grafico = $spreadsheet->getSheetByName('GRAFICO');
-        $sheet_grafico->setCellValue('E8', '125');
-        $sheet_grafico->setCellValue('E9', '80');
-        $sheet_grafico->setCellValue('E10', '100');
-        $sheet_grafico->setCellValue('E11', '75');
-        $sheet_grafico->setCellValue('E12', '230');
-        $sheet_grafico->setCellValue('M8', '40');
-        $sheet_grafico->setCellValue('M9', '40');
-        $sheet_grafico->setCellValue('M10', '20');
+        // // Obtener la hoja específica
+        // $sheet_grafico = $spreadsheet->getSheetByName('GRAFICO');
+        // $sheet_grafico->setCellValue('E8', '125');
+        // $sheet_grafico->setCellValue('E9', '80');
+        // $sheet_grafico->setCellValue('E10', '100');
+        // $sheet_grafico->setCellValue('E11', '75');
+        // $sheet_grafico->setCellValue('E12', '230');
+        // $sheet_grafico->setCellValue('M8', '40');
+        // $sheet_grafico->setCellValue('M9', '40');
+        // $sheet_grafico->setCellValue('M10', '20');
     
-        // Ajustar automáticamente los rangos del gráfico si es necesario
-        foreach ($spreadsheet->getActiveSheet()->getChartCollection() as $chart) {
-            $chart->refresh();
-        }
+        // // Ajustar automáticamente los rangos del gráfico si es necesario
+        // foreach ($spreadsheet->getActiveSheet()->getChartCollection() as $chart) {
+        //     $chart->refresh();
+        // }
     
         // Crear el escritor y asegurarse de incluir gráficos
         $writer = new Xlsx($spreadsheet);

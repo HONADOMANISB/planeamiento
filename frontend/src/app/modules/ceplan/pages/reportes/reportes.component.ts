@@ -25,9 +25,8 @@ export class ReportesComponent {
 
 
 changeTipoReporte() { 
-  console.log(this.rp)
     const perfil = localStorage.getItem('perfil'); 
-    this.visible = ((this.rp == 'RC' && perfil =='ADMIN') || this.rp=='RI') ? true : false;
+    this.visible = ((this.rp == 'RC' && perfil =='ADMIN') || this.rp=='RI' || this.rp=='RM') ? true : false;
     console.log(this.visible)
   }
 
@@ -39,15 +38,16 @@ reportes(){
        this.reporteCierre()
       break;
     case 'RI':
-      console.log('entro a invalidades')
       this.reporteInvalidados()
       break;
+    case 'RM':
+        this.reporteResumenMetas()
+        break;
     default:
       break;
   }
 }
   reporteInvalidados(){
-    console.log('reporte invalidadossss')
     const periodo=this.periodo
     const year=this.year
     const tipo=this.tipo
@@ -85,5 +85,23 @@ reporteCierre(){
           window.URL.revokeObjectURL(url);
       });
 }
- 
+reporteResumenMetas(){
+  const periodo=this.periodo
+  const year=this.year
+  const tipo=this.tipo
+  this.ProcesarEjecucionService$.reporteResumenMetas(periodo,year,tipo)
+      .pipe(
+             finalize(() => {
+              this.loading = false;
+          })
+      )
+      .subscribe((response: Blob) => {
+          const url = window.URL.createObjectURL(response);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Reporte de cierre de metas físicas de actividades operativas del mes ${periodo}.xlsx`;
+          a.click();
+          window.URL.revokeObjectURL(url);
+      });
+}
 }

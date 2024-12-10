@@ -332,7 +332,7 @@ export class ActividadOperComponent implements OnInit {
             successAlerta("Éxito", "Datos registrados correctamente");
             this.listarDetalles(this.actividad);
             this.detalle_motivo=''
-            this.listarActividadOperativa(this.servicio_ls, this.cb_year)
+           // this.listarActividadOperativa(this.servicio_ls, this.cb_year)
           });
       }
     });

@@ -41,6 +41,14 @@ export class ProcesarEjecucionService {
       tipo
   }, responseType: 'blob' });
  }
+ reporteResumenMetas(periodo:string,year:string,tipo:string){
+  return this.http.get('/api/mantenimiento/reporte-resumen-metas', { 
+    params:{
+      periodo,
+      year,
+      tipo
+  }, responseType: 'blob' });
+ }
 listarHistorial(datos: any) {
   return this.http
       .get<HttpResponseApi>('/api/mantenimiento/listar-historial', {
