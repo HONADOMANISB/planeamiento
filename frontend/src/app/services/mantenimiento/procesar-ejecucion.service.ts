@@ -41,10 +41,9 @@ export class ProcesarEjecucionService {
       tipo
   }, responseType: 'blob' });
  }
- reporteResumenMetas(periodo:string,year:string,tipo:string){
+ reporteResumenMetas(year:string,tipo:string){
   return this.http.get('/api/mantenimiento/reporte-resumen-metas', { 
     params:{
-      periodo,
       year,
       tipo
   }, responseType: 'blob' });
@@ -75,7 +74,14 @@ reporteExcelConsolidado(periodo:any,year:any,tipo:any){
       tipo
     }, responseType: 'blob' });
  }
-
+ reporteConsolidadoDetallado(periodo:any,year:any,tipo:any){
+  return this.http.get('/api/mantenimiento/reporte-consolidado-detallado', { 
+    params:{
+      periodo,
+      year,
+      tipo
+    }, responseType: 'blob' });
+ }
  listarBloqueo(){
   return this.http.post<HttpResponseApi>(
     '/api/mantenimiento/listar-info-bloqueos',

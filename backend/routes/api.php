@@ -100,13 +100,11 @@ Route::controller(UsuarioController::class)->group(function () {
     Route::post('mantenimiento/usuarios/anular-usuario', 'anularUsuario');
     Route::post('mantenimiento/usuarios/activar-usuario', 'activarUsuario');
     Route::post('mantenimiento/usuarios/reestablecer-usuario', 'reestablecerUsuario');
-
     Route::post('mantenimiento/usuarios/guardar-usuario', 'guardarUsuario');
     Route::post('mantenimiento/usuarios/editar-usuario', 'editarUsuario');
-
     Route::get('mantenimiento/usuarios/obtener-perfil', 'obtenerPerfil');
     Route::get('mantenimiento/usuarios/obtener-profesional', 'obtenerProfesional');
-
+    Route::get('mantenimiento/usuarios/reporte-usuarios', 'reporteUsuario');
 });
 
 Route::controller(ListarController::class)->group(function () {
@@ -122,6 +120,7 @@ Route::controller(ProcesarController::class)->group(function () {
     Route::get('mantenimiento/reporte-ppr-invalidados', 'reporteInvalidados');
     Route::get('mantenimiento/reporte-cierre', 'reporteCierre');
     Route::get('mantenimiento/reporte-resumen-metas', 'reporteResumenMetas');
+    Route::get('mantenimiento/reporte-consolidado-detallado', 'reporteConsolidadoDetallado');
     Route::get('mantenimiento/reporte-ppr-consolidado', 'reporteConsolidado');
     Route::post('mantenimiento/listar-info-bloqueos', 'listarBloqueos');
     

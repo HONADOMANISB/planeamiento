@@ -20,13 +20,13 @@ export class ReportesComponent {
   public tipo:any
   public periodo:any
   public rp:any
- 
+  public perfil = localStorage.getItem('perfil'); 
   public visible:boolean=false
 
 
 changeTipoReporte() { 
     const perfil = localStorage.getItem('perfil'); 
-    this.visible = ((this.rp == 'RC' && perfil =='ADMIN') || this.rp=='RI' || this.rp=='RM') ? true : false;
+    this.visible = ((this.rp == 'RC' && perfil =='ADMIN') || this.rp=='RI'|| this.rp=='RCD'  ) ? true : false;
     console.log(this.visible)
   }
 
@@ -43,6 +43,9 @@ reportes(){
     case 'RM':
         this.reporteResumenMetas()
         break;
+     case 'RCD':
+          this.reporteConsolidadoDetallado()
+          break;
     default:
       break;
   }
@@ -86,10 +89,9 @@ reporteCierre(){
       });
 }
 reporteResumenMetas(){
-  const periodo=this.periodo
   const year=this.year
   const tipo=this.tipo
-  this.ProcesarEjecucionService$.reporteResumenMetas(periodo,year,tipo)
+  this.ProcesarEjecucionService$.reporteResumenMetas(year,tipo)
       .pipe(
              finalize(() => {
               this.loading = false;
@@ -99,7 +101,26 @@ reporteResumenMetas(){
           const url = window.URL.createObjectURL(response);
           const a = document.createElement('a');
           a.href = url;
-          a.download = `Reporte de cierre de metas físicas de actividades operativas del mes ${periodo}.xlsx`;
+          a.download = `Reporte de Resumen de metas físicas de actividades operativas del año ${year}.xlsx`;
+          a.click();
+          window.URL.revokeObjectURL(url);
+      });
+}
+reporteConsolidadoDetallado(){
+  const periodo=this.periodo
+  const year=this.year
+  const tipo=this.tipo
+  this.ProcesarEjecucionService$.reporteConsolidadoDetallado(periodo,year,tipo)
+      .pipe(
+             finalize(() => {
+              this.loading = false;
+          })
+      )
+      .subscribe((response: Blob) => {
+          const url = window.URL.createObjectURL(response);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Reporte de Detallado del año ${year}.xlsx`;
           a.click();
           window.URL.revokeObjectURL(url);
       });

@@ -71,6 +71,15 @@ class ProcesarModel extends Model
         );
         return json_decode(json_encode($result), true);
     }
+    public function reporteConsolidadoDetallado($periodo,$year,$tipo)
+    {
+         $result=$this->conexion->select(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_reporte_consolidado_detalle ?,?,? ',
+            [$periodo,$year,$tipo]
+        );
+        return json_decode(json_encode($result), true);
+    }
     public function reporteTotal()
     {
          $result=$this->conexion->select(
@@ -80,12 +89,12 @@ class ProcesarModel extends Model
         );
         return json_decode(json_encode($result), true);
     }
-    public function reporteResumenMetas($periodo,$year,$tipo,$servicio)
+    public function reporteResumenMetas($year,$tipo,$servicio)
     {
          $result=$this->conexion->select(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_reporte_resumen_metas ?,?,?,? ',
-            [$year,$periodo,$tipo,$servicio]
+            'EXEC dbo.ex_sp_reporte_resumen_metas ?,?,? ',
+            [$year,$tipo,$servicio]
         );
         return json_decode(json_encode($result), true);
     }

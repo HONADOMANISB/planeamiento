@@ -66,4 +66,9 @@ export class UsuarioService {
             responseType: "json"
         });
     }
+    reporteUsuarios(){
+        return this.http.get('/api/mantenimiento/usuarios/reporte-usuarios', { 
+          params:{
+        }, responseType: 'blob' });
+       }
 }

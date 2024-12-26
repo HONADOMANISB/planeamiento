@@ -151,5 +151,14 @@ class UsuarioModel extends Model
         $smtp->closeCursor();
         return [$estado, trim($mensaje)];
     }
+    public function reporteUsuarios()
+    {
+         $result=$this->conexion->select(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_reporte_usuarios',
+            []
+        );
+        return $result;
+    }
 
 }

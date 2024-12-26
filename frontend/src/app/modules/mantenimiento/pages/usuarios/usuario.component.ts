@@ -9,6 +9,7 @@ import {errorAlerta, successAlerta} from "@shared/utils";
 import {IListaUsuario, IListaUsuarioParams} from "@interfaces/mantenimiento/usuario.interface";
 import {UsuarioService} from "@services/mantenimiento/usuario.service";
 import {ModalUsuarioComponent} from "@modules/mantenimiento/components/modal-usuario/modal-usuario.component";
+import { ProcesarEjecucionService } from '@services/mantenimiento/procesar-ejecucion.service';
 
 @Component({
     selector: 'app-usuarios',
@@ -150,6 +151,23 @@ export class UsuarioComponent {
                 });
         }
     }
+
+    reporteUsuarios(){
+        this.UsuariosService$.reporteUsuarios()
+            .pipe(
+                   finalize(() => {
+                    this.loading = false;
+                })
+            )
+            .subscribe((response: Blob) => {
+                const url = window.URL.createObjectURL(response);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `Reporte Usuarios.xlsx`;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            });
+      }
 
 
 }

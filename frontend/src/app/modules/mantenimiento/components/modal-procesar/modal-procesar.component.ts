@@ -67,7 +67,7 @@ export class ModalProcesarComponent {
   }
   public listarActividadOperativa(servicio?: any) {
     this.loading = true;
-    this.ActividadesService$.listarActividadesOperativas(servicio,this.year)
+    this.ActividadesService$.listarActividadesOperativas(servicio,this.year,this.mes)
         .pipe(
             finalize(() => {
                 this.loading = false;

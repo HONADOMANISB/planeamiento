@@ -84,8 +84,8 @@ export class ActividadOperComponent implements OnInit {
     this.servicio_ls = localStorage.getItem("servicio") || "";
     this.departamento = localStorage.getItem("departamento") || "";
     this.perfil = localStorage.getItem("perfil") || "";
-    if(this.perfil=='ADMIN'){
-        this.est_depart=false;
+    if(this.perfil=='ADMIN' || this.perfil=='ADM_GLB'){
+        this.est_depart =false;
     }
 
   }
@@ -140,7 +140,7 @@ export class ActividadOperComponent implements OnInit {
       .subscribe(({ estado, datos }) => {
         if (datos.length != 0) {
           this.actividades = datos;
-          this.actividad = datos[0].codigo_ppr;
+           this.actividad = datos[0].codigo_ppr;
           this.listarDetalles(this.actividad);
           this.listar_encabezado(this.actividad);
         } else {
@@ -175,8 +175,8 @@ export class ActividadOperComponent implements OnInit {
   }
   public cambioYear() {
     this.listarActividadOperativa(this.servicio_ls, this.cb_year);
-    this.listarDetalles(this.actividad);
-    this.listar_encabezado(this.actividad);
+    //this.listarDetalles(this.actividad);
+   // this.listar_encabezado(this.actividad);
   }
   public cambioMes() {
     this.listarActividadOperativa(this.servicio_ls, this.cb_year);
@@ -328,11 +328,11 @@ export class ActividadOperComponent implements OnInit {
               errorAlertaValidacion(mensaje, datos);
               return;
             }
-
+            this.cambioActividad()
             successAlerta("Éxito", "Datos registrados correctamente");
-            this.listarDetalles(this.actividad);
+            //this.listarDetalles(this.actividad);
             this.detalle_motivo=''
-           // this.listarActividadOperativa(this.servicio_ls, this.cb_year)
+  
           });
       }
     });
@@ -369,7 +369,7 @@ export class ActividadOperComponent implements OnInit {
               return;
             }
             successAlerta("Éxito", "Registro Invalidado");
-            this.listarDetalles(this.actividad);
+           // this.listarDetalles(this.actividad);
             this.detalle_motivo=''
             this.listarActividadOperativa(this.servicio_ls, this.cb_year)
           });

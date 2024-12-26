@@ -33,6 +33,11 @@
                                         <option value="RC">Reporte Cierre</option>
                                         <option value="RI">Reporte PPR Invalidados</option>
                                         <option value="RM">Resumen Metas</option>
+                                        @if(perfil=='ADMIN'){
+                                            <option value="RCO">Reporte Consolidado</option>
+                                            <option value="RCD">Reporte Consolidado Detallado</option>
+                                        }
+                                      
                                       </select>
                                 </div>
                                 @if(visible){
