@@ -17,7 +17,7 @@
 									 <div class="col-xl-2 ">
 										<div class="input-group input-group-sm ">
 											<div class="input-group-text d-ancho ">Mes</div>
-											<select name="" id="" class="form-select form-select-sm" [(ngModel)] ="cb_mes" (change)="cambioMes()">
+											<select name="" id="" class="form-select form-select-sm" [(ngModel)] ="cb_mes" (change)="cambioMes()" [disabled]="true">
 												<option value="">Seleccionar</option>
 												<option value="1">Enero</option>
 												<option value="2">Febrero</option>
@@ -166,7 +166,7 @@
 												<thead>
 													<tr>
 														<td></td>
-														<td colspan="2">POI {{year}} INICIAL</td>				
+														<td colspan="2">POI {{cb_year}} INICIAL</td>				
 													</tr>
 													<tr>
 														<td style="width: 40%">Periodo</td>
@@ -197,7 +197,7 @@
 													<thead>
 														<tr>
 															<td colspan="3">
-																POI {{year}}  V.01
+																POI {{cb_year}}  V.01
 															</td>				
 														</tr>
 														<tr>															
@@ -234,7 +234,7 @@
 												<thead>
 													<tr>														
 														<td colspan="3">
-															POI {{year}} ACTUALIZADO V.02
+															POI {{cb_year}} ACTUALIZADO V.02
 														</td>				
 													</tr>
 													<tr>
