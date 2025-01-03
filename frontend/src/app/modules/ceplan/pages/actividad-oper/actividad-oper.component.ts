@@ -138,7 +138,7 @@ export class ActividadOperComponent implements OnInit {
       .subscribe(({ estado, datos }) => {
         if (datos.length != 0) {
           this.actividades = datos;
-           this.actividad = datos[0].codigo_ppr;
+          this.actividad = datos[0].codigo_ppr;
           this.listarDetalles(this.actividad);
           this.listar_encabezado(this.actividad);
         } else {
@@ -310,10 +310,15 @@ export class ActividadOperComponent implements OnInit {
       confirmButtonText: "Sí",
       denyButtonText: "No",
     }).then((result) => {
-      if ((this.estado == "DEFICIENTE" || this.estado == "EXCESO") && !mt) {
-        warningAlerta("Warning", "Es Obligatorio Ingresar el Motivo");
+      if(fs=='') {
+        warningAlerta("Warning", "Es Obligatorio Ingresar el valor ejecutado")
         return;
       }
+      if (((this.estado == "DEFICIENTE" || this.estado == "EXCESO") && !mt)) {
+        warningAlerta("Warning", "Es Obligatorio Ingresar el Motivo")
+         return;
+      }
+      
       if (result.isConfirmed) {
         this.ActividadesService$.registrarPoi(fs, mt, id, this.actividad, tipo,this.tipoEstadoR,this.detalle_motivo)
           .pipe(
@@ -326,9 +331,17 @@ export class ActividadOperComponent implements OnInit {
               errorAlertaValidacion(mensaje, datos);
               return;
             }
-            this.cambioActividad()
             successAlerta("Éxito", "Datos registrados correctamente");
             //this.listarDetalles(this.actividad);
+            
+            this.actividades.forEach((prop)=>{
+              console.log(prop.codigo_ppr)
+              console.log(this.actividad)
+                 if(prop.codigo_ppr==this.actividad){
+                    prop.estado='REGISTRADO'
+                 }   
+            })
+            console.log(this.actividades)
             this.detalle_motivo=''
   
           });
