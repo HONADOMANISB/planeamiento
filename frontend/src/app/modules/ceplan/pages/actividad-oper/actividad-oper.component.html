@@ -85,9 +85,9 @@
                                                           [items]="actividades"
                                                                 bindLabel ="act" 
                                                                 bindValue ="codigo_ppr" 
-																autocomplete="off"
 																[clearable]="false" 
-                                                                class="d-block form-control"
+																autocomplete="off webauthn"
+                                                                class="d-block form-control autocompleteOff"
                                                                 style="font-size: 0.8rem; height: auto; "                           
 																(change)="cambioActividad()"> 
 																<ng-template ng-option-tmp let-item="item" let-index="index">
