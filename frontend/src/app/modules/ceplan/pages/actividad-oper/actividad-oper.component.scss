@@ -57,9 +57,7 @@ input{
   .validado-icono { color: green;  
 } 
 .invalidado-icono { color: red; }
-.autocompleteOff{
-    -webkit-text-security: disc;
- }
+
  ::ng-deep .ng-select .ng-select-container .ng-value-container .ng-input > input [aria-autocomplete] {
     visibility: hidden;
   }
