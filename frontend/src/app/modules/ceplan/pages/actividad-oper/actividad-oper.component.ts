@@ -27,8 +27,8 @@ export class ActividadOperComponent implements OnInit {
   @ViewChildren("ejecutado") inputs!: QueryList<ElementRef>;
   @ViewChildren("ejecutado_pr") inputs_pr!: QueryList<ElementRef>;
   @ViewChildren("ejecutado_sr") inputs_sr!: QueryList<ElementRef>;
-  public cb_year: any = new Date().getFullYear();
-  public cb_mes:any = new Date().getMonth();
+  public cb_mes:any = (new Date().getMonth()==0)? 12:new Date().getMonth()-1 ;
+  public cb_year: any = (new Date().getMonth()==0)? new Date().getFullYear()-1:new Date().getFullYear();
   public actividades: any[] = [];
   public detalles: any[] = [];
   public detalles_pr: any[] = [];
@@ -54,7 +54,6 @@ export class ActividadOperComponent implements OnInit {
   public trazadora: string = "";
   public definicion_operacional: string = "";
   public default: string = "";
-  public year: string = "";
   public codigo_ppr: string = "";
   public insert: string = "";
   public tipo_usuario = "";
@@ -65,8 +64,9 @@ export class ActividadOperComponent implements OnInit {
   public est_depart:boolean=true
   public mes: any = "";
   public tipoEstadoR=''
-  public year_actual = new Date().getFullYear();
+  public year_actual = (new Date().getMonth()==0)? new Date().getFullYear()-1:new Date().getFullYear();
   public detalle_motivo=''
+
   constructor(
     private ActividadesService$: RegistroActividadesService,
     public router: Router
@@ -124,12 +124,10 @@ export class ActividadOperComponent implements OnInit {
     this.trazadora = data[0].TRAZADORA_TAREA;
     this.departamento_info = data[0].DEPARTAMENTO;
     this.servicio=data[0].SERVICIO;
-    this.year = data[0].YEAR;
     this.definicion_operacional = data[0].DEFINICION_OPERACIONAL;
     this.codigo_ppr = data[0].CODIGO_PPR.trim();
   }
   public listarActividadOperativa(servicio: any, year: any) {
-
     this.loading = true;
     this.ActividadesService$.listarActividadesOperativas(servicio, year,this.cb_mes)
       .pipe(
@@ -261,7 +259,7 @@ export class ActividadOperComponent implements OnInit {
     this.loading = true;
     this.ActividadesService$.generarReportePOI(
       mes,
-      this.year,
+      this.year_actual,
       this.codigo_ppr,
       tipo
     )
@@ -274,7 +272,7 @@ export class ActividadOperComponent implements OnInit {
         const fileURL = URL.createObjectURL(response);
         const downloadLink = document.createElement("a");
         downloadLink.href = fileURL;
-        downloadLink.download = `REPORTE_${mes}${this.codigo_ppr}_${this.year}`;
+        downloadLink.download = `REPORTE_${mes}${this.codigo_ppr}_${this.year_actual}`;
         document.body.appendChild(downloadLink);
         downloadLink.click();
       });
@@ -283,7 +281,7 @@ export class ActividadOperComponent implements OnInit {
     this.loading = true;
     this.ActividadesService$.generarReportePOIExcel(
       mes,
-      this.year,
+      this.year_actual,
       this.codigo_ppr,
       tipo
     )
@@ -297,7 +295,7 @@ export class ActividadOperComponent implements OnInit {
         const fileURL = URL.createObjectURL(response);
         const downloadLink = document.createElement("a");
         downloadLink.href = fileURL;
-        downloadLink.download = `REPORTE_${mes}${this.codigo_ppr}_${this.year}`;
+        downloadLink.download = `REPORTE_${mes}${this.codigo_ppr}_${this.year_actual}`;
         document.body.appendChild(downloadLink);
         downloadLink.click();
       });
@@ -379,7 +377,7 @@ export class ActividadOperComponent implements OnInit {
   public cerrarActividades() {
     const currentDate = new Date();
     const month = currentDate.getMonth() ;
-    const year=this.year;
+    const year=this.year_actual;
     Swal.fire({
       icon: "warning",
       title: ` ¿ Desea cerrar el registro de actividades ?`,
@@ -527,5 +525,6 @@ export class ActividadOperComponent implements OnInit {
         Swal.fire({ title: 'Motivo', 
           text: this.detalle_motivo,
            icon: 'info', 
-           confirmButtonText: 'Ok' }); } }
+           confirmButtonText: 'Ok' }); } 
+      }
 }
