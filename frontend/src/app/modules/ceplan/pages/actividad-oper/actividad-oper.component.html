@@ -86,7 +86,7 @@
                                                                 bindLabel ="act" 
                                                                 bindValue ="codigo_ppr" 
 																[clearable]="false" 
-																autocomplete="off "
+																autocomplete="new-password"
                                                                 class="d-block form-control autocompleteOff"
                                                                 style="font-size: 0.8rem; height: auto; "                           
 																(change)="cambioActividad()"> 
@@ -217,7 +217,7 @@
 															</td>
 															<td>
 																<input type="text" class="form-control form-control-sm" [(ngModel)]="
-																		detalle.EJECUTADO"  [disabled]="cerrar_registro(detalle.FECHA_BLOQUEO,detalle.TIPO_REGISTRO)"  #ejecutado_pr  autocomplete="off"/> 
+																		detalle.EJECUTADO"  [disabled]="cerrar_registro(detalle.FECHA_BLOQUEO,detalle.TIPO_REGISTRO)"  #ejecutado_pr  autocomplete="new-password"/> 
 																 
 															</td>														
 														</tr>

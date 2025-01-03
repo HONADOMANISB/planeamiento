@@ -58,3 +58,4 @@ input{
 } 
 .invalidado-icono { color: red; }
 
+::ng-deep ng-select input { autocomplete: new-password; }
