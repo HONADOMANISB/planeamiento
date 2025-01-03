@@ -92,8 +92,8 @@
 																(change)="cambioActividad()"> 
 																<ng-template ng-option-tmp let-item="item" let-index="index">
 																	<span>{{ item.act }}</span>
-																	<span *ngIf="item.estado === 'VALIDADO' || item.estado === 'REGISTRADO'" class="validado-icono"><i class="fas fa-check"></i> validado</span>
-																	<span *ngIf="item.estado === 'INVALIDADO'" class="invalidado-icono"><i class="fas fa-times"></i></span>
+																	<span *ngIf="item.estado === 'VALIDADO' || item.estado === 'REGISTRADO'" class="validado-icono"><i class="fas fa-check"></i> Validado</span>
+																	<span *ngIf="item.estado === 'INVALIDADO'" class="invalidado-icono"><i class="fas fa-times">Invalidado</i></span>
 																  </ng-template>
 																  
                                             </ng-select >								
