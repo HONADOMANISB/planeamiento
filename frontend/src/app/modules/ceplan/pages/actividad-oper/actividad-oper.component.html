@@ -86,8 +86,7 @@
                                                                 bindLabel ="act" 
                                                                 bindValue ="codigo_ppr" 
 																[clearable]="false" 
-																autocomplete="new-password"
-                                                                class="d-block form-control autocompleteOff"
+                                                                class="d-block form-control "
                                                                 style="font-size: 0.8rem; height: auto; "                           
 																(change)="cambioActividad()"> 
 																<ng-template ng-option-tmp let-item="item" let-index="index">
@@ -217,7 +216,7 @@
 															</td>
 															<td>
 																<input type="text" class="form-control form-control-sm" [(ngModel)]="
-																		detalle.EJECUTADO"  [disabled]="cerrar_registro(detalle.FECHA_BLOQUEO,detalle.TIPO_REGISTRO)"  #ejecutado_pr  autocomplete="new-password"/> 
+																		detalle.EJECUTADO"  [disabled]="cerrar_registro(detalle.FECHA_BLOQUEO,detalle.TIPO_REGISTRO)"  #ejecutado_pr  autocomplete="off" name="ejecutado"/> 
 																 
 															</td>														
 														</tr>

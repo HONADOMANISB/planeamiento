@@ -551,18 +551,18 @@ class ProcesarController extends JSONResponseController
             $sheet->setCellValue('BB' . $row, "=X" . $row . "+" . "AH" . $row . "+" . "AR" . $row . "+" . "AV" . $row . "+" . "AX" . $row . "+" . "AZ" . $row);
             $sheet->setCellValue('BC' . $row, "=BB" . $row . "/" . "BA" . $row);
             $sheet->setCellValue('BD' . $row, "=IF(BC" . $row . "<=0.85,\"DEFICIENTE\",IF(BC" . $row . "<=0.90,\"REGULAR\",IF(BC" . $row . "<=1.20,\"BUENO\",\"EXCESO\")))");
-            $sheet->setCellValue('BE' . $row, ($valor['MT_ENERO'] == 'OTROS') ? $valor['MTD_ENERO'] : $valor['MT_ENERO']);
-            $sheet->setCellValue('BF' . $row, ($valor['MT_FEBRERO'] == 'OTROS') ? $valor['MTD_FEBRERO'] : $valor['MT_FEBRERO']);
-            $sheet->setCellValue('BG' . $row, ($valor['MT_MARZO'] == 'OTROS') ? $valor['MTD_MARZO'] : $valor['MT_MARZO']);
-            $sheet->setCellValue('BH' . $row, ($valor['MT_ABRIL'] == 'OTROS') ? $valor['MTD_ABRIL'] : $valor['MT_ABRIL']);
-            $sheet->setCellValue('BI' . $row, ($valor['MT_MAYO'] == 'OTROS') ? $valor['MTD_MAYO'] : $valor['MT_MAYO']);
-            $sheet->setCellValue('BJ' . $row, ($valor['MT_JUNIO'] == 'OTROS') ? $valor['MTD_JUNIO'] : $valor['MT_JUNIO']);
-            $sheet->setCellValue('BK' . $row, ($valor['MT_JULIO'] == 'OTROS') ? $valor['MTD_JULIO'] : $valor['MT_JULIO']);
-            $sheet->setCellValue('BL' . $row, ($valor['MT_AGOSTO'] == 'OTROS') ? $valor['MTD_AGOSTO'] : $valor['MT_AGOSTO']);
-            $sheet->setCellValue('BM' . $row, ($valor['MT_SETIEMBRE'] == 'OTROS') ? $valor['MTD_SETIEMBRE'] : $valor['MT_SETIEMBRE']);
+            $sheet->setCellValue('BE' . $row, ($valor['MT_ENERO'] == 'Otros') ? $valor['MTD_ENERO'] : $valor['MT_ENERO']);
+            $sheet->setCellValue('BF' . $row, ($valor['MT_FEBRERO'] == 'Otros') ? $valor['MTD_FEBRERO'] : $valor['MT_FEBRERO']);
+            $sheet->setCellValue('BG' . $row, ($valor['MT_MARZO'] == 'Otros') ? $valor['MTD_MARZO'] : $valor['MT_MARZO']);
+            $sheet->setCellValue('BH' . $row, ($valor['MT_ABRIL'] == 'Otros') ? $valor['MTD_ABRIL'] : $valor['MT_ABRIL']);
+            $sheet->setCellValue('BI' . $row, ($valor['MT_MAYO'] == 'Otros') ? $valor['MTD_MAYO'] : $valor['MT_MAYO']);
+            $sheet->setCellValue('BJ' . $row, ($valor['MT_JUNIO'] == 'Otros') ? $valor['MTD_JUNIO'] : $valor['MT_JUNIO']);
+            $sheet->setCellValue('BK' . $row, ($valor['MT_JULIO'] == 'Otros') ? $valor['MTD_JULIO'] : $valor['MT_JULIO']);
+            $sheet->setCellValue('BL' . $row, ($valor['MT_AGOSTO'] == 'Otros') ? $valor['MTD_AGOSTO'] : $valor['MT_AGOSTO']);
+            $sheet->setCellValue('BM' . $row, ($valor['MT_SETIEMBRE'] == 'Otros') ? $valor['MTD_SETIEMBRE'] : $valor['MT_SETIEMBRE']);
             $sheet->setCellValue('BN' . $row, ($valor['MT_OCTUBRE'] == 'Otros') ? $valor['MTD_OCTUBRE'] : $valor['MT_OCTUBRE']);
             $sheet->setCellValue('BO' . $row, ($valor['MT_NOVIEMBRE'] == 'Otros') ? $valor['MTD_NOVIEMBRE'] : $valor['MT_NOVIEMBRE']);
-            $sheet->setCellValue('BP' . $row, ($valor['MT_DICIEMBRE'] == 'OTROS') ? $valor['MTD_DICIEMBRE'] : $valor['MT_DICIEMBRE']);
+            $sheet->setCellValue('BP' . $row, ($valor['MT_DICIEMBRE'] == 'Otros') ? $valor['MTD_DICIEMBRE'] : $valor['MT_DICIEMBRE']);
 
             // Obtener el valor de la celda BJ después de calcular la fórmula
             $valoracionZ = $sheet->getCell('Z' . $row)->getCalculatedValue();
