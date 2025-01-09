@@ -389,7 +389,7 @@ export class ActividadOperComponent implements OnInit {
   }
   public cerrarActividades() {
     const currentDate = new Date();
-    const month = currentDate.getMonth() ;
+    const month = this.cb_mes;
     const year=this.year_actual;
     Swal.fire({
       icon: "warning",
