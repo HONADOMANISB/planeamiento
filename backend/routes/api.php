@@ -49,11 +49,14 @@ Route::controller(CeplanController::class)->group(function () {
     Route::post('ceplan/listar-departamentos', 'listarDepartamentos');
     Route::post('ceplan/listar-motivos', 'listarMotivos');
     Route::post('ceplan/listar-servicios', 'listarServicios');
+    Route::post('ceplan/listar-logros', 'listarLogros');
     Route::post('ceplan/registrar-poi', 'guardarPoi');
     Route::post('ceplan/invalidar-poi', 'InvalidarPoi');
     Route::post('ceplan/cerrar-actividades', 'cerrarActividades');
     Route::get('ceplan/generar-reporte-detalle-poi', 'generarReporteDetallePOI');
     Route::get('ceplan/generar-reporte-detalle-poi-excel', 'generarReporteDetallePOIExcel');
+    Route::post('ceplan/registrar-logros', 'RegistrarLogros');
+    Route::post('ceplan/listar-actividades-operativas-logros', 'listarActividadesLogros');
 });
 
 

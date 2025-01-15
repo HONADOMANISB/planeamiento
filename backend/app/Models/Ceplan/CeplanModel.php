@@ -181,4 +181,28 @@ class CeplanModel extends Model
             [$id,$year,$usuario,$equipo,$perfil]
         );
     }
+    public function registrarLogros($periodo,$año,$logro,$dificultad,$accion_mejora,$accion_correctiva,$actividad,$usuario,$equipo,$perfil)
+    {
+        return $this->conexion->update(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_registrar_logros ?,?,?,?,?,?,?,?,?,?',
+            [$periodo,$año,$logro,$dificultad,$accion_mejora,$accion_correctiva,$actividad,$usuario,$equipo,$perfil]
+        );
+    }
+    public function listarActividadesLogros($servicio,$perfil,$year)
+    {
+        return $this->conexion->select(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_listar_actividades_logros ?,?,?',
+            [$servicio,$perfil,$year]
+        );
+    }
+    public function listarLogros($trimestre,$year,$actividad)
+    {
+        return $this->conexion->select(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_listar_logros ?,?,?',
+            [$trimestre,$year,$actividad]
+        );
+    }
 }

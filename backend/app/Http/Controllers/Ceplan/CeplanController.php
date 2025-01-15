@@ -360,4 +360,38 @@ public function cerrarActividades(Request $request){
     return $this->sendResponse(200, true,'',$response);
   
 }
+
+public function registrarLogros(Request $request){
+    [$usuario, $perfil, $equipo] = $this->getHost($request);
+    $periodo=$request->post('periodo');
+    $año=$request->post('año');
+    $logro=$request->post('logro');
+    $dificultad=$request->post('dificultad');
+    $accion_mejora=$request->post('accion_mejora');
+    $accion_correctiva=$request->post('accion_correctiva');
+    $actividad=$request->post('actividad');
+    $activity=new CeplanModel();
+
+   
+    $response=$activity->registrarLogros($periodo,$año,$logro,$dificultad,$accion_mejora,$accion_correctiva,$actividad,$usuario,$equipo,$perfil);
+    return $this->sendResponse(200, true,'',$response);
+  
+}
+public function listarActividadesLogros(Request $request){
+    $user = $request->user();
+    $perfil = $user->id_perfil;
+    $servicio=$request->post('servicio');
+    $year=$request->post('cb_year');
+    $actividad=new CeplanModel();
+    $resultado=$actividad->listarActividadesLogros($servicio,$perfil,$year);
+    return $this->sendResponse(200, true,'',$resultado);
+}
+public function listarLogros(Request $request){
+    $trimestre=$request->post('cb_trimestre');
+    $year=$request->post('cb_year');
+    $actividad=$request->post('actividad');
+    $con=new CeplanModel();
+    $resultado=$con->listarLogros($trimestre,$year,$actividad);
+    return $this->sendResponse(200, true,'',$resultado);
+}
 }

@@ -1,1 +1,220 @@
-<p>logros works!</p>
+<app-breadcrumb [rutas]="rutas" [titulo]="'Logros'"></app-breadcrumb>
+<div class="row">
+	<div class="col-xl-12">
+		<div class="card">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-xl-auto col-md-auto col-sm-auto"></div>
+				</div>
+				<div class="row pt-2">
+					<div class="col-xl-12">
+						<app-loading [mostrar]="loading">
+							<div class="card">
+								<div class="card-header d-flex justify-content-between">
+									 <span class="col-7">
+										
+									 </span>
+									 <div class="col-xl-2 ">
+										<div class="input-group input-group-sm ">
+
+											<select name="" id="" class="form-select form-select-sm" [(ngModel)] ="cb_trimestre" (change)="cambioMes()" >
+												
+												<option value="1">I Trimestre</option>
+												<option value="2">II Trimestre</option>
+												<option value="3">III Trimestre</option>
+												<option value="4">IV Trimestre</option>
+											 </select>
+										</div>
+									</div>		
+									 <div class="col-xl-2 ">
+										<div class="input-group input-group-sm ">
+											<div class="input-group-text d-ancho ">Año</div>
+											<select name="" id="" class="form-select form-select-sm" [(ngModel)] ="cb_year" (change)="cambioYear()">
+												<option value="2024">2024</option>
+												<option value="2025">2025</option>
+												   <option value="2026">2026</option>
+												<option value="2027">2027</option>
+												<option value="2028">2028</option>
+												<option value="2029">2029</option>
+											 </select>
+										</div>
+									</div>									
+								</div>
+								<div class="card-body">
+									<div class="row mb-3">
+										<div class="col-xl-6">
+											<div class="input-group input-group-sm ">
+												<div class="input-group-text ">DEPARTAMENTO</div>
+												<ng-select  [(ngModel)] ="departamento"
+														[items]="departamentos"
+														bindLabel ="DESCRIPCION" 
+														bindValue ="ID" 
+														[disabled]="est_depart"
+														class="d-block form-control"
+														(change)="changeUnidad()"
+														style="font-size: 0.8rem; height: auto; "> 
+												 </ng-select >
+											</div>
+										</div>
+										<div class="col-xl-6">
+											<div class="input-group input-group-sm ">
+												<div class="input-group-text ">SERVICIO</div>
+												<ng-select  [(ngModel)] ="servicio_ls"
+														[items]="servicios"
+														bindLabel ="SERVICIO"
+														bindValue ="SERVICIO"
+														[disabled]="est_depart"
+														(change)="changeServicio()"
+														class="d-block form-control"
+														style="font-size: 0.8rem; height: auto; "> 
+												 </ng-select >
+											</div>
+										</div>
+									</div>
+									<div class="row mb-2 d-flex justify-content-between align-items-center">
+										<div class="col-xl-12">
+											<ng-select  [(ngModel)] ="actividad"
+                                                          [items]="actividades"
+                                                                bindLabel ="act" 
+                                                                bindValue ="codigo_ppr" 
+																[clearable]="false" 
+                                                                class="d-block form-control "
+                                                                style="font-size: 0.8rem; height: auto; "                           
+																(change)="cambioActividad()"> 
+																
+																  
+                                            </ng-select >								
+										</div>
+								
+									</div>
+									<table class="table-borderless">
+										<tbody>
+											<!-- <tr>
+												<td><b>DEPARTAMENTO/OFICINA</b></td>
+												<td>{{ departamento_info }}</td>
+											</tr>
+											<tr>
+												<td><b>SERVICIO/EQUIPO</b></td>
+												<td>{{ servicio }}</td>
+											</tr>
+											 -->
+											 <tr>
+												<td style="width: 150px;"><b>OBJETIVO ESTRATEGICO</b></td>
+												<td>{{ oei + " " + objetivo_estrategico }}</td>
+											</tr>
+											<tr>
+												<td><b>ACCION ESTRATEGICA</b></td>
+												<td>{{ aei + " " + accion_estrategico }}</td>
+											</tr>
+											<!-- <tr>
+												<td><b>CATEGORIA PRESUPUESTAL</b></td>
+												<td>{{ categoria_presupuestal }}</td>
+											</tr>
+											<tr>
+												<td><b>ACTIVIDAD PRESUPUESTAL</b></td>
+												<td>{{ actividad_presupuestal }}</td>
+											</tr>
+											<tr>
+												<td><b>ACTIVIDAD OPERATIVA</b></td>
+												<td>{{ actividad_operativa }}</td>
+											</tr>
+											<tr>
+												<td><b>ACTIVIDAD OPERATIVA ID</b></td>
+												<td>{{ actividad_operativa_id }}</td>
+											</tr>
+											<tr>
+												<td><b>UNIDAD DE MEDIDA</b></td>
+												<td>{{ unidad_medida }}</td>
+											</tr>
+											<tr>
+												<td><b>TRAZADORA</b></td>
+												<td>{{ trazadora }}</td>
+											</tr> -->
+										
+										</tbody>
+									</table>
+                                    <div class="row mt-4">
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+													<h4 class="card-title">Consideraciones</h4>
+													<p>Según el Diccionario de la Lengua Española la palabra “Logro” deriva Del lat. lucrum. 
+														1.m. Acción y efecto de lograr: Sin.: éxito, consecución, resultado.</p>
+														<ul> <li>Para efectos del planeamiento operativo, se deberá identificar la o las actividades que hayan generado un resultado o éxito en el trimestre respectivo, de encontrar el mismo, se debe completar la información solicitada en relación a ello.</li>
+															 <li>No todas las actividades operativas generan logros.</li> 
+															 <li>Un logro no corresponde al cumplimiento de la meta física programada.</li>
+															  <li>En el caso que la actividad operativa hubiera presentado dificultades deberá registrarlo.</li> 
+															  <li>Para este último caso, consignar la acción de mejora y la recomendación que amerite.</li> 
+														</ul>
+                                                   <span class="mt-1"></span>
+                                                  <h4 class="card-title">Indicaciónes</h4>
+                                                    <p class="card-title-desc"><b>(1) Logro alcanzado :</b> Resultado que se ha conseguido por la implementación exitosa de actividades operativas</p>
+                                                    <p class="card-title-desc"><b>(2) Dificultad      : </b> Inconveniente que impidío la ejecución exitosa de las actividades operativas según opción desplegable en el MOPLAN</p>
+                                                    <p class="card-title-desc"><b>(3) Acción Correctiva:</b> Medidas especificas diseñadas para abordar las dificultades que afectan la ejecución de actividades operativas</p>
+													<p class="card-title-desc"><b>(4) Recomendaciones de Mejora:</b> Medidas especificas que permiten ser sostenibles para la ejecuciónde actividades operativas.
+													El precitado Anexo , será clgado en el drive destinado para tal fin, en el caul se consignará el OEI y la AEI articulada a los órganos y unidades orgánicas correspondientes</p>
+                                                </div><!-- end card header -->
+            
+												<div class="card-body">
+													<div class="row">
+														<div class="col-md-3 d-flex align-items-start flex-column bd-highlight ">
+															<div class="nav flex-column nav-pills mb-auto  bd-highlight w-100" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+															<a class="nav-link mb-2 active" id="v-pills-home-tab" data-bs-toggle="pill" href="#v-pills-home" role="tab" aria-controls="v-pills-home" aria-selected="true">Logro alcanzado (1)</a>
+															<a class="nav-link mb-2" id="v-pills-profile-tab" data-bs-toggle="pill" href="#v-pills-profile" role="tab" aria-controls="v-pills-profile" aria-selected="false" tabindex="-1">Dificultad (2)</a>
+															<a class="nav-link mb-2" id="v-pills-messages-tab" data-bs-toggle="pill" href="#v-pills-messages" role="tab" aria-controls="v-pills-messages" aria-selected="false" tabindex="-1">Acciones correctivas (3)</a>
+															<a class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" href="#v-pills-settings" role="tab" aria-controls="v-pills-settings" aria-selected="false" tabindex="-1">Acciones de mejora (4)</a>
+														
+														    </div>
+														<div class="row p-2 bd-highlight w-100 ">
+															<button class="btn bg-prim w-100" (click)="registrarLogro()"> <i class="fas fa-save me-3"></i>Guardar</button>
+														 </div>	
+														</div><!-- end col -->
+														<div class="col-md-9">
+															<div class="tab-content text-muted mt-4 mt-md-0" id="v-pills-tabContent">
+																<div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+																	<div class="mb-3">
+	
+																		<textarea class="form-control" id="exampleFormControlTextarea1" rows="20" [(ngModel)]="logro"></textarea>
+																	  </div>	
+																</div>
+																<div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+																	<div class="mb-3">
+																
+																		<textarea class="form-control" id="exampleFormControlTextarea1" rows="20" [(ngModel)]="dificultad"></textarea>
+																	  </div>
+																</div>
+																<div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+																	<div class="mb-3">
+																	
+																		<textarea class="form-control" id="exampleFormControlTextarea1" rows="20" [(ngModel)]="accion_correctiva"></textarea>
+																	  </div>
+																</div>
+																<div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+																	<div class="mb-3">
+																		
+																		<textarea class="form-control" id="exampleFormControlTextarea1" rows="20" [(ngModel)]="accion_mejora"></textarea>
+																	  </div>
+																</div>
+															</div>
+															<div class="row">
+																<p><b>(*) Las fotos y/o videos a cargar deben ser alcanzados al correo electronico planeamientoyorg&#64;gmail.com</b></p>
+															</div>
+														</div><!--  end col -->
+													</div><!-- end row -->
+
+
+												</div>
+                                            </div>
+                                        </div>
+                                    
+                                    </div>
+									
+								</div>
+							</div>
+						</app-loading>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

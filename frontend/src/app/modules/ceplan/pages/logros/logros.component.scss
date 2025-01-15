@@ -1,0 +1,14 @@
+tr td{
+    font-size: 12px;
+
+
+}
+table{
+    border-collapse: separate;
+    border-spacing: 5px;
+
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: var(--bs-nav-pills-link-active-color);
+    background-color: rgba(0, 171, 250, 0.986)
+}

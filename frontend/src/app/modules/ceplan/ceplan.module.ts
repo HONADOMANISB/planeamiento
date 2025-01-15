@@ -11,6 +11,7 @@ import { CargaExportaComponent } from './pages/carga-exporta/carga-exporta.compo
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ReportesComponent } from './pages/reportes/reportes.component';
+import { LogrosComponent } from './pages/logros/logros.component';
 
 
 
@@ -18,7 +19,8 @@ import { ReportesComponent } from './pages/reportes/reportes.component';
   declarations: [
     ActividadOperComponent,
     CargaExportaComponent,
-    ReportesComponent
+    ReportesComponent,
+    LogrosComponent
   ],
   imports: [
     CommonModule,
