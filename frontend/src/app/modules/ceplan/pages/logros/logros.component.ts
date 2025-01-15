@@ -77,6 +77,7 @@ loading: boolean = false;
      this.listarDepartamentos()
      this.listarServicios(this.departamento)
      this.listarActividadOperativa(this.servicio_ls, this.year_actual);
+     this.listarLogros()
      
  
   }
@@ -159,6 +160,7 @@ loading: boolean = false;
    // this.listar_encabezado(this.actividad);
   }
   public cambioMes() {
+    this.listarLogros()
    // this.listarActividadOperativa(this.servicio_ls, this.cb_year);
   }
 
