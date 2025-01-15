@@ -77,7 +77,7 @@ loading: boolean = false;
      this.listarDepartamentos()
      this.listarServicios(this.departamento)
      this.listarActividadOperativa(this.servicio_ls, this.year_actual);
-     this.listarLogros()
+     
      
  
   }
@@ -106,6 +106,8 @@ loading: boolean = false;
           this.actividad = datos[0].codigo_ppr;
          // this.listarDetalles(this.actividad);
           this.listar_encabezado(this.actividad);
+          this.listarLogros()
+
         } else {
           warningAlerta(
             "Advertencia",
@@ -139,13 +141,14 @@ loading: boolean = false;
           this.loading = false;
         })
       )
-      .subscribe(({ estado, datos }) => {
-        if (datos.length != 0) {
-          this.listar_encabezado(this.actividad);
+      .subscribe(({ estado, datos }) => {        
+         console.log(datos)
           this.logros = datos;
-          this.logro=datos[0].LOGRO
-          console.log(datos[0].LOGRO)
-        } 
+          this.logro=datos[0]?.LOGRO
+          this.dificultad=datos[0]?.DIFICULTAD
+          this.accion_mejora=datos[0]?.ACCION_MEJORA
+          this.accion_correctiva=datos[0]?.ACCION_CORRECTIVA
+        
       });
   }
   public cambioActividad() {
@@ -156,6 +159,7 @@ loading: boolean = false;
   }
   public cambioYear() {
     this.listarActividadOperativa(this.servicio_ls, this.cb_year);
+    this.listarLogros()
     //this.listarDetalles(this.actividad);
    // this.listar_encabezado(this.actividad);
   }
@@ -189,7 +193,7 @@ loading: boolean = false;
       )
       .subscribe(({ estado, datos }) => {
         if(estado){  successAlerta("Éxito", "Información registrada");}
-
+        this.listarLogros()
       });
   
   }
