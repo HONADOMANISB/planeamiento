@@ -134,17 +134,19 @@ reporteLogros(){
   const trimestre=this.trimestre
   const year=this.year
   const tipo=this.tipo
-  this.ProcesarEjecucionService$.reporteConsolidadoDetallado(trimestre,year,tipo)
+  console.log(this.trimestre)
+  this.ProcesarEjecucionService$.reporteLogros(trimestre,year,tipo)
       .pipe(
              finalize(() => {
               this.loading = false;
           })
       )
       .subscribe((response: Blob) => {
+        console.log(this.trimestre)
           const url = window.URL.createObjectURL(response);
           const a = document.createElement('a');
           a.href = url;
-          a.download = `Reporte  de Logros del ${year} trimestre.xlsx`;
+          a.download = `Reporte  de Logros del ${year} - ${this.trimestre}  trimestre.xlsx`;
           a.click();
           window.URL.revokeObjectURL(url);
       });

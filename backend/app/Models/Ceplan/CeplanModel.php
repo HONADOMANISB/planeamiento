@@ -184,12 +184,12 @@ class CeplanModel extends Model
             [$id,$year,$usuario,$equipo,$perfil]
         );
     }
-    public function registrarLogros($periodo,$año,$logro,$dificultad,$accion_mejora,$accion_correctiva,$actividad,$usuario,$equipo,$perfil)
+    public function registrarLogros($periodo,$año,$logro,$dificultad,$accion_mejora,$accion_correctiva,$actividad,$servicio,$usuario,$equipo,$perfil)
     {
         return $this->conexion->update(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_registrar_logros ?,?,?,?,?,?,?,?,?,?',
-            [$periodo,$año,$logro,$dificultad,$accion_mejora,$accion_correctiva,$actividad,$usuario,$equipo,$perfil]
+            'EXEC dbo.ex_sp_registrar_logros ?,?,?,?,?,?,?,?,?,?,?',
+            [$periodo,$año,$logro,$dificultad,$accion_mejora,$accion_correctiva,$actividad,$servicio,$usuario,$equipo,$perfil]
         );
     }
     public function listarActividadesLogros($servicio,$perfil,$year)

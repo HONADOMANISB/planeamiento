@@ -892,29 +892,37 @@ class ProcesarController extends JSONResponseController
         // Obtener la hoja activa
         $report = new ProcesarModel();
         $data = $report->reporteLogros($periodo,$year,$tipo,$servicio);
-        $row = 15;
-
-
+        $row = 15;     
         $sheet = $spreadsheet->getActiveSheet();
-        foreach ($data as $value) {
-            $sheet->setCellValue('B' . $row, $value->OEI);
-            $sheet->setCellValue('C' . $row, $value->OBJETIVO_ESTRATEGICO);
-            $sheet->setCellValue('D' . $row, $value->AEI);
-            $sheet->setCellValue('E' . $row, $value->ACCION_ESTRATEGICA);
-            $sheet->setCellValue('F' . $row, $value->CATEGORIA_ID);
-            $sheet->setCellValue('G' . $row, $value->CATEGORIA);
-            $sheet->setCellValue('H' . $row, $value->PRODUCTO_ID);
-            $sheet->setCellValue('I' . $row, $value->PRODUCTO);
-            $sheet->setCellValue('J' . $row, $value->ACTIVIDAD_PRESUPUESTAL_ID);
-            $sheet->setCellValue('K' . $row, $value->ACTIVIDAD_PRESUPUESTAL);
-            $sheet->setCellValue('L' . $row, $value->ACTIVIDAD_OPERATIVA_ID);
-            $sheet->setCellValue('M' . $row, $value->ACTIVIDAD_OPERATIVA);
-            $sheet->setCellValue('N' . $row, $value->UNIDAD_MEDIDA);
 
+        $sheet->setCellValue('C7', $year);
+        $sheet->setCellValue('C12', $periodo.' trimestre');
+
+         foreach ($data as $value) {           
+            $sheet->setCellValue('B'. $row, $value['OEI']);
+            $sheet->setCellValue('C' . $row, $value['OBJETIVO_ESTRATEGICO']);
+            $sheet->setCellValue('D' . $row, $value['AEI']);
+            $sheet->setCellValue('E' . $row, $value['ACCION_ESTRATEGICA']);
+            $sheet->setCellValue('F' . $row, $value['CATEGORIA_ID']);
+            $sheet->setCellValue('G' . $row, $value['CATEGORIA']);
+            $sheet->setCellValue('H' . $row, $value['PRODUCTO_ID']);
+            $sheet->setCellValue('I' . $row, $value['PRODUCTO']);
+            $sheet->setCellValue('J' . $row, $value['ACTIVIDAD_PRESUPUESTAL_ID']);
+            $sheet->setCellValue('K' . $row, $value['ACTIVIDAD_PRESUPUESTAL']);
+            $sheet->setCellValue('L' . $row, $value['ACTIVIDAD_OPERATIVA_ID']);
+            $sheet->setCellValue('M' . $row, $value['ACTIVIDAD_OPERATIVA']);
+            $sheet->setCellValue('N' . $row, $value['UNIDAD_MEDIDA']);
+            $sheet->setCellValue('O' . $row, $value['logro']);
+            $sheet->setCellValue('P' . $row, $value['dificultad']);
+            $sheet->setCellValue('Q' . $row, $value['accion_correctiva']);
+            $sheet->setCellValue('R' . $row, $value['accion_mejora']);
+    
             $row++;
-        }
-        $fileName = 'Reporte de Logros.xlsx';
-
+         }
+         $sheet->getStyle('C')->getAlignment()->setWrapText(true);
+         $sheet->getStyle('E')->getAlignment()->setWrapText(true);
+         $fileName = 'Reporte de Logros.xlsx';
+       
 
         $styleArray = [
             'borders' => [
@@ -929,8 +937,7 @@ class ProcesarController extends JSONResponseController
             ]
         ];
         $rowFInal = $row - 1;
-        $lastColumn = $sheet->getHighestColumn();
-        $cellRange = 'B15:' . $lastColumn . $rowFInal;
+        $cellRange = 'B15:' . 'R'. $rowFInal;
         $sheet->getStyle($cellRange)->applyFromArray($styleArray);
         $writer = new Xlsx($spreadsheet);
         $writer->save($fileName);

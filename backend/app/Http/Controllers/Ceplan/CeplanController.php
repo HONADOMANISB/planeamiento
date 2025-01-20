@@ -365,6 +365,8 @@ public function cerrarActividades(Request $request){
 
 public function registrarLogros(Request $request){
     [$usuario, $perfil, $equipo] = $this->getHost($request);
+    $user = Auth::user();
+    $servicio = $user->servicio;
     $periodo=$request->post('periodo');
     $año=$request->post('año');
     $logro=$request->post('logro');
@@ -375,7 +377,7 @@ public function registrarLogros(Request $request){
     $activity=new CeplanModel();
 
    
-    $response=$activity->registrarLogros($periodo,$año,$logro,$dificultad,$accion_mejora,$accion_correctiva,$actividad,$usuario,$equipo,$perfil);
+    $response=$activity->registrarLogros($periodo,$año,$logro,$dificultad,$accion_mejora,$accion_correctiva,$actividad,$servicio,$usuario,$equipo,$perfil);
     return $this->sendResponse(200, true,'',$response);
   
 }
