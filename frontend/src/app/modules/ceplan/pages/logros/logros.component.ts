@@ -27,7 +27,7 @@ export class LogrosComponent {
 loading: boolean = false;
   rutas: rutaBreadCrumb[] = [{ nombre: "ceplan" }];
  
-  public cb_trimestre:any=Math.ceil((new Date().getMonth() + 1)/3);
+  public cb_trimestre:any=Math.ceil(((new Date().getMonth() + 11) % 12 + 1) / 3) || 4;
   public cb_year: any = (new Date().getMonth()==0)? new Date().getFullYear()-1:new Date().getFullYear();
   public actividades: any[] = [];
   public detalles: any[] = [];

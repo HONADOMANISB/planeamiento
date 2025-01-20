@@ -106,4 +106,13 @@ class ProcesarModel extends Model
             []
         );
     }
+    public function reporteLogros($periodo,$year,$tipo,$servicio)
+    {
+         $result=$this->conexion->select(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_reporte_logros ?,?,?,? ',
+            [$periodo,$year,$tipo,$servicio]
+        );
+        return json_decode(json_encode($result), true);
+    }
 }

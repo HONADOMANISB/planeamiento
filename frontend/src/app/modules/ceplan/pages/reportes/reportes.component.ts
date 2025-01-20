@@ -19,15 +19,17 @@ export class ReportesComponent {
   public year:any
   public tipo:any
   public periodo:any
+  public trimestre:string=''
   public rp:any
   public perfil = localStorage.getItem('perfil'); 
   public visible:boolean=false
+  public visible_trimestre:boolean=false
 
 
 changeTipoReporte() { 
     const perfil = localStorage.getItem('perfil'); 
     this.visible = ((this.rp == 'RC' && perfil =='ADMIN') || this.rp=='RI'|| this.rp=='RCD'  ) ? true : false;
-    console.log(this.visible)
+    this.visible_trimestre=this.rp=='RL'?true:false;
   }
 
 
@@ -43,9 +45,12 @@ reportes(){
     case 'RM':
         this.reporteResumenMetas()
         break;
-     case 'RCD':
+    case 'RCD':
           this.reporteConsolidadoDetallado()
           break;
+    case 'RL':
+            this.reporteLogros()
+            break;
     default:
       break;
   }
@@ -121,6 +126,25 @@ reporteConsolidadoDetallado(){
           const a = document.createElement('a');
           a.href = url;
           a.download = `Reporte de Detallado del año ${year}.xlsx`;
+          a.click();
+          window.URL.revokeObjectURL(url);
+      });
+}
+reporteLogros(){
+  const trimestre=this.trimestre
+  const year=this.year
+  const tipo=this.tipo
+  this.ProcesarEjecucionService$.reporteConsolidadoDetallado(trimestre,year,tipo)
+      .pipe(
+             finalize(() => {
+              this.loading = false;
+          })
+      )
+      .subscribe((response: Blob) => {
+          const url = window.URL.createObjectURL(response);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `Reporte  de Logros del ${year} trimestre.xlsx`;
           a.click();
           window.URL.revokeObjectURL(url);
       });

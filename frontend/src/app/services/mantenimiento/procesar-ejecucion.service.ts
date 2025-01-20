@@ -82,6 +82,14 @@ reporteExcelConsolidado(periodo:any,year:any,tipo:any){
       tipo
     }, responseType: 'blob' });
  }
+ reporteLogros(trimestre:any,year:any,tipo:any){
+  return this.http.get('/api/mantenimiento/reporte-logros', { 
+    params:{
+      trimestre,
+      year,
+      tipo
+    }, responseType: 'blob' });
+ }
  listarBloqueo(){
   return this.http.post<HttpResponseApi>(
     '/api/mantenimiento/listar-info-bloqueos',

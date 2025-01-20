@@ -33,6 +33,9 @@
                                         <option value="RC">Reporte Cierre</option>
                                         <option value="RI">Reporte PPR Invalidados</option>
                                         <option value="RM">Resumen Metas</option>
+                                        <option value="RL">Reporte Logros</option>
+                                        <option value="RP">Reporte Programado</option>
+                                        <option value="RE">Reporte Ejecutado</option>
                                         @if(perfil=='ADMIN'){
                                             <option value="RCO">Reporte Consolidado</option>
                                             <option value="RCD">Reporte Consolidado Detallado</option>
@@ -60,7 +63,19 @@
                                         </select>                                     
                                     </div>
                                 }
-                                
+                                @if(visible_trimestre){
+                                    <div class="col-2">
+                                        <label for="exampleFormControlInput1" class="form-label">Trimestre</label>
+                                        <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="trimestre">
+                                            <option value="">Seleccionar</option>
+                                            <option value="1">I trimestre</option>
+                                            <option value="2">II trimestre</option>
+                                            <option value="3">III trimestre</option>
+                                            <option value="4">IV trimestre</option>
+                                   
+                                        </select>                                     
+                                    </div>
+                                }
                                 <div class="col-2">
                                     <label for="">&NonBreakingSpace;</label>
                                     <button class="btn w-100 btn-sm bg-prim waves-light waves-effect btn-label"

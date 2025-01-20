@@ -76,6 +76,8 @@ class CeplanController extends JSONResponseController
                     'ESTADO_ACTIVIDAD_OPERATIVA' => $sheet->getCell('BV' . $row)->getValue(),
                     'TIPO_ACTIVIDAD' => $sheet->getCell('BW' . $row)->getValue(),  
                     'TIPO_REGISTRO' => $sheet->getCell('BX' . $row)->getValue(),  
+                    'ACTIVIDAD_CT' => $sheet->getCell('BY' . $row)->getValue(),  
+                    'CENTRO_COSTO_HSB' => $sheet->getCell('BZ' . $row)->getValue(),  
                     'FECHA_EXPORTA'=>$date,  
                     'SG_EST_REGISTRO'=>'A', 
                     'TIPO'=>$tipo                       
@@ -154,7 +156,7 @@ class CeplanController extends JSONResponseController
             }
         
             $seguro=new CeplanModel();
-            $response=$seguro->insertarExcel($resultado,$año);
+            $response=$seguro->insertarExcel($resultado,$año,$tipo);
             return $this->sendResponse(200, true, $response, 1);
 
     }

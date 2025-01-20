@@ -878,4 +878,63 @@ class ProcesarController extends JSONResponseController
         $resultado = $proceso->listarBloqueos();
         return $this->sendResponse(200, true, '', $resultado);
     }
+    public function reporteLogros(Request $request)
+    {
+        $user = Auth::user();
+        $servicio = $user->servicio;
+        $periodo = $request->get('trimestre');
+        $year = $request->get('year');
+        $tipo = $request->get('tipo');
+        $spreadsheet = new Spreadsheet();
+        $templatePath = resource_path('templates/reporte_logros.xlsx');
+        // Cargar la plantilla
+        $spreadsheet = IOFactory::load($templatePath);
+        // Obtener la hoja activa
+        $report = new ProcesarModel();
+        $data = $report->reporteLogros($periodo,$year,$tipo,$servicio);
+        $row = 15;
+
+
+        $sheet = $spreadsheet->getActiveSheet();
+        foreach ($data as $value) {
+            $sheet->setCellValue('B' . $row, $value->OEI);
+            $sheet->setCellValue('C' . $row, $value->OBJETIVO_ESTRATEGICO);
+            $sheet->setCellValue('D' . $row, $value->AEI);
+            $sheet->setCellValue('E' . $row, $value->ACCION_ESTRATEGICA);
+            $sheet->setCellValue('F' . $row, $value->CATEGORIA_ID);
+            $sheet->setCellValue('G' . $row, $value->CATEGORIA);
+            $sheet->setCellValue('H' . $row, $value->PRODUCTO_ID);
+            $sheet->setCellValue('I' . $row, $value->PRODUCTO);
+            $sheet->setCellValue('J' . $row, $value->ACTIVIDAD_PRESUPUESTAL_ID);
+            $sheet->setCellValue('K' . $row, $value->ACTIVIDAD_PRESUPUESTAL);
+            $sheet->setCellValue('L' . $row, $value->ACTIVIDAD_OPERATIVA_ID);
+            $sheet->setCellValue('M' . $row, $value->ACTIVIDAD_OPERATIVA);
+            $sheet->setCellValue('N' . $row, $value->UNIDAD_MEDIDA);
+
+            $row++;
+        }
+        $fileName = 'Reporte de Logros.xlsx';
+
+
+        $styleArray = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => Color::COLOR_BLACK],
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
+                'wrapText' => false,
+            ]
+        ];
+        $rowFInal = $row - 1;
+        $lastColumn = $sheet->getHighestColumn();
+        $cellRange = 'B15:' . $lastColumn . $rowFInal;
+        $sheet->getStyle($cellRange)->applyFromArray($styleArray);
+        $writer = new Xlsx($spreadsheet);
+        $writer->save($fileName);
+
+        return response()->download($fileName)->deleteFileAfterSend(true);
+    }
 }

@@ -16,7 +16,7 @@ class CeplanModel extends Model
         $this->conexion = DB::connection('planeamiento');
     }
 
-    public function insertarExcel($resultado,$año)
+    public function insertarExcel($resultado,$año,$tipo)
 {
     ini_set('max_execution_time', 180); // Aumentar el tiempo máximo de ejecución a 60 segundos
 
@@ -25,6 +25,7 @@ class CeplanModel extends Model
     try {
          DB::table('EX_EXPORTA_POI')
         ->where('YEAR', $año )
+        ->where('TIPO', $tipo )
         ->update(['SG_EST_REGISTRO' => 'H']);
 
         foreach ($resultado as $maestra) {
@@ -69,6 +70,8 @@ class CeplanModel extends Model
                 'ESTADO_ACTIVIDAD_OPERATIVA' => $maestra['ESTADO_ACTIVIDAD_OPERATIVA'],
                 'TIPO_ACTIVIDAD' => $maestra['TIPO_ACTIVIDAD'],
                 'TIPO_REGISTRO' => $maestra['TIPO_REGISTRO'],
+                'ACTIVIDAD_CT' => $maestra['ACTIVIDAD_CT'],
+                'CENTRO_COSTO_HSB' => $maestra['CENTRO_COSTO_HSB'],
                 'FECHA_EXPORTA' => $maestra['FECHA_EXPORTA'],
                 'TIPO' => $maestra['TIPO'],
                 'SG_EST_REGISTRO' => $maestra['SG_EST_REGISTRO'],
