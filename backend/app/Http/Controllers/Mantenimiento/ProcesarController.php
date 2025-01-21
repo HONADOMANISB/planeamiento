@@ -881,6 +881,7 @@ class ProcesarController extends JSONResponseController
     public function reporteLogros(Request $request)
     {
         $user = Auth::user();
+        $perfil = $user->id_perfil;
         $servicio = $user->servicio;
         $periodo = $request->get('trimestre');
         $year = $request->get('year');
@@ -891,13 +892,27 @@ class ProcesarController extends JSONResponseController
         $spreadsheet = IOFactory::load($templatePath);
         // Obtener la hoja activa
         $report = new ProcesarModel();
-        $data = $report->reporteLogros($periodo,$year,$tipo,$servicio);
+        $data = $report->reporteLogros($periodo,$year,$tipo,$servicio,$perfil);
         $row = 15;     
         $sheet = $spreadsheet->getActiveSheet();
 
         $sheet->setCellValue('C7', $year);
-        $sheet->setCellValue('C12', $periodo.' trimestre');
-
+       $trimestreRomano = ''; 
+       switch ($periodo) { 
+        case '1': $trimestreRomano = 'I';
+         break; 
+        case '2': 
+             $trimestreRomano = 'II';
+        break; 
+        case '3':
+             $trimestreRomano = 'III'; 
+        break;
+         case '4': 
+             $trimestreRomano = 'IV'; 
+             break; 
+        default: $trimestreRomano = $periodo; 
+         }
+        $sheet->setCellValue('C12', $trimestreRomano . ' trimestre');
          foreach ($data as $value) {           
             $sheet->setCellValue('B'. $row, $value['OEI']);
             $sheet->setCellValue('C' . $row, $value['OBJETIVO_ESTRATEGICO']);

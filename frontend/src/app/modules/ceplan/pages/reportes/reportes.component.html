@@ -32,10 +32,9 @@
                                     <select class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="rp" (change)="changeTipoReporte()">
                                         <option value="RC">Reporte Cierre</option>
                                         <option value="RI">Reporte PPR Invalidados</option>
-                                        <option value="RM">Resumen Metas</option>
+                                        <option value="RM">Reporte Seguimiento</option>
+                                        <option value="RP">Reporte Programación</option>
                                         <option value="RL">Reporte Logros</option>
-                                        <option value="RP">Reporte Programado</option>
-                                        <option value="RE">Reporte Ejecutado</option>
                                         @if(perfil=='ADMIN'){
                                             <option value="RCO">Reporte Consolidado</option>
                                             <option value="RCD">Reporte Consolidado Detallado</option>

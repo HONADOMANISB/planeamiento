@@ -106,12 +106,12 @@ class ProcesarModel extends Model
             []
         );
     }
-    public function reporteLogros($periodo,$year,$tipo,$servicio)
+    public function reporteLogros($periodo,$year,$tipo,$servicio,$perfil)
     {
          $result=$this->conexion->select(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_reporte_logros ?,?,?,? ',
-            [$periodo,$year,$tipo,$servicio]
+            'EXEC dbo.ex_sp_reporte_logros ?,?,?,?,? ',
+            [$periodo,$year,$tipo,$servicio,$perfil]
         );
         return json_decode(json_encode($result), true);
     }
