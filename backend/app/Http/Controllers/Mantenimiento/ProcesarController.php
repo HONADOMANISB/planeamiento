@@ -913,29 +913,30 @@ class ProcesarController extends JSONResponseController
         default: $trimestreRomano = $periodo; 
          }
         $sheet->setCellValue('C12', $trimestreRomano . ' trimestre');
-         foreach ($data as $value) {           
-            $sheet->setCellValue('B'. $row, $value['OEI']);
-            $sheet->setCellValue('C' . $row, $value['OBJETIVO_ESTRATEGICO']);
-            $sheet->setCellValue('D' . $row, $value['AEI']);
-            $sheet->setCellValue('E' . $row, $value['ACCION_ESTRATEGICA']);
-            $sheet->setCellValue('F' . $row, $value['CATEGORIA_ID']);
-            $sheet->setCellValue('G' . $row, $value['CATEGORIA']);
-            $sheet->setCellValue('H' . $row, $value['PRODUCTO_ID']);
-            $sheet->setCellValue('I' . $row, $value['PRODUCTO']);
-            $sheet->setCellValue('J' . $row, $value['ACTIVIDAD_PRESUPUESTAL_ID']);
-            $sheet->setCellValue('K' . $row, $value['ACTIVIDAD_PRESUPUESTAL']);
-            $sheet->setCellValue('L' . $row, $value['ACTIVIDAD_OPERATIVA_ID']);
-            $sheet->setCellValue('M' . $row, $value['ACTIVIDAD_OPERATIVA']);
-            $sheet->setCellValue('N' . $row, $value['UNIDAD_MEDIDA']);
-            $sheet->setCellValue('O' . $row, $value['logro']);
-            $sheet->setCellValue('P' . $row, $value['dificultad']);
-            $sheet->setCellValue('Q' . $row, $value['accion_correctiva']);
-            $sheet->setCellValue('R' . $row, $value['accion_mejora']);
+         foreach ($data as $value) {    
+            $sheet->setCellValue('B'. $row, $value['servicio']);       
+            $sheet->setCellValue('C'. $row, $value['OEI']);
+            $sheet->setCellValue('D' . $row, $value['OBJETIVO_ESTRATEGICO']);
+            $sheet->getStyle('D' . $row)->getAlignment()->setWrapText(true);
+            $sheet->setCellValue('E' . $row, $value['AEI']);
+            $sheet->setCellValue('F' . $row, $value['ACCION_ESTRATEGICA']);
+            $sheet->getStyle('F' . $row)->getAlignment()->setWrapText(true); 
+            $sheet->setCellValue('G' . $row, $value['CATEGORIA_ID']);
+            $sheet->setCellValue('H' . $row, $value['CATEGORIA']);
+            $sheet->setCellValue('I' . $row, $value['PRODUCTO_ID']);
+            $sheet->setCellValue('J' . $row, $value['PRODUCTO']);
+            $sheet->setCellValue('K' . $row, $value['ACTIVIDAD_PRESUPUESTAL_ID']);
+            $sheet->setCellValue('L' . $row, $value['ACTIVIDAD_PRESUPUESTAL']);
+            $sheet->setCellValue('M' . $row, $value['ACTIVIDAD_OPERATIVA_ID']);
+            $sheet->setCellValue('N' . $row, $value['ACTIVIDAD_OPERATIVA']);
+            $sheet->setCellValue('O' . $row, $value['UNIDAD_MEDIDA']);
+            $sheet->setCellValue('P' . $row, $value['logro']);
+            $sheet->setCellValue('Q' . $row, $value['dificultad']);
+            $sheet->setCellValue('R' . $row, $value['accion_correctiva']);
+            $sheet->setCellValue('S' . $row, $value['accion_mejora']);
     
             $row++;
          }
-         $sheet->getStyle('C')->getAlignment()->setWrapText(true);
-         $sheet->getStyle('E')->getAlignment()->setWrapText(true);
          $fileName = 'Reporte de Logros.xlsx';
        
 
@@ -952,7 +953,7 @@ class ProcesarController extends JSONResponseController
             ]
         ];
         $rowFInal = $row - 1;
-        $cellRange = 'B15:' . 'R'. $rowFInal;
+        $cellRange = 'B15:' . 'S'. $rowFInal;
         $sheet->getStyle($cellRange)->applyFromArray($styleArray);
         $writer = new Xlsx($spreadsheet);
         $writer->save($fileName);
