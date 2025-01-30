@@ -23,10 +23,10 @@ class CeplanModel extends Model
     DB::beginTransaction(); // Iniciar una transacción
 
     try {
-         DB::table('EX_EXPORTA_POI')
-        ->where('YEAR', $año )
-        ->where('TIPO', $tipo )
-        ->update(['SG_EST_REGISTRO' => 'H']);
+          DB::table('EX_EXPORTA_POI')
+         ->where('YEAR', $año )
+         ->where('TIPO', $tipo )
+         ->update(['SG_EST_REGISTRO' => 'H']);
 
         foreach ($resultado as $maestra) {
             DB::table('EX_EXPORTA_POI')->insert([
@@ -160,12 +160,12 @@ class CeplanModel extends Model
 
         
     }
-    public function guardarPoi($id,$ejecucion,$motivo,$actividad,$tipo,$tipo_registro,$detalle_motivo,$usuario,$equipo,$perfil)
+    public function guardarPoi($id,$año,$ejecucion,$motivo,$actividad,$tipo,$tipo_registro,$detalle_motivo,$usuario,$equipo,$perfil)
     {
         return $this->conexion->update(
             /** @lang SQL */
-            'EXEC dbo.ex_sp_registrar_ejecucion ?,?,?,?,?,?,?,?,?,?',
-            [$id,$ejecucion,$motivo,$actividad,$tipo,$tipo_registro,$detalle_motivo,$usuario,$equipo,$perfil]
+            'EXEC dbo.ex_sp_registrar_ejecucion ?,?,?,?,?,?,?,?,?,?,?',
+            [$año,$id,$ejecucion,$motivo,$actividad,$tipo,$tipo_registro,$detalle_motivo,$usuario,$equipo,$perfil]
         );
     }
     public function invalidarPoi($ejecutado,$id,$motivo,$actividad,$tipo,$usuario,$equipo,$perfil)

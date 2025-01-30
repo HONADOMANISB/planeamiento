@@ -348,6 +348,7 @@ public function cerrarActividades(Request $request){
    public function guardarPoi(Request $request){
     [$usuario, $perfil, $equipo] = $this->getHost($request);
     $id=$request->post('mes');
+    $año=$request->post('year');
     $ejecutado=$request->post('ejecutado');
     $tipo_registro=$request->post('tipoEstado');
     $detalle_motivo=$request->post('detalleMotivo');
@@ -358,7 +359,7 @@ public function cerrarActividades(Request $request){
 
     if(!$motivo) $motivo="";
     if(!$tipo)$tipo=" ";
-    $response=$activity->guardarPoi($id,$ejecutado,$motivo,$actividad,$tipo,$tipo_registro,$detalle_motivo,$usuario,$equipo,$perfil);
+    $response=$activity->guardarPoi($id,$año,$ejecutado,$motivo,$actividad,$tipo,$tipo_registro,$detalle_motivo,$usuario,$equipo,$perfil);
     return $this->sendResponse(200, true,'',$response);
   
 }

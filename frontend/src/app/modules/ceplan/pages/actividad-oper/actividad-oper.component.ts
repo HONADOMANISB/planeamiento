@@ -259,7 +259,7 @@ export class ActividadOperComponent implements OnInit {
     this.loading = true;
     this.ActividadesService$.generarReportePOI(
       mes,
-      this.year_actual,
+      this.cb_year,
       this.codigo_ppr,
       tipo
     )
@@ -281,7 +281,7 @@ export class ActividadOperComponent implements OnInit {
     this.loading = true;
     this.ActividadesService$.generarReportePOIExcel(
       mes,
-      this.year_actual,
+      this.cb_year,
       this.codigo_ppr,
       tipo
     )
@@ -320,7 +320,7 @@ export class ActividadOperComponent implements OnInit {
       }
       
       if (result.isConfirmed) {
-        this.ActividadesService$.registrarPoi(fs, mt, id, this.actividad, tipo,this.tipoEstadoR,this.detalle_motivo)
+        this.ActividadesService$.registrarPoi(fs, mt, id,this.cb_year, this.actividad, tipo,this.tipoEstadoR,this.detalle_motivo)
           .pipe(
             finalize(() => {
               this.loading = false;

@@ -90,10 +90,10 @@ export class RegistroActividadesService {
             { responseType: 'json' }
         );
     }
-    registrarPoi(ejecutado:string,motivo:any,mes:any,actividad:any,tipo:string,tipoEstado:string,detalleMotivo:string='') {
+    registrarPoi(ejecutado:string,motivo:any,mes:any,year:any,actividad:any,tipo:string,tipoEstado:string,detalleMotivo:string='') {
       return this.http.post<HttpResponseApi>(
           '/api/ceplan/registrar-poi',
-          {ejecutado,motivo,mes,actividad,tipo,tipoEstado,detalleMotivo},
+          {ejecutado,motivo,mes,year,actividad,tipo,tipoEstado,detalleMotivo},
           { responseType: 'json' }
       );
   } 

@@ -17,7 +17,7 @@
 									 <div class="col-xl-2 ">
 										<div class="input-group input-group-sm ">
 											<div class="input-group-text d-ancho ">Mes</div>
-											<select name="" id="" class="form-select form-select-sm" [(ngModel)] ="cb_mes" (change)="cambioMes()" [disabled]="true">
+											<select name="" id="" class="form-select form-select-sm" [(ngModel)] ="cb_mes" (change)="cambioMes()" >
 												<option value="">Seleccionar</option>
 												<option value="1">Enero</option>
 												<option value="2">Febrero</option>
@@ -344,12 +344,17 @@
 																	}
 																	
 																	@if(detalle.TIPO_REGISTRO=='BANCO DE DATOS'){
-																		<button class="btn report btn-sm w-50 ms-1" (click)="generarDetallePOI(index +1,'PI')" >						
-																			<i class="fa-solid fa-file-pdf"></i>
-																		</button>
-																		<button class="btn btn-success btn-sm w-50 ms-1" (click)="generarDetallePOIExcel(index +1,'PI')" >						
-																			<i class="fa-solid fa-file-excel"></i>
-																		</button>
+																		<div class="btn-group ms-1" role="group">
+																			<button id="btnGroupVerticalDrop1" type="button" class="btn btn-secondary btn-sm dropdown-toggle  waves-light waves-effect" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+																				<i class="fa-solid fa-file"></i>
+																			</button>
+																			<div class="dropdown-menu custom-dropdown-width " aria-labelledby="btnGroupVerticalDrop1" style="">
+																				<a class="dropdown-item" (click)="generarDetallePOI(index +1,'PI')">PDF</a>
+																				<a class="dropdown-item" (click)="generarDetallePOIExcel(index +1,'PI')">Excel</a>
+
+																			</div>
+																		</div>
+																		
 																	}
 																</td>													
 															</tr>
