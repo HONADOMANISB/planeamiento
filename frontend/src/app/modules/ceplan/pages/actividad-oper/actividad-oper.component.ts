@@ -27,7 +27,7 @@ export class ActividadOperComponent implements OnInit {
   @ViewChildren("ejecutado") inputs!: QueryList<ElementRef>;
   @ViewChildren("ejecutado_pr") inputs_pr!: QueryList<ElementRef>;
   @ViewChildren("ejecutado_sr") inputs_sr!: QueryList<ElementRef>;
-  public cb_mes:any = (new Date().getMonth()==0)? 12:new Date().getMonth()-1 ;
+  public cb_mes:any = (new Date().getMonth()==0)? 12:new Date().getMonth();
   public cb_year: any = (new Date().getMonth()==0)? new Date().getFullYear()-1:new Date().getFullYear();
   public actividades: any[] = [];
   public detalles: any[] = [];
@@ -146,6 +146,7 @@ export class ActividadOperComponent implements OnInit {
             "Advertencia",
             `No existen actividades reegistradas en el año ${year}`
           );
+          console.log(this.cb_mes)
           this.cb_year = this.year_actual;
           this.cambioActividad();
         }

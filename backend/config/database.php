@@ -15,7 +15,7 @@ return [
     |
     */
 
-    'default' => env('DB_CONNECTION', 'planeamiento'),
+    'default' => env('planeamiento','planeamiento'),
 
     /*
     |--------------------------------------------------------------------------
