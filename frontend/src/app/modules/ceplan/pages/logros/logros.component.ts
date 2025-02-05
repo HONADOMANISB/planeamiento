@@ -66,6 +66,7 @@ loading: boolean = false;
   public  accion_mejora:string =""
   public  accion_correctiva:string =""
   public logros:any= []
+  public bloqueo:boolean=false
 
   constructor(
     private ActividadesService$: RegistroActividadesService,
