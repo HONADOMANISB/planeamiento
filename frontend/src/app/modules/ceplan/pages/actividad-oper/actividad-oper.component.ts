@@ -532,7 +532,7 @@ export class ActividadOperComponent implements OnInit {
       inputPlaceholder: 'Escribir el motivo ...', 
       inputAttributes: { 
         'aria-label': 'Type your message here',
-        'maxlength': '100' }, 
+        'maxlength': '250' }, 
       showCancelButton: true });
        if (text) { 
         this.detalle_motivo = text; 
