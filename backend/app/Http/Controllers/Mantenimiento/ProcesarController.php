@@ -313,6 +313,7 @@ class ProcesarController extends JSONResponseController
             }
         }
         $row = 2;
+       var_dump($resultado);
         foreach ($resultado as $valor) {
             $sheet->setCellValue('A' . $row, $valor['YEAR']);
             $sheet->setCellValue('B' . $row, $valor['ETAPA']);
