@@ -1,0 +1,25 @@
+<div class="container my-4">
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+      <button class="btn bg-final" (click)="prevMonth()">◀ Anterior</button>
+      <span class="mes">{{ monthNames[currentMonth] }} {{ currentYear }}</span>
+      <button class="btn bg-final" (click)="nextMonth()">Siguiente ▶</button>
+    </div>
+    <div class="card-body">
+      <div class="row text-center">
+        <div class="col border p-2" *ngFor="let day of weekDays">{{ day }}</div>
+      </div>
+      <div class="row text-center" *ngFor="let week of weeks">
+        <div class="col border p-4" *ngFor="let day of week">
+          <div *ngIf="day !== 0">
+            <div>{{ day }}</div>
+            <div *ngFor="let event of isEventOnDay(day, currentMonth, currentYear, listEvent)">
+              <span class="badge bg-info">{{ event.title }}</span>
+              <p class="description">{{event.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

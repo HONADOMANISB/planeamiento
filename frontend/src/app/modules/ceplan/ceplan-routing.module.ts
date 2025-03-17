@@ -4,12 +4,14 @@ import { ActividadOperComponent } from './pages/actividad-oper/actividad-oper.co
 import { CargaExportaComponent } from './pages/carga-exporta/carga-exporta.component';
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { LogrosComponent } from './pages/logros/logros.component';
+import { CronogramaComponent } from './pages/cronograma/cronograma.component';
 
 const routes: Routes = [
     {path: 'registro', component: ActividadOperComponent, title: 'MOPLAN| MOPLAN'},
     {path: 'cargar-exporta', component: CargaExportaComponent, title: 'MOPLAN| MOPLAN'},
     {path: 'reportes', component: ReportesComponent, title: 'MOPLAN| MOPLAN'},
     {path: 'logros', component: LogrosComponent, title: 'MOPLAN| MOPLAN'},
+    {path: 'cronograma', component: CronogramaComponent, title: 'MOPLAN| MOPLAN'},
 ];
 
 @NgModule({

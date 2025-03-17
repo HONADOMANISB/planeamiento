@@ -50,6 +50,7 @@ Route::controller(CeplanController::class)->group(function () {
     Route::post('ceplan/listar-motivos', 'listarMotivos');
     Route::post('ceplan/listar-servicios', 'listarServicios');
     Route::post('ceplan/listar-logros', 'listarLogros');
+    Route::post('ceplan/listar-eventos', 'listarEventos');
     Route::post('ceplan/registrar-poi', 'guardarPoi');
     Route::post('ceplan/invalidar-poi', 'InvalidarPoi');
     Route::post('ceplan/cerrar-actividades', 'cerrarActividades');

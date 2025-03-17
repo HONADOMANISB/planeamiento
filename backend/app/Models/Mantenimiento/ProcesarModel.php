@@ -15,8 +15,9 @@ class ProcesarModel extends Model
     }
     public function procesarEjecucion($year,$mes,$tipo,$ppr)
     {
+        ini_set('max_execution_time', 420);
         return $this->conexion->select(
-            /** @lang SQL */
+            /** @lang SQL */      
             'EXEC dbo.ex_procesar_ejecucion ?,?,?,?',
             [$year,$mes,$tipo,$ppr]
         );

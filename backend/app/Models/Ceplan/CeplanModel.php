@@ -21,7 +21,7 @@ class CeplanModel extends Model
     ini_set('max_execution_time', 180); // Aumentar el tiempo máximo de ejecución a 60 segundos
 
     DB::beginTransaction(); // Iniciar una transacción
-
+ 
     try {
           DB::table('EX_EXPORTA_POI')
          ->where('YEAR', $año )
@@ -206,6 +206,14 @@ class CeplanModel extends Model
             /** @lang SQL */
             'EXEC dbo.ex_sp_listar_logros ?,?,?',
             [$trimestre,$year,$actividad]
+        );
+    }
+    public function listarEventos()
+    {
+        return $this->conexion->select(
+            /** @lang SQL */
+            'EXEC dbo.ex_sp_listar_eventos ',
+            []
         );
     }
 }

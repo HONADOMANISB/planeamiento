@@ -12,6 +12,8 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ReportesComponent } from './pages/reportes/reportes.component';
 import { LogrosComponent } from './pages/logros/logros.component';
+import { CalendarioComponent } from './components/calendario/calendario.component';
+import { CronogramaComponent } from './pages/cronograma/cronograma.component';
 
 
 
@@ -20,7 +22,9 @@ import { LogrosComponent } from './pages/logros/logros.component';
     ActividadOperComponent,
     CargaExportaComponent,
     ReportesComponent,
-    LogrosComponent
+    LogrosComponent,
+    CronogramaComponent,
+    CalendarioComponent
   ],
   imports: [
     CommonModule,

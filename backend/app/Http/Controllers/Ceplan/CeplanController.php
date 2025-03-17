@@ -399,4 +399,9 @@ public function listarLogros(Request $request){
     $resultado=$con->listarLogros($trimestre,$year,$actividad);
     return $this->sendResponse(200, true,'',$resultado);
 }
+public function listarEventos(Request $request){
+    $con=new CeplanModel();
+    $resultado=$con->listarEventos();
+    return $this->sendResponse(200, true,'',$resultado);
+}
 }
