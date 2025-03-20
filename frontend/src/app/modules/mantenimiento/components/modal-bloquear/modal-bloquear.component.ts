@@ -102,7 +102,7 @@ export class ModalBloquearComponent {
   }
    public listarActividadOperativa(servicio?: any) {
     this.loading = true;
-    this.ActividadesService$.listarActividadesOperativas(servicio,this.year)
+    this.ActividadesService$.listarActividadesOperativas(servicio,this.year,this.periodo)
         .pipe(
             finalize(() => {
                 this.loading = false;

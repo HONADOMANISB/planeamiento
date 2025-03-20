@@ -28,7 +28,7 @@ export class ReportesComponent {
 
 changeTipoReporte() { 
     const perfil = localStorage.getItem('perfil'); 
-    this.visible = ((this.rp == 'RC' && perfil =='ADMIN') || this.rp=='RI'|| this.rp=='RCD'  ) ? true : false;
+    this.visible = ((this.rp == 'RC' && perfil =='ADMIN') || this.rp=='RI'|| this.rp=='RCD'|| this.rp=='RCO'  ) ? true : false;
     this.visible_trimestre=this.rp=='RL'?true:false;
   }
 
@@ -48,6 +48,9 @@ reportes(){
     case 'RCD':
           this.reporteConsolidadoDetallado()
           break;
+    case 'RCO':
+            this.reporteExcelConsolidado()
+            break;
     case 'RL':
             this.reporteLogros()
             break;
@@ -59,6 +62,7 @@ reportes(){
     const periodo=this.periodo
     const year=this.year
     const tipo=this.tipo
+    this.loading= true
     this.ProcesarEjecucionService$.reporteExcel(periodo,year,tipo)
         .pipe(
                finalize(() => {
@@ -78,6 +82,7 @@ reporteCierre(){
   const periodo=this.periodo
   const year=this.year
   const tipo=this.tipo
+  this.loading= true
   this.ProcesarEjecucionService$.reporteCierre(periodo,year,tipo)
       .pipe(
              finalize(() => {
@@ -96,6 +101,7 @@ reporteCierre(){
 reporteResumenMetas(){
   const year=this.year
   const tipo=this.tipo
+  this.loading= true
   this.ProcesarEjecucionService$.reporteResumenMetas(year,tipo)
       .pipe(
              finalize(() => {
@@ -111,10 +117,41 @@ reporteResumenMetas(){
           window.URL.revokeObjectURL(url);
       });
 }
+reporteExcelConsolidado() {
+  const periodo = this.periodo;
+  const year = this.year;
+  const tipo = this.tipo;
+  this.loading= true
+  this.ProcesarEjecucionService$.reporteExcelConsolidado(periodo, year, tipo)
+      .pipe(finalize(() => {
+          this.loading = false;
+      }))
+      .subscribe((response: Blob) => {
+          successAlerta("Éxito", "Reporte Creado Correctamente");
+
+          // Crear URL y enlace para descargar el archivo
+          const url = window.URL.createObjectURL(response);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'Reportes_de_Seguimiento_Evaluacion_de_Actividades_Operativas_Anexo_A1.xlsx';
+
+          // Especificar el tipo MIME para el archivo
+          const blob = new Blob([response], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+
+          // Descargar el archivo
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+      }, error => {
+          console.error('Error downloading the report', error);
+      });
+}
 reporteConsolidadoDetallado(){
   const periodo=this.periodo
   const year=this.year
   const tipo=this.tipo
+  this.loading= true
   this.ProcesarEjecucionService$.reporteConsolidadoDetallado(periodo,year,tipo)
       .pipe(
              finalize(() => {
@@ -134,7 +171,7 @@ reporteLogros(){
   const trimestre=this.trimestre
   const year=this.year
   const tipo=this.tipo
-  console.log(this.trimestre)
+  this.loading= true
   this.ProcesarEjecucionService$.reporteLogros(trimestre,year,tipo)
       .pipe(
              finalize(() => {
