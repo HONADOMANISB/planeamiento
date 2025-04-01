@@ -128,5 +128,6 @@ Route::controller(ProcesarController::class)->group(function () {
     Route::get('mantenimiento/reporte-ppr-consolidado', 'reporteConsolidado');
     Route::post('mantenimiento/listar-info-bloqueos', 'listarBloqueos');
     Route::get('mantenimiento/reporte-logros', 'reporteLogros');
+    Route::get('mantenimiento/reporte-centro-costos', 'reporteCentroCostos');
 });
 

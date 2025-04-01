@@ -28,7 +28,7 @@ export class ReportesComponent {
 
 changeTipoReporte() { 
     const perfil = localStorage.getItem('perfil'); 
-    this.visible = ((this.rp == 'RC' && perfil =='ADMIN') || this.rp=='RI'|| this.rp=='RCD'|| this.rp=='RCO'  ) ? true : false;
+    this.visible = ((this.rp == 'RC' && perfil =='ADMIN') || this.rp=='RI'|| this.rp=='RCD'|| this.rp=='RCO' || this.rp=='RCC'   ) ? true : false;
     this.visible_trimestre=this.rp=='RL'?true:false;
   }
 
@@ -49,11 +49,14 @@ reportes(){
           this.reporteConsolidadoDetallado()
           break;
     case 'RCO':
-            this.reporteExcelConsolidado()
+          this.reporteExcelConsolidado()
             break;
     case 'RL':
-            this.reporteLogros()
+          this.reporteLogros()
             break;
+    case 'RCC':
+          this.reporteCentroCostos()
+             break;
     default:
       break;
   }
@@ -187,5 +190,28 @@ reporteLogros(){
           a.click();
           window.URL.revokeObjectURL(url);
       });
+}
+
+reporteCentroCostos(){
+  const periodo=this.periodo
+  const year=this.year
+  const tipo=this.tipo
+  this.loading= true
+  this.ProcesarEjecucionService$.reporteCentroCostos(periodo,year,tipo)
+     .pipe(
+             finalize(() => {
+              this.loading = false;
+          })
+      )
+      .subscribe((response: Blob) => {
+        console.log(this.trimestre)
+          const url = window.URL.createObjectURL(response);
+          const a = document.createElement('a');
+         a.href = url;
+          a.download = `Reporte  de Centro de Csotos ${year}.xlsx`;
+          a.click();
+          window.URL.revokeObjectURL(url);
+      });
+
 }
 }

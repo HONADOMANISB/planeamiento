@@ -313,69 +313,69 @@ class ProcesarController extends JSONResponseController
             }
         }
         $row = 2;
-       var_dump($resultado);
+
         foreach ($resultado as $valor) {
-            $sheet->setCellValue('A' . $row, $valor['YEAR']);
-            $sheet->setCellValue('B' . $row, $valor['ETAPA']);
-            $sheet->setCellValue('C' . $row, $valor['UE_ID']);
-            $sheet->setCellValue('D' . $row, $valor['UE']);
-            $sheet->setCellValue('E' . $row, $valor['CC_RESPONSABLE_ID']);
-            $sheet->setCellValue('F' . $row, $valor['DEPARTAMENTO']);
-            $sheet->setCellValue('G' . $row, $valor['CENTRO_COSTOS_ID']);
-            $sheet->setCellValue('H' . $row, $valor['CENTRO_COSTOS']);
-            $sheet->setCellValue('I' . $row, $valor['SERVICIO']);
-            $sheet->setCellValue('J' . $row, $valor['USUARIO']);
-            $sheet->setCellValue('K' . $row, $valor['DATOS_USUARIO']);
-            $sheet->setCellValue('L' . $row, $valor['OEI']);
-            $sheet->setCellValue('M' . $row, $valor['OBJETIVO_ESTRATEGICO']);
-            $sheet->setCellValue('N' . $row, $valor['AEI']);
-            $sheet->setCellValue('O' . $row, $valor['ACCION_ESTRATEGICA']);
-            $sheet->setCellValue('P' . $row, $valor['CATEGORIA_ID']);
-            $sheet->setCellValue('Q' . $row, $valor['CATEGORIA']);
-            $sheet->setCellValue('R' . $row, $valor['PRODUCTO_ID']);
-            $sheet->setCellValue('S' . $row, $valor['PRODUCTO']);
-            $sheet->setCellValue('T' . $row, $valor['FUNCION_ID']);
-            $sheet->setCellValue('U' . $row, $valor['FUNCION']);
-            $sheet->setCellValue('V' . $row, $valor['DIVISION_FUNCIONAL_ID']);
-            $sheet->setCellValue('W' . $row, $valor['DIVISION_FUNCIONAL']);
-            $sheet->setCellValue('X' . $row, $valor['GRUPO_FUNCIONAL_ID']);
-            $sheet->setCellValue('Y' . $row, $valor['GRUPO_FUNCIONAL']);
-            $sheet->setCellValue('Z' . $row, $valor['ACTIVIDAD_PRESUPUESTAL_ID']);
-            $sheet->setCellValue('AA' . $row, $valor['ACTIVIDAD_PRESUPUESTAL']);
-            $sheet->setCellValue('AB' . $row, $valor['NRO_REGISTRO_POI']);
-            $sheet->setCellValue('AC' . $row, $valor['ACTIVIDAD_OPERATIVA_ID']);
-            $sheet->setCellValue('AD' . $row, $valor['CODIGO_PPR']);
-            $sheet->setCellValue('AE' . $row, $valor['ACTIVIDAD_OPERATIVA']);
-            $sheet->setCellValue('AF' . $row, $valor['UNIDAD_MEDIDA']);
-            $sheet->setCellValue('AG' . $row, $valor['TRAZADORA_TAREA']);
-            $sheet->setCellValue('AI' . $row, $valor['PR_ENERO']);
-            $sheet->setCellValue('AJ' . $row, $valor['PR_FEBRERO']);
-            $sheet->setCellValue('AK' . $row, $valor['PR_MARZO']);
-            $sheet->setCellValue('AL' . $row, $valor['PR_ABRIL']);
-            $sheet->setCellValue('AM' . $row, $valor['PR_MAYO']);
-            $sheet->setCellValue('AN' . $row, $valor['PR_JUNIO']);
-            $sheet->setCellValue('AO' . $row, $valor['PR_JULIO']);
-            $sheet->setCellValue('AP' . $row, $valor['PR_AGOSTO']);
-            $sheet->setCellValue('AQ' . $row, $valor['PR_SETIEMBRE']);
-            $sheet->setCellValue('AR' . $row, $valor['PR_OCTUBRE']);
-            $sheet->setCellValue('AS' . $row, $valor['PR_NOVIEMBRE']);
-            $sheet->setCellValue('AT' . $row, $valor['PR_DICIEMBRE']);
-            $sheet->setCellValue('AU' . $row, "=SUM(AI" . $row . ":AT" . $row . ")");
-            $sheet->setCellValue('AV' . $row, $valor['EJ_ENERO']);
-            $sheet->setCellValue('AW' . $row, $valor['EJ_FEBRERO']);
-            $sheet->setCellValue('AX' . $row, $valor['EJ_MARZO']);
-            $sheet->setCellValue('AY' . $row, $valor['EJ_ABRIL']);
-            $sheet->setCellValue('AZ' . $row, $valor['EJ_MAYO']);
-            $sheet->setCellValue('BA' . $row, $valor['EJ_JUNIO']);
-            $sheet->setCellValue('BB' . $row, $valor['EJ_JULIO']);
-            $sheet->setCellValue('BC' . $row, $valor['EJ_AGOSTO']);
-            $sheet->setCellValue('BD' . $row, $valor['EJ_SETIEMBRE']);
-            $sheet->setCellValue('BE' . $row, $valor['EJ_OCTUBRE']);
-            $sheet->setCellValue('BF' . $row, $valor['EJ_NOVIEMBRE']);
-            $sheet->setCellValue('BG' . $row, $valor['EJ_DICIEMBRE']);
-            $sheet->setCellValue('BH' . $row, "=SUM(AV" . $row . ":BG" . $row . ")");
-            $sheet->setCellValue('BI' . $row, "=(BH" . $row . "/AU" . $row . ")");
-            $sheet->setCellValue('BJ' . $row, "=IF(BI" . $row . "<=0.85,\"DEFICIENTE\",IF(BI" . $row . "<=0.90,\"REGULAR\",IF(BI" . $row . "<=1.20,\"BUENO\",\"EXCESO\")))");
+            $sheet->setCellValue('A' . $row, $valor['YEAR'] ?? '');
+            $sheet->setCellValue('B' . $row, $valor['ETAPA']?? '');
+            $sheet->setCellValue('C' . $row, $valor['UE_ID']?? '');
+            $sheet->setCellValue('D' . $row, $valor['UE']?? '');
+            $sheet->setCellValue('E' . $row, $valor['CC_RESPONSABLE_ID']?? '');
+            $sheet->setCellValue('F' . $row, $valor['DEPARTAMENTO']?? '');
+            $sheet->setCellValue('G' . $row, $valor['CENTRO_COSTOS_ID']?? '');
+            $sheet->setCellValue('H' . $row, $valor['CENTRO_COSTOS']?? '');
+            $sheet->setCellValue('I' . $row, $valor['SERVICIO']?? '');
+            $sheet->setCellValue('J' . $row, $valor['USUARIO']?? '');
+            $sheet->setCellValue('K' . $row, $valor['DATOS_USUARIO']?? '');
+            $sheet->setCellValue('L' . $row, $valor['OEI']?? '');
+            $sheet->setCellValue('M' . $row, $valor['OBJETIVO_ESTRATEGICO']?? '');
+            $sheet->setCellValue('N' . $row, $valor['AEI']?? '');
+            $sheet->setCellValue('O' . $row, $valor['ACCION_ESTRATEGICA']?? '');
+            $sheet->setCellValue('P' . $row, $valor['CATEGORIA_ID']?? '');
+            $sheet->setCellValue('Q' . $row, $valor['CATEGORIA']?? '');
+            $sheet->setCellValue('R' . $row, $valor['PRODUCTO_ID']?? '');
+            $sheet->setCellValue('S' . $row, $valor['PRODUCTO']?? '');
+            $sheet->setCellValue('T' . $row, $valor['FUNCION_ID']?? '');
+            $sheet->setCellValue('U' . $row, $valor['FUNCION']?? '');
+            $sheet->setCellValue('V' . $row, $valor['DIVISION_FUNCIONAL_ID']?? '');
+            $sheet->setCellValue('W' . $row, $valor['DIVISION_FUNCIONAL']?? '');
+            $sheet->setCellValue('X' . $row, $valor['GRUPO_FUNCIONAL_ID']?? '');
+            $sheet->setCellValue('Y' . $row, $valor['GRUPO_FUNCIONAL']?? '');
+            $sheet->setCellValue('Z' . $row, $valor['ACTIVIDAD_PRESUPUESTAL_ID']?? '');
+            $sheet->setCellValue('AA' . $row, $valor['ACTIVIDAD_PRESUPUESTAL']?? '');
+            $sheet->setCellValue('AB' . $row, $valor['NRO_REGISTRO_POI']?? '');
+            $sheet->setCellValue('AC' . $row, $valor['ACTIVIDAD_OPERATIVA_ID']?? '');
+            $sheet->setCellValue('AD' . $row, $valor['CODIGO_PPR']?? '');
+            $sheet->setCellValue('AE' . $row, $valor['ACTIVIDAD_OPERATIVA']?? '');
+            $sheet->setCellValue('AF' . $row, $valor['UNIDAD_MEDIDA']?? '');
+            $sheet->setCellValue('AG' . $row, $valor['TRAZADORA_TAREA']?? '');
+            $sheet->setCellValue('AI' . $row, $valor['PR_ENERO']?? '');
+            $sheet->setCellValue('AJ' . $row, $valor['PR_FEBRERO']?? '');
+            $sheet->setCellValue('AK' . $row, $valor['PR_MARZO']?? '');
+            $sheet->setCellValue('AL' . $row, $valor['PR_ABRIL']?? '');
+            $sheet->setCellValue('AM' . $row, $valor['PR_MAYO']?? '');
+            $sheet->setCellValue('AN' . $row, $valor['PR_JUNIO']?? '');
+            $sheet->setCellValue('AO' . $row, $valor['PR_JULIO']?? '');
+            $sheet->setCellValue('AP' . $row, $valor['PR_AGOSTO']?? '');
+            $sheet->setCellValue('AQ' . $row, $valor['PR_SETIEMBRE']?? '');
+            $sheet->setCellValue('AR' . $row, $valor['PR_OCTUBRE']?? '');
+            $sheet->setCellValue('AS' . $row, $valor['PR_NOVIEMBRE']?? '');
+            $sheet->setCellValue('AT' . $row, $valor['PR_DICIEMBRE']?? '');
+            $sheet->setCellValue('AU' . $row, "=SUM(AI" . $row . ":AT" . $row . ")"?? '');
+            $sheet->setCellValue('AV' . $row, $valor['EJ_ENERO']?? '');
+            $sheet->setCellValue('AW' . $row, $valor['EJ_FEBRERO']?? '');
+            $sheet->setCellValue('AX' . $row, $valor['EJ_MARZO']?? '');
+            $sheet->setCellValue('AY' . $row, $valor['EJ_ABRIL']?? '');
+            $sheet->setCellValue('AZ' . $row, $valor['EJ_MAYO']?? '');
+            $sheet->setCellValue('BA' . $row, $valor['EJ_JUNIO']?? '');
+            $sheet->setCellValue('BB' . $row, $valor['EJ_JULIO']?? '');
+            $sheet->setCellValue('BC' . $row, $valor['EJ_AGOSTO']?? '');
+            $sheet->setCellValue('BD' . $row, $valor['EJ_SETIEMBRE']?? '');
+            $sheet->setCellValue('BE' . $row, $valor['EJ_OCTUBRE']?? '');
+            $sheet->setCellValue('BF' . $row, $valor['EJ_NOVIEMBRE']?? '');
+            $sheet->setCellValue('BG' . $row, $valor['EJ_DICIEMBRE']?? '');
+            $sheet->setCellValue('BH' . $row, "=SUM(AV" . $row . ":BG" . $row . ")"?? '');
+            $sheet->setCellValue('BI' . $row, "=(BH" . $row . "/AU" . $row . ")"?? '');
+            $sheet->setCellValue('BJ' . $row, "=IF(BI" . $row . "<=0.85,\"DEFICIENTE\",IF(BI" . $row . "<=0.90,\"REGULAR\",IF(BI" . $row . "<=1.20,\"BUENO\",\"EXCESO\")))"?? '');
             // Obtener el valor de la celda BJ después de calcular la fórmula
             $valoracion = $sheet->getCell('BJ' . $row)->getCalculatedValue();
             // Aplicar el estilo basado en la valoración
@@ -419,15 +419,7 @@ class ProcesarController extends JSONResponseController
         $sheet->getStyle($cellRange)->applyFromArray($styleArray);
 
         // Obtener la hoja específica
-        $sheet_grafico = $spreadsheet->getSheetByName('GRAFICO');
-        $sheet_grafico->setCellValue('E8', '125');
-        $sheet_grafico->setCellValue('E9', '80');
-        $sheet_grafico->setCellValue('E10', '100');
-        $sheet_grafico->setCellValue('E11', '75');
-        $sheet_grafico->setCellValue('E12', '230');
-        $sheet_grafico->setCellValue('M8', '40');
-        $sheet_grafico->setCellValue('M9', '40');
-        $sheet_grafico->setCellValue('M10', '20');
+   
 
         // Ajustar automáticamente los rangos del gráfico si es necesario
         foreach ($spreadsheet->getActiveSheet()->getChartCollection() as $chart) {
@@ -759,6 +751,7 @@ class ProcesarController extends JSONResponseController
             $sheet->setCellValue('AE' . $row, $valor['ACTIVIDAD_OPERATIVA']);
             $sheet->setCellValue('AF' . $row, $valor['UNIDAD_MEDIDA']);
             $sheet->setCellValue('AG' . $row, $valor['TRAZADORA_TAREA']);
+            $sheet->setCellValue('AH' . $row, $valor['ACUMULADO']);
             $sheet->setCellValue('AI' . $row, $valor['PR_ENERO']);
             $sheet->setCellValue('AJ' . $row, $valor['PR_FEBRERO']);
             $sheet->setCellValue('AK' . $row, $valor['PR_MARZO']);
@@ -960,5 +953,70 @@ class ProcesarController extends JSONResponseController
         $writer->save($fileName);
 
         return response()->download($fileName)->deleteFileAfterSend(true);
+    }
+    public function reporteCentroCostos(Request $request)
+    {
+        $user = $request->user();
+        $perfil = $user->id_perfil;
+        $servicio = $user->servicio;
+        $year = $request->get('year');
+        $tipo = $request->get('tipo');
+        $periodo = $request->get('periodo');
+        $spreadsheet = new Spreadsheet();
+
+        // Ruta del archivo de plantilla
+        $templatePath = resource_path('templates/reporte_centro_costos.xlsx');
+        // Cargar la plantilla
+        $spreadsheet = IOFactory::load($templatePath);
+
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $report = new ProcesarModel();
+        $data = $report->reporteCentroCostos($year, $tipo, $periodo, $perfil, $servicio);
+        $row = 14 ;
+
+        foreach ($data as $registro) {
+           $centrosCostos = explode(',', $registro['CENTRO_COSTO_HSB']); // Separar los centros de costo por coma
+            
+
+            foreach ($centrosCostos as $centroCosto) {
+
+                list($codigo, $nombre) = strpos($centroCosto, '-') !== false ? explode('-', trim($centroCosto), 2) : [$centroCosto, ''];
+              
+                $sheet->setCellValue('B' . $row, $registro['CATEGORIA_ID']?? '');
+                $sheet->setCellValue('C' . $row, $registro['CATEGORIA']?? '');
+                $sheet->setCellValue('D' . $row, $registro['PRODUCTO_ID'])?? '';
+                $sheet->setCellValue('E' . $row, $registro['PRODUCTO']?? '');
+                $sheet->setCellValue('F' . $row, $registro['ACTIVIDAD_PRESUPUESTAL_ID']?? '');
+                $sheet->setCellValue('G' . $row, $registro['ACTIVIDAD_PRESUPUESTAL']?? '');
+                $sheet->setCellValue('H' . $row, $registro['ACTIVIDAD_OPERATIVA_ID']?? '');
+                $sheet->setCellValue('I' . $row, $registro['ACTIVIDAD_OPERATIVA']?? '');
+                $sheet->setCellValue('J' . $row, $codigo?? '');
+                $sheet->setCellValue('K' . $row, $nombre?? '');
+
+                $row++;
+            }
+        }
+
+        $styleArray = [
+            'borders' => [
+                'allBorders' => [
+                    'borderStyle' => Border::BORDER_THIN,
+                    'color' => ['argb' => Color::COLOR_BLACK],
+                ],
+            ],
+            'alignment' => [
+                'horizontal' => Alignment::HORIZONTAL_LEFT,
+                'wrapText' => false,
+           ]
+        ];
+        $rowFInal = $row - 1;
+        $cellRange = 'B14:' . 'K' . $rowFInal;
+       $sheet->getStyle($cellRange)->applyFromArray($styleArray);
+        $writer = new Xlsx($spreadsheet);
+        $fileName = 'Reporte de alineamiento de estructura funbcional programatica y centro de costo.xlsx';
+        $writer->save($fileName);
+
+       return response()->download($fileName)->deleteFileAfterSend(true);
     }
 }

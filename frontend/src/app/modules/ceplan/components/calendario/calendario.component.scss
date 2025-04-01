@@ -44,3 +44,21 @@
 .mes{
   font-weight: 900;
 }
+.bg-green{
+  background-color: rgb(9, 163, 42);
+  color:rgb(255, 255, 255);
+
+  
+}
+.bg-azul{
+  background-color: rgb(25, 72, 160);
+  color:rgb(255, 255, 255);
+;
+}
+.event-title {
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  display: inline-block;
+  max-width: 100%;
+}

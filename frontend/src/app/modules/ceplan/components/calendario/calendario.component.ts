@@ -5,6 +5,7 @@ interface Event {
   date: Date;
   title: string;
   description: string;
+  tipo: 'CEPLAN' | 'LOGRO' | '';
 }
 @Component({
   selector: 'app-calendario',
@@ -22,7 +23,8 @@ export class CalendarioComponent {
     {
       title:'',
       date:'',
-      description:''
+      description:'',
+      tipo:''
     }
   ]
   loading : boolean=false
@@ -92,15 +94,15 @@ export class CalendarioComponent {
 
     isEventOnDay(day: number, month: number, year: number, events: Event[]): Event[] {
       return events.filter(event => {
-        console.log(event.date)
         const eventDate = new Date(event.date);
-        const eventDay = eventDate.getDate()+1; // Extrae el día
-        const eventMonth = eventDate.getMonth(); // Extrae el mes
-        const eventYear = eventDate.getFullYear(); // Extrae el año
-        console.log(eventDay+'/'+eventMonth)
-    
-        // Compara el día, mes y año del evento con el día, mes y año actuales
-        return eventDay === day && eventMonth === month && eventYear === year;
+        
+        // Obtener componentes UTC para evitar problemas de zona horaria
+        const eventDay = eventDate.getUTCDate();
+        const eventMonth = eventDate.getUTCMonth(); // 0-11
+        const eventYear = eventDate.getUTCFullYear();
+        
+        // Ajustar month - 1 si el parámetro month usa base 1 (Enero = 1)
+        return eventDay === day && eventMonth === month - 1 && eventYear === year;
       });
     }
 

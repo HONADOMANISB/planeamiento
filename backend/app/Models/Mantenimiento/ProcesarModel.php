@@ -116,4 +116,14 @@ class ProcesarModel extends Model
         );
         return json_decode(json_encode($result), true);
     }
+    
+ public function reporteCentroCostos($year, $tipo, $periodo, $perfil, $servicio)
+ {
+      $result=$this->conexion->select(
+         /** @lang SQL */
+         'EXEC dbo.ex_sp_reporte_centro_costos ?,?,?,?,? ',
+         [$periodo,$year,$tipo,$perfil,$servicio]
+     );
+     return json_decode(json_encode($result), true);
+ }
 }

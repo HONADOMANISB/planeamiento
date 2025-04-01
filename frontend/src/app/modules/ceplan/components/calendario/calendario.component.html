@@ -13,9 +13,12 @@
         <div class="col border p-4" *ngFor="let day of week">
           <div *ngIf="day !== 0">
             <div>{{ day }}</div>
-            <div *ngFor="let event of isEventOnDay(day, currentMonth, currentYear, listEvent)">
-              <span class="badge bg-info">{{ event.title }}</span>
-              <p class="description">{{event.description}}</p>
+            <div *ngFor="let event of isEventOnDay(day, currentMonth + 1, currentYear, listEvent)">
+              <span class="badge event-title" [ngClass]="{
+                'bg-green': event?.tipo === 'CEPLAN',
+                'bg-azul': event.tipo === 'LOGRO'
+              }">{{ event.title }}</span>
+              <!-- <p class="description">{{event.description}}</p> -->
             </div>
           </div>
         </div>

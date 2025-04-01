@@ -97,4 +97,12 @@ reporteExcelConsolidado(periodo:any,year:any,tipo:any){
     { responseType: 'json' }
 );
  }
+ reporteCentroCostos(periodo:any,year:any,tipo:any){
+  return this.http.get('/api/mantenimiento/reporte-centro-costos', { 
+    params:{
+      periodo,
+      year,
+      tipo
+    }, responseType: 'blob' });
+ }
 }
