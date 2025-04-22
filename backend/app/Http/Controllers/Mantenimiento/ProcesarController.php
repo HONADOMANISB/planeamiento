@@ -751,7 +751,7 @@ class ProcesarController extends JSONResponseController
             $sheet->setCellValue('AE' . $row, $valor['ACTIVIDAD_OPERATIVA']);
             $sheet->setCellValue('AF' . $row, $valor['UNIDAD_MEDIDA']);
             $sheet->setCellValue('AG' . $row, $valor['TRAZADORA_TAREA']);
-            $sheet->setCellValue('AH' . $row, $valor['ACUMULADO']);
+         //   $sheet->setCellValue('AH' . $row, $valor['ACUMULADO']);
             $sheet->setCellValue('AI' . $row, $valor['PR_ENERO']);
             $sheet->setCellValue('AJ' . $row, $valor['PR_FEBRERO']);
             $sheet->setCellValue('AK' . $row, $valor['PR_MARZO']);
