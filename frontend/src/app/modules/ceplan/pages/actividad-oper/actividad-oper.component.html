@@ -176,16 +176,28 @@
 												<tbody class>
 													@for(detalle of detalles ; track detalle.id;let index=$index ){
 													<tr>
-														<td>{{ index + 1 }}</td>
+														<td>{{ getNombreMes(index)}}</td>
 														<td>
 															<input type="text" class="form-control form-control-sm" [(ngModel)]=" detalle.PROGRAMADO  " [disabled]="true" />
 														</td>
 														<td>
-															<input type="text" class="form-control form-control-sm" [(ngModel)]="detalle.EJECUTADO"   [disabled]="cerrar_registro(detalle.FECHA_BLOQUEO,detalle.TIPO_REGISTRO)"   #ejecutado/> 
+															<input type="text" class="form-control form-control-sm"        [ngModel]="detalle.EJECUTADO " 
+															   [disabled]="cerrar_registro(detalle.FECHA_BLOQUEO,detalle.TIPO_REGISTRO)"   #ejecutado/> 
 															 
-														</td>														
+														</td>		
+																										
 													</tr>
+													
 													}
+													<tr> 
+														<td>Total</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [value]="getTotalProgramado()" [disabled]="true" />
+														</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [value]="getTotalEjecutado()" [disabled]="true" /> 
+														</td>
+													</tr>
 												</tbody>
 											</table>
 											
@@ -221,6 +233,15 @@
 															</td>														
 														</tr>
 														}
+														<tr> 
+															<td>Total</td>
+															<td>
+																<input type="text" class="form-control form-control-sm" [value]="getTotalProgramadoPR()" [disabled]="true" />
+															</td>
+															<td>
+																<input type="text" class="form-control form-control-sm" [value]="getTotalEjecutadoPR()" [disabled]="true" /> 
+															</td>
+														</tr>
 													</tbody>
 												</table>
 												
@@ -245,6 +266,7 @@
 															Ejecutado
 														</td>														
 													</tr>
+
 												</thead>
 												<tbody class>
 													@for(detalle of detalles_sr ; track detalle.id;let index=$index ){
@@ -258,6 +280,15 @@
                                                                     detalle.EJECUTADO"   [disabled]="cerrar_registro(detalle.FECHA_BLOQUEO,detalle.TIPO_REGISTRO)"  #ejecutado_sr /> 
 															 
 														</td>														
+													</tr>
+													<tr> 
+														<td>Total</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [value]="getTotalProgramadoSR()" [disabled]="true" />
+														</td>
+														<td>
+															<input type="text" class="form-control form-control-sm" [value]="getTotalEjecutadoSR()" [disabled]="true" /> 
+														</td>
 													</tr>
 													}
 												</tbody>

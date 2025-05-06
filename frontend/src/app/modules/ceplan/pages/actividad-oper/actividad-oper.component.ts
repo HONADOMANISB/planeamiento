@@ -541,4 +541,35 @@ export class ActividadOperComponent implements OnInit {
            icon: 'info', 
            confirmButtonText: 'Ok' }); } 
       }
+
+      getNombreMes(index: number): string {
+        const meses = [
+          'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+          'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+        return meses[index] || '';
+      }
+
+      getTotalProgramado(): number {
+        return this.detalles.reduce((total, detalle) => parseInt(total) + (parseInt(detalle.PROGRAMADO )|| 0), 0);
+    }
+    
+      getTotalEjecutado(): number {
+        return this.detalles.reduce((total, detalle) => parseInt(total) + (parseInt(detalle.EJECUTADO) || 0), 0);
+    }
+
+    getTotalProgramadoPR(): number {
+      return this.detalles_pr.reduce((total, detalle) => parseInt(total) + (parseInt(detalle.PROGRAMADO )|| 0), 0);
+  }
+  
+    getTotalEjecutadoPR(): number {
+      return this.detalles_pr.reduce((total, detalle) => parseInt(total) + (parseInt(detalle.EJECUTADO) || 0), 0);
+  }
+  getTotalProgramadoSR(): number {
+    return this.detalles_sr.reduce((total, detalle) => parseInt(total) + (parseInt(detalle.PROGRAMADO )|| 0), 0);
+}
+
+  getTotalEjecutadoSR(): number {
+    return this.detalles_sr.reduce((total, detalle) => parseInt(total) + (parseInt(detalle.EJECUTADO) || 0), 0);
+}
 }
